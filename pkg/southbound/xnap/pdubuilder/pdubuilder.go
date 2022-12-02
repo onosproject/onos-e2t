@@ -3065,18 +3065,6 @@ func CreateQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIes(ID *xnapcommon
 	return msg, nil
 }
 
-func CreatePdusessionResourceSetupInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceSetupInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceSetupInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceSetupInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceSetupInfoMNterminated(pduSessionType xnapiesv1.PdusessionType, dRbsToBeSetup *xnapiesv1.DrbsToBeSetupListSetupMNterminated) (*xnapiesv1.PdusessionResourceSetupInfoMNterminated, error) {
 
 	msg := &xnapiesv1.PdusessionResourceSetupInfoMNterminated{}
@@ -3128,30 +3116,6 @@ func CreateQoSflowsMappedtoDrbSetupMNterminated(value []*xnapiesv1.QoSflowsMappe
 	return msg, nil
 }
 
-func CreateQoSflowsMappedtoDrbSetupMNterminatedItemExtIes(value Empty) (*xnapiesv1.QoSflowsMappedtoDrbSetupMNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsMappedtoDrbSetupMNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsMappedtoDrbSetupMNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceSetupResponseInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceSetupResponseInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceSetupResponseInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceSetupResponseInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceSetupResponseInfoMNterminated(dRbsAdmittedList *xnapiesv1.DrbsAdmittedListSetupResponseMNterminated) (*xnapiesv1.PdusessionResourceSetupResponseInfoMNterminated, error) {
 
 	msg := &xnapiesv1.PdusessionResourceSetupResponseInfoMNterminated{}
@@ -3197,18 +3161,6 @@ func CreateQoSflowsMappedtoDrbSetupResponseMNterminated(value []*xnapiesv1.QoSfl
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateQoSflowsMappedtoDrbSetupResponseMNterminated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes(value Empty) (*xnapiesv1.QoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3279,18 +3231,6 @@ func CreateDrbsToBeModifiedListModifiedSNterminated(value []*xnapiesv1.DrbsToBeM
 	return msg, nil
 }
 
-func CreateDrbsToBeModifiedListModifiedSNterminatedItemExtIes(value Empty) (*xnapiesv1.DrbsToBeModifiedListModifiedSNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.DrbsToBeModifiedListModifiedSNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateDrbsToBeModifiedListModifiedSNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIes(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, extension *xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension) (*xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIes, error) {
 
 	msg := &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIes{}
@@ -3331,18 +3271,6 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIes(ID *xn
 	return msg, nil
 }
 
-func CreatePdusessionResourceModificationInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModificationInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModificationInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModificationInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateDrbsToBeModifiedListModificationMNterminated(value []*xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItem) (*xnapiesv1.DrbsToBeModifiedListModificationMNterminated, error) {
 
 	msg := &xnapiesv1.DrbsToBeModifiedListModificationMNterminated{}
@@ -3364,18 +3292,6 @@ func CreateDrbsToBeModifiedListModificationMNterminatedItemExtIes(ID *xnapcommon
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateDrbsToBeModifiedListModificationMNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceModificationResponseInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModificationResponseInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModificationResponseInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModificationResponseInfoMNterminatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3407,42 +3323,6 @@ func CreateDrbsAdmittedListModificationResponseMNterminatedItemExtIes(ID *xnapco
 	return msg, nil
 }
 
-func CreatePdusessionResourceChangeRequiredInfoSNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceChangeRequiredInfoSNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceChangeRequiredInfoSNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceChangeRequiredInfoSNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceChangeConfirmInfoSNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceChangeConfirmInfoSNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceChangeConfirmInfoSNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceChangeConfirmInfoSNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceChangeRequiredInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceChangeRequiredInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceChangeRequiredInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceChangeRequiredInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceChangeRequiredInfoMNterminated() (*xnapiesv1.PdusessionResourceChangeRequiredInfoMNterminated, error) {
 
 	msg := &xnapiesv1.PdusessionResourceChangeRequiredInfoMNterminated{}
@@ -3454,36 +3334,12 @@ func CreatePdusessionResourceChangeRequiredInfoMNterminated() (*xnapiesv1.Pduses
 	return msg, nil
 }
 
-func CreatePdusessionResourceChangeConfirmInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceChangeConfirmInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceChangeConfirmInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceChangeConfirmInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceChangeConfirmInfoMNterminated() (*xnapiesv1.PdusessionResourceChangeConfirmInfoMNterminated, error) {
 
 	msg := &xnapiesv1.PdusessionResourceChangeConfirmInfoMNterminated{}
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionResourceChangeConfirmInfoMNterminated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceModRqdInfoSNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModRqdInfoSNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModRqdInfoSNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModRqdInfoSNterminatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3527,18 +3383,6 @@ func CreateQoSflowsSetupMappedtoDrbModRqdSNterminated(value []*xnapiesv1.QoSflow
 	return msg, nil
 }
 
-func CreateQoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes(value Empty) (*xnapiesv1.QoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateDrbsToBeModifiedListModRqdSNterminated(value []*xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItem) (*xnapiesv1.DrbsToBeModifiedListModRqdSNterminated, error) {
 
 	msg := &xnapiesv1.DrbsToBeModifiedListModRqdSNterminated{}
@@ -3577,30 +3421,6 @@ func CreateQoSflowsModifiedMappedtoDrbModRqdSNterminated(value []*xnapiesv1.QoSf
 	return msg, nil
 }
 
-func CreateQoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes(value Empty) (*xnapiesv1.QoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceModConfirmInfoSNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModConfirmInfoSNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModConfirmInfoSNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModConfirmInfoSNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateDrbsAdmittedListModConfirmSNterminated(value []*xnapiesv1.DrbsAdmittedListModConfirmSNterminatedItem) (*xnapiesv1.DrbsAdmittedListModConfirmSNterminated, error) {
 
 	msg := &xnapiesv1.DrbsAdmittedListModConfirmSNterminated{}
@@ -3608,30 +3428,6 @@ func CreateDrbsAdmittedListModConfirmSNterminated(value []*xnapiesv1.DrbsAdmitte
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateDrbsAdmittedListModConfirmSNterminated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateDrbsAdmittedListModConfirmSNterminatedItemExtIes(value Empty) (*xnapiesv1.DrbsAdmittedListModConfirmSNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.DrbsAdmittedListModConfirmSNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateDrbsAdmittedListModConfirmSNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceModRqdInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModRqdInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModRqdInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModRqdInfoMNterminatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3649,48 +3445,12 @@ func CreateDrbsToBeModifiedListModRqdMNterminated(value []*xnapiesv1.DrbsToBeMod
 	return msg, nil
 }
 
-func CreateDrbsToBeModifiedListModRqdMNterminatedItemExtIes(value Empty) (*xnapiesv1.DrbsToBeModifiedListModRqdMNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.DrbsToBeModifiedListModRqdMNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateDrbsToBeModifiedListModRqdMNterminatedItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceModConfirmInfoMNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceModConfirmInfoMNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceModConfirmInfoMNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceModConfirmInfoMNterminatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceModConfirmInfoMNterminated() (*xnapiesv1.PdusessionResourceModConfirmInfoMNterminated, error) {
 
 	msg := &xnapiesv1.PdusessionResourceModConfirmInfoMNterminated{}
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionResourceModConfirmInfoMNterminated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes(value Empty) (*xnapiesv1.PdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3703,18 +3463,6 @@ func CreatePdusessionResourceBearerSetupCompleteInfoSNterminated(dRbsToBeSetupLi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionResourceBearerSetupCompleteInfoSNterminated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateDrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes(value Empty) (*xnapiesv1.DrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes, error) {
-
-	msg := &xnapiesv1.DrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateDrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3745,18 +3493,6 @@ func CreatePdusessionResourceSecondaryRatusageList(value []*xnapiesv1.Pdusession
 	return msg, nil
 }
 
-func CreatePdusessionResourceSecondaryRatusageItemExtIes(value Empty) (*xnapiesv1.PdusessionResourceSecondaryRatusageItemExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionResourceSecondaryRatusageItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourceSecondaryRatusageItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionResourceSecondaryRatusageItem(pDusessionID *xnapiesv1.PdusessionID, secondaryRatusageInformation *xnapiesv1.SecondaryRatusageInformation) (*xnapiesv1.PdusessionResourceSecondaryRatusageItem, error) {
 
 	msg := &xnapiesv1.PdusessionResourceSecondaryRatusageItem{}
@@ -3765,18 +3501,6 @@ func CreatePdusessionResourceSecondaryRatusageItem(pDusessionID *xnapiesv1.Pduse
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionResourceSecondaryRatusageItem() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionUsageReportExtIes(value Empty) (*xnapiesv1.PdusessionUsageReportExtIes, error) {
-
-	msg := &xnapiesv1.PdusessionUsageReportExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionUsageReportExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3826,18 +3550,6 @@ func CreatePdusessionCommonNetworkInstance(value []byte) (*xnapiesv1.PdusessionC
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionCommonNetworkInstance() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePeriodicalExtIes(value Empty) (*xnapiesv1.PeriodicalExtIes, error) {
-
-	msg := &xnapiesv1.PeriodicalExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePeriodicalExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3902,18 +3614,6 @@ func CreatePriorityLevelQoS(value int32) (*xnapiesv1.PriorityLevelQoS, error) {
 	return msg, nil
 }
 
-func CreateProtectedEUTraresourceIndicationExtIes(value Empty) (*xnapiesv1.ProtectedEUTraresourceIndicationExtIes, error) {
-
-	msg := &xnapiesv1.ProtectedEUTraresourceIndicationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateProtectedEUTraresourceIndicationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateProtectedEUTraresourceList(value []*xnapiesv1.ProtectedEUTraresourceItem) (*xnapiesv1.ProtectedEUTraresourceList, error) {
 
 	msg := &xnapiesv1.ProtectedEUTraresourceList{}
@@ -3921,18 +3621,6 @@ func CreateProtectedEUTraresourceList(value []*xnapiesv1.ProtectedEUTraresourceI
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateProtectedEUTraresourceList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateProtectedEUTraresourceItemExtIes(value Empty) (*xnapiesv1.ProtectedEUTraresourceItemExtIes, error) {
-
-	msg := &xnapiesv1.ProtectedEUTraresourceItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateProtectedEUTraresourceItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -3953,18 +3641,6 @@ func CreateProtectedEUTraresourceItem(resourceType xnapiesv1.ResourceTypeProtect
 	return msg, nil
 }
 
-func CreateProtectedEUTrafootprintTimePatternExtIes(value Empty) (*xnapiesv1.ProtectedEUTrafootprintTimePatternExtIes, error) {
-
-	msg := &xnapiesv1.ProtectedEUTrafootprintTimePatternExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateProtectedEUTrafootprintTimePatternExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateProtectedEUTrafootprintTimePattern(protectedFootprintTimeperiodicity int32, protectedFootrpintStartTime int32) (*xnapiesv1.ProtectedEUTrafootprintTimePattern, error) {
 
 	msg := &xnapiesv1.ProtectedEUTrafootprintTimePattern{}
@@ -3973,18 +3649,6 @@ func CreateProtectedEUTrafootprintTimePattern(protectedFootprintTimeperiodicity 
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateProtectedEUTrafootprintTimePattern() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoScharacteristicsExtIes(value Empty) (*xnapiesv1.QoScharacteristicsExtIes, error) {
-
-	msg := &xnapiesv1.QoScharacteristicsExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoScharacteristicsExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4028,18 +3692,6 @@ func CreateQoSflowNotificationControlIndicationInfo(value []*xnapiesv1.QoSflowNo
 	return msg, nil
 }
 
-func CreateQoSflowNotificationControlIndicationInfoExtIes(value Empty) (*xnapiesv1.QoSflowNotificationControlIndicationInfoExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowNotificationControlIndicationInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowNotificationControlIndicationInfoExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateQoSflowNotifyItem(qosFlowIDentifier *xnapiesv1.QoSflowIdentifier, notificationInformation xnapiesv1.NotificationInformationQoSflowNotifyItem) (*xnapiesv1.QoSflowNotifyItem, error) {
 
 	msg := &xnapiesv1.QoSflowNotifyItem{}
@@ -4065,18 +3717,6 @@ func CreateQoSflowsList(value []*xnapiesv1.QoSflowItem) (*xnapiesv1.QoSflowsList
 	return msg, nil
 }
 
-func CreateQoSflowItemExtIes(value Empty) (*xnapiesv1.QoSflowItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateQoSflowsListwithCause(value []*xnapiesv1.QoSflowwithCauseItem) (*xnapiesv1.QoSflowsListwithCause, error) {
 
 	msg := &xnapiesv1.QoSflowsListwithCause{}
@@ -4084,30 +3724,6 @@ func CreateQoSflowsListwithCause(value []*xnapiesv1.QoSflowwithCauseItem) (*xnap
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateQoSflowsListwithCause() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoSflowwithCauseItemExtIes(value Empty) (*xnapiesv1.QoSflowwithCauseItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowwithCauseItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowwithCauseItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoSMappingInformationExtIes(value Empty) (*xnapiesv1.QoSMappingInformationExtIes, error) {
-
-	msg := &xnapiesv1.QoSMappingInformationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSMappingInformationExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4144,18 +3760,6 @@ func CreateQoSflowsAdmittedList(value []*xnapiesv1.QoSflowsAdmittedItem) (*xnapi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateQoSflowsAdmittedList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoSflowsAdmittedItemExtIes(value Empty) (*xnapiesv1.QoSflowsAdmittedItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsAdmittedItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsAdmittedItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4211,18 +3815,6 @@ func CreateQoSflowsUsageReportList(value []*xnapiesv1.QoSflowsUsageReportItem) (
 	return msg, nil
 }
 
-func CreateQoSflowsUsageReportItemExtIes(value Empty) (*xnapiesv1.QoSflowsUsageReportItemExtIes, error) {
-
-	msg := &xnapiesv1.QoSflowsUsageReportItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsUsageReportItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateQoSflowsUsageReportItem(qosFlowIDentifier *xnapiesv1.QoSflowIdentifier, rAttype xnapiesv1.RattypeQoSflowsUsageReportItem, qoSflowsTimedReportList *xnapiesv1.VolumeTimedReportList) (*xnapiesv1.QoSflowsUsageReportItem, error) {
 
 	msg := &xnapiesv1.QoSflowsUsageReportItem{}
@@ -4261,18 +3853,6 @@ func CreateRachreportInformation(value []*xnapiesv1.RachreportListItem) (*xnapie
 	return msg, nil
 }
 
-func CreateRachreportListItemExtIes(value Empty) (*xnapiesv1.RachreportListItemExtIes, error) {
-
-	msg := &xnapiesv1.RachreportListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRachreportListItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRachreportListItem(rAchreport *xnapiesv1.RachreportContainer) (*xnapiesv1.RachreportListItem, error) {
 
 	msg := &xnapiesv1.RachreportListItem{}
@@ -4297,18 +3877,6 @@ func CreateRachreportContainer(value []byte) (*xnapiesv1.RachreportContainer, er
 	return msg, nil
 }
 
-func CreateRadioResourceStatusExtIes(value Empty) (*xnapiesv1.RadioResourceStatusExtIes, error) {
-
-	msg := &xnapiesv1.RadioResourceStatusExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRadioResourceStatusExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRanac(value int32) (*xnapiesv1.Ranac, error) {
 
 	msg := &xnapiesv1.Ranac{}
@@ -4316,18 +3884,6 @@ func CreateRanac(value int32) (*xnapiesv1.Ranac, error) {
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateRanac() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRanareaIDExtIes(value Empty) (*xnapiesv1.RanareaIdExtIes, error) {
-
-	msg := &xnapiesv1.RanareaIdExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanareaIDExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4345,18 +3901,6 @@ func CreateRanareaIDList(value []*xnapiesv1.RanareaId) (*xnapiesv1.RanareaIdList
 	return msg, nil
 }
 
-func CreateRanpagingAreaExtIes(value Empty) (*xnapiesv1.RanpagingAreaExtIes, error) {
-
-	msg := &xnapiesv1.RanpagingAreaExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingAreaExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRanpagingArea(pLmnIdentity *xnapiesv1.PlmnIdentity, rAnpagingAreaChoice *xnapiesv1.RanpagingAreaChoice) (*xnapiesv1.RanpagingArea, error) {
 
 	msg := &xnapiesv1.RanpagingArea{}
@@ -4365,42 +3909,6 @@ func CreateRanpagingArea(pLmnIdentity *xnapiesv1.PlmnIdentity, rAnpagingAreaChoi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateRanpagingArea() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRanpagingAreaChoiceExtIes(value Empty) (*xnapiesv1.RanpagingAreaChoiceExtIes, error) {
-
-	msg := &xnapiesv1.RanpagingAreaChoiceExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingAreaChoiceExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRanpagingAttemptInfoExtIes(value Empty) (*xnapiesv1.RanpagingAttemptInfoExtIes, error) {
-
-	msg := &xnapiesv1.RanpagingAttemptInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingAttemptInfoExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRedundantPdusessionInformationExtIes(value Empty) (*xnapiesv1.RedundantPdusessionInformationExtIes, error) {
-
-	msg := &xnapiesv1.RedundantPdusessionInformationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRedundantPdusessionInformationExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4454,60 +3962,12 @@ func CreateRequestReferenceID(value int32) (*xnapiesv1.RequestReferenceId, error
 	return msg, nil
 }
 
-func CreateReservedSubframePatternExtIes(value Empty) (*xnapiesv1.ReservedSubframePatternExtIes, error) {
-
-	msg := &xnapiesv1.ReservedSubframePatternExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateReservedSubframePatternExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetRequestTypeInfoExtIes(value Empty) (*xnapiesv1.ResetRequestTypeInfoExtIes, error) {
-
-	msg := &xnapiesv1.ResetRequestTypeInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetRequestTypeInfoExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetRequestTypeInfoFullExtIes(value Empty) (*xnapiesv1.ResetRequestTypeInfoFullExtIes, error) {
-
-	msg := &xnapiesv1.ResetRequestTypeInfoFullExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetRequestTypeInfoFullExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateResetRequestTypeInfoFull() (*xnapiesv1.ResetRequestTypeInfoFull, error) {
 
 	msg := &xnapiesv1.ResetRequestTypeInfoFull{}
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateResetRequestTypeInfoFull() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetRequestTypeInfoPartialExtIes(value Empty) (*xnapiesv1.ResetRequestTypeInfoPartialExtIes, error) {
-
-	msg := &xnapiesv1.ResetRequestTypeInfoPartialExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetRequestTypeInfoPartialExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4537,60 +3997,12 @@ func CreateResetRequestPartialReleaseList(value []*xnapiesv1.ResetRequestPartial
 	return msg, nil
 }
 
-func CreateResetRequestPartialReleaseItemExtIes(value Empty) (*xnapiesv1.ResetRequestPartialReleaseItemExtIes, error) {
-
-	msg := &xnapiesv1.ResetRequestPartialReleaseItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetRequestPartialReleaseItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetResponseTypeInfoExtIes(value Empty) (*xnapiesv1.ResetResponseTypeInfoExtIes, error) {
-
-	msg := &xnapiesv1.ResetResponseTypeInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetResponseTypeInfoExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetResponseTypeInfoFullExtIes(value Empty) (*xnapiesv1.ResetResponseTypeInfoFullExtIes, error) {
-
-	msg := &xnapiesv1.ResetResponseTypeInfoFullExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetResponseTypeInfoFullExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateResetResponseTypeInfoFull() (*xnapiesv1.ResetResponseTypeInfoFull, error) {
 
 	msg := &xnapiesv1.ResetResponseTypeInfoFull{}
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateResetResponseTypeInfoFull() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResetResponseTypeInfoPartialExtIes(value Empty) (*xnapiesv1.ResetResponseTypeInfoPartialExtIes, error) {
-
-	msg := &xnapiesv1.ResetResponseTypeInfoPartialExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetResponseTypeInfoPartialExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4620,30 +4032,6 @@ func CreateResetResponsePartialReleaseList(value []*xnapiesv1.ResetResponseParti
 	return msg, nil
 }
 
-func CreateResetResponsePartialReleaseItemExtIes(value Empty) (*xnapiesv1.ResetResponsePartialReleaseItemExtIes, error) {
-
-	msg := &xnapiesv1.ResetResponsePartialReleaseItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResetResponsePartialReleaseItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRlcStatusExtIes(value Empty) (*xnapiesv1.RlcStatusExtIes, error) {
-
-	msg := &xnapiesv1.RlcStatusExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRlcStatusExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRlcStatus(reestablishmentIndication xnapiesv1.ReestablishmentIndication) (*xnapiesv1.RlcStatus, error) {
 
 	msg := &xnapiesv1.RlcStatus{}
@@ -4656,18 +4044,6 @@ func CreateRlcStatus(reestablishmentIndication xnapiesv1.ReestablishmentIndicati
 	return msg, nil
 }
 
-func CreateRlcduplicationInformationItemExtIes(value Empty) (*xnapiesv1.RlcduplicationInformationItemExtIes, error) {
-
-	msg := &xnapiesv1.RlcduplicationInformationItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRlcduplicationInformationItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRlcduplicationStateList(value []*xnapiesv1.RlcduplicationStateItem) (*xnapiesv1.RlcduplicationStateList, error) {
 
 	msg := &xnapiesv1.RlcduplicationStateList{}
@@ -4675,18 +4051,6 @@ func CreateRlcduplicationStateList(value []*xnapiesv1.RlcduplicationStateItem) (
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateRlcduplicationStateList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRlcduplicationStateItemExtIes(value Empty) (*xnapiesv1.RlcduplicationStateItemExtIes, error) {
-
-	msg := &xnapiesv1.RlcduplicationStateItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRlcduplicationStateItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4716,18 +4080,6 @@ func CreateRfspIndex(value int32) (*xnapiesv1.RfspIndex, error) {
 	return msg, nil
 }
 
-func CreateRrcconnectionsExtIes(value Empty) (*xnapiesv1.RrcconnectionsExtIes, error) {
-
-	msg := &xnapiesv1.RrcconnectionsExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcconnectionsExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRrcconnections(noofRrcconnections *xnapiesv1.NoofRrcconnections, availableRrcconnectionCapacityValue *xnapiesv1.AvailableRrcconnectionCapacityValue) (*xnapiesv1.Rrcconnections, error) {
 
 	msg := &xnapiesv1.Rrcconnections{}
@@ -4741,18 +4093,6 @@ func CreateRrcconnections(noofRrcconnections *xnapiesv1.NoofRrcconnections, avai
 	return msg, nil
 }
 
-func CreateRrcreestabinitiatedExtIes(value Empty) (*xnapiesv1.RrcreestabinitiatedExtIes, error) {
-
-	msg := &xnapiesv1.RrcreestabinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcreestabinitiatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRrcreestabinitiated(rRrcreestabInitiatedReporting *xnapiesv1.RrcreestabInitiatedReporting) (*xnapiesv1.Rrcreestabinitiated, error) {
 
 	msg := &xnapiesv1.Rrcreestabinitiated{}
@@ -4760,30 +4100,6 @@ func CreateRrcreestabinitiated(rRrcreestabInitiatedReporting *xnapiesv1.Rrcreest
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateRrcreestabinitiated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRrcreestabInitiatedReportingExtIes(value Empty) (*xnapiesv1.RrcreestabInitiatedReportingExtIes, error) {
-
-	msg := &xnapiesv1.RrcreestabInitiatedReportingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcreestabInitiatedReportingExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRrcreestabInitiatedReportingwoUErlfreportExtIes(value Empty) (*xnapiesv1.RrcreestabInitiatedReportingwoUErlfreportExtIes, error) {
-
-	msg := &xnapiesv1.RrcreestabInitiatedReportingwoUErlfreportExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcreestabInitiatedReportingwoUErlfreportExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4804,18 +4120,6 @@ func CreateRrcreestabInitiatedReportingwoUErlfreport(failureCellPci *xnapiesv1.N
 	return msg, nil
 }
 
-func CreateRrcreestabInitiatedReportingwithUErlfreportExtIes(value Empty) (*xnapiesv1.RrcreestabInitiatedReportingwithUErlfreportExtIes, error) {
-
-	msg := &xnapiesv1.RrcreestabInitiatedReportingwithUErlfreportExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcreestabInitiatedReportingwithUErlfreportExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRrcreestabInitiatedReportingwithUErlfreport(uErlfreportContainer *xnapiesv1.UerlfreportContainer) (*xnapiesv1.RrcreestabInitiatedReportingwithUErlfreport, error) {
 
 	msg := &xnapiesv1.RrcreestabInitiatedReportingwithUErlfreport{}
@@ -4828,42 +4132,6 @@ func CreateRrcreestabInitiatedReportingwithUErlfreport(uErlfreportContainer *xna
 	return msg, nil
 }
 
-func CreateRrcsetupinitiatedExtIes(value Empty) (*xnapiesv1.RrcsetupinitiatedExtIes, error) {
-
-	msg := &xnapiesv1.RrcsetupinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcsetupinitiatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRrcsetupInitiatedReportingExtIes(value Empty) (*xnapiesv1.RrcsetupInitiatedReportingExtIes, error) {
-
-	msg := &xnapiesv1.RrcsetupInitiatedReportingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcsetupInitiatedReportingExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRrcsetupInitiatedReportingwithUErlfreportExtIes(value Empty) (*xnapiesv1.RrcsetupInitiatedReportingwithUErlfreportExtIes, error) {
-
-	msg := &xnapiesv1.RrcsetupInitiatedReportingwithUErlfreportExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRrcsetupInitiatedReportingwithUErlfreportExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateRrcsetupInitiatedReportingwithUErlfreport(uErlfreportContainer *xnapiesv1.UerlfreportContainer) (*xnapiesv1.RrcsetupInitiatedReportingwithUErlfreport, error) {
 
 	msg := &xnapiesv1.RrcsetupInitiatedReportingwithUErlfreport{}
@@ -4871,18 +4139,6 @@ func CreateRrcsetupInitiatedReportingwithUErlfreport(uErlfreportContainer *xnapi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateRrcsetupInitiatedReportingwithUErlfreport() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSecondarydataForwardingInfoFromTargetItemExtIes(value Empty) (*xnapiesv1.SecondarydataForwardingInfoFromTargetItemExtIes, error) {
-
-	msg := &xnapiesv1.SecondarydataForwardingInfoFromTargetItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSecondarydataForwardingInfoFromTargetItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -4912,42 +4168,6 @@ func CreateSecondarydataForwardingInfoFromTargetList(value []*xnapiesv1.Secondar
 	return msg, nil
 }
 
-func CreateSecondaryRatusageInformationExtIes(value Empty) (*xnapiesv1.SecondaryRatusageInformationExtIes, error) {
-
-	msg := &xnapiesv1.SecondaryRatusageInformationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSecondaryRatusageInformationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSecurityIndicationExtIes(value Empty) (*xnapiesv1.SecurityIndicationExtIes, error) {
-
-	msg := &xnapiesv1.SecurityIndicationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSecurityIndicationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSecurityResultExtIes(value Empty) (*xnapiesv1.SecurityResultExtIes, error) {
-
-	msg := &xnapiesv1.SecurityResultExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSecurityResultExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSecurityResult(integrityProtectionResult xnapiesv1.IntegrityProtectionResultSecurityResult, confIDentialityProtectionResult xnapiesv1.ConfidentialityProtectionResultSecurityResult) (*xnapiesv1.SecurityResult, error) {
 
 	msg := &xnapiesv1.SecurityResult{}
@@ -4961,18 +4181,6 @@ func CreateSecurityResult(integrityProtectionResult xnapiesv1.IntegrityProtectio
 	return msg, nil
 }
 
-func CreateSensorMeasurementConfigurationExtIes(value Empty) (*xnapiesv1.SensorMeasurementConfigurationExtIes, error) {
-
-	msg := &xnapiesv1.SensorMeasurementConfigurationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSensorMeasurementConfigurationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSensorMeasConfigNameList(value []*xnapiesv1.SensorName) (*xnapiesv1.SensorMeasConfigNameList, error) {
 
 	msg := &xnapiesv1.SensorMeasConfigNameList{}
@@ -4980,18 +4188,6 @@ func CreateSensorMeasConfigNameList(value []*xnapiesv1.SensorName) (*xnapiesv1.S
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSensorMeasConfigNameList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSensorNameConfigExtIes(value Empty) (*xnapiesv1.SensorNameConfigExtIes, error) {
-
-	msg := &xnapiesv1.SensorNameConfigExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSensorNameConfigExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5011,18 +4207,6 @@ func CreateServedCellInformationEUTraExtIes(ID *xnapcommondatatypesv1.ProtocolIe
 	return msg, nil
 }
 
-func CreateServedCellInformationEUTraperBplmnExtIes(value Empty) (*xnapiesv1.ServedCellInformationEUTraperBplmnExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellInformationEUTraperBplmnExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellInformationEUTraperBplmnExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateServedCellInformationEUTraperBplmn(plmnID *xnapiesv1.PlmnIdentity) (*xnapiesv1.ServedCellInformationEUTraperBplmn, error) {
 
 	msg := &xnapiesv1.ServedCellInformationEUTraperBplmn{}
@@ -5030,18 +4214,6 @@ func CreateServedCellInformationEUTraperBplmn(plmnID *xnapiesv1.PlmnIdentity) (*
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateServedCellInformationEUTraperBplmn() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateServedCellInformationEUTraModeInfoExtIes(value Empty) (*xnapiesv1.ServedCellInformationEUTraModeInfoExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellInformationEUTraModeInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellInformationEUTraModeInfoExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5117,30 +4289,6 @@ func CreateServedCellsEUTra(value []*xnapiesv1.ServedCellsEUTraItem) (*xnapiesv1
 	return msg, nil
 }
 
-func CreateServedCellsEUTraItemExtIes(value Empty) (*xnapiesv1.ServedCellsEUTraItemExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellsEUTraItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsEUTraItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateServedCellsToUpdateEUTraExtIes(value Empty) (*xnapiesv1.ServedCellsToUpdateEUTraExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellsToUpdateEUTraExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsToUpdateEUTraExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateServedCellsToModifyEUTra(value []*xnapiesv1.ServedCellsToModifyEUTraItem) (*xnapiesv1.ServedCellsToModifyEUTra, error) {
 
 	msg := &xnapiesv1.ServedCellsToModifyEUTra{}
@@ -5148,18 +4296,6 @@ func CreateServedCellsToModifyEUTra(value []*xnapiesv1.ServedCellsToModifyEUTraI
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateServedCellsToModifyEUTra() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateServedcellsToModifyEUTraItemExtIes(value Empty) (*xnapiesv1.ServedcellsToModifyEUTraItemExtIes, error) {
-
-	msg := &xnapiesv1.ServedcellsToModifyEUTraItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedcellsToModifyEUTraItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5174,18 +4310,6 @@ func CreateServedCellInformationNRExtIes(ID *xnapcommondatatypesv1.ProtocolIeID,
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateServedCellInformationNRExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSfnOffsetExtIes(value Empty) (*xnapiesv1.SfnOffsetExtIes, error) {
-
-	msg := &xnapiesv1.SfnOffsetExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSfnOffsetExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5215,18 +4339,6 @@ func CreateServedCellsNR(value []*xnapiesv1.ServedCellsNRItem) (*xnapiesv1.Serve
 	return msg, nil
 }
 
-func CreateServedCellsNRItemExtIes(value Empty) (*xnapiesv1.ServedCellsNRItemExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellsNRItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsNRItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateServedCellsToModifyNR(value []*xnapiesv1.ServedCellsToModifyNRItem) (*xnapiesv1.ServedCellsToModifyNR, error) {
 
 	msg := &xnapiesv1.ServedCellsToModifyNR{}
@@ -5234,54 +4346,6 @@ func CreateServedCellsToModifyNR(value []*xnapiesv1.ServedCellsToModifyNRItem) (
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateServedCellsToModifyNR() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateServedcellsToModifyNRItemExtIes(value Empty) (*xnapiesv1.ServedcellsToModifyNRItemExtIes, error) {
-
-	msg := &xnapiesv1.ServedcellsToModifyNRItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedcellsToModifyNRItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateServedCellsToUpdateNRExtIes(value Empty) (*xnapiesv1.ServedCellsToUpdateNRExtIes, error) {
-
-	msg := &xnapiesv1.ServedCellsToUpdateNRExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsToUpdateNRExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeExtIes(value Empty) (*xnapiesv1.SharedResourceTypeExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeULOnlySharingExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULOnlySharingExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULOnlySharingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULOnlySharingExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5299,42 +4363,6 @@ func CreateSharedResourceTypeULOnlySharing(ulResourceBitmap *xnapiesv1.DataTraff
 	return msg, nil
 }
 
-func CreateSharedResourceTypeULdlSharingExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULdlSharingExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULdlSharingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeULdlSharingULResourcesExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULdlSharingULResourcesExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULdlSharingULResourcesExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingULResourcesExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeULdlSharingULResourcesChangedExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULdlSharingULResourcesChangedExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULdlSharingULResourcesChangedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingULResourcesChangedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSharedResourceTypeULdlSharingULResourcesChanged(ulResourceBitmap *xnapiesv1.DataTrafficResources) (*xnapiesv1.SharedResourceTypeULdlSharingULResourcesChanged, error) {
 
 	msg := &xnapiesv1.SharedResourceTypeULdlSharingULResourcesChanged{}
@@ -5342,30 +4370,6 @@ func CreateSharedResourceTypeULdlSharingULResourcesChanged(ulResourceBitmap *xna
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingULResourcesChanged() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeULdlSharingDLResourcesExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULdlSharingDLResourcesExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULdlSharingDLResourcesExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingDLResourcesExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSharedResourceTypeULdlSharingDLResourcesChangedExtIes(value Empty) (*xnapiesv1.SharedResourceTypeULdlSharingDLResourcesChangedExtIes, error) {
-
-	msg := &xnapiesv1.SharedResourceTypeULdlSharingDLResourcesChangedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSharedResourceTypeULdlSharingDLResourcesChangedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5395,18 +4399,6 @@ func CreateSliceAvailableCapacity(value []*xnapiesv1.SliceAvailableCapacityItem)
 	return msg, nil
 }
 
-func CreateSliceAvailableCapacityItemExtIes(value Empty) (*xnapiesv1.SliceAvailableCapacityItemExtIes, error) {
-
-	msg := &xnapiesv1.SliceAvailableCapacityItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSliceAvailableCapacityItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSliceAvailableCapacityItem(pLmnidentity *xnapiesv1.PlmnIdentity, sNssaiavailableCapacityList *xnapiesv1.SnssaiavailableCapacityList) (*xnapiesv1.SliceAvailableCapacityItem, error) {
 
 	msg := &xnapiesv1.SliceAvailableCapacityItem{}
@@ -5427,18 +4419,6 @@ func CreateSnssaiavailableCapacityList(value []*xnapiesv1.SnssaiavailableCapacit
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSnssaiavailableCapacityList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSnssaiavailableCapacityItemExtIes(value Empty) (*xnapiesv1.SnssaiavailableCapacityItemExtIes, error) {
-
-	msg := &xnapiesv1.SnssaiavailableCapacityItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSnssaiavailableCapacityItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5482,18 +4462,6 @@ func CreateSliceToReportList(value []*xnapiesv1.SliceToReportListItem) (*xnapies
 	return msg, nil
 }
 
-func CreateSliceToReportListItemExtIes(value Empty) (*xnapiesv1.SliceToReportListItemExtIes, error) {
-
-	msg := &xnapiesv1.SliceToReportListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSliceToReportListItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSliceToReportListItem(pLmnidentity *xnapiesv1.PlmnIdentity, sNssailist *xnapiesv1.Snssailist) (*xnapiesv1.SliceToReportListItem, error) {
 
 	msg := &xnapiesv1.SliceToReportListItem{}
@@ -5514,18 +4482,6 @@ func CreateSnssailist(value []*xnapiesv1.SnssaiItem) (*xnapiesv1.Snssailist, err
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSnssailist() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSnssaiItemExtIes(value Empty) (*xnapiesv1.SnssaiItemExtIes, error) {
-
-	msg := &xnapiesv1.SnssaiItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSnssaiItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5555,18 +4511,6 @@ func CreateSlotConfigurationList(value []*xnapiesv1.SlotConfigurationListItem) (
 	return msg, nil
 }
 
-func CreateSlotConfigurationListItemExtIes(value Empty) (*xnapiesv1.SlotConfigurationListItemExtIes, error) {
-
-	msg := &xnapiesv1.SlotConfigurationListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSlotConfigurationListItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSlotConfigurationListItem(slotIndex int32, symbolAllocationInSlot *xnapiesv1.SymbolAllocationinSlot) (*xnapiesv1.SlotConfigurationListItem, error) {
 
 	msg := &xnapiesv1.SlotConfigurationListItem{}
@@ -5587,30 +4531,6 @@ func CreateSNGRAnnodeSecurityKey(value *asn1.BitString) (*xnapiesv1.SNGRAnnodeSe
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSNGRAnnodeSecurityKey() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSNSsaiExtIes(value Empty) (*xnapiesv1.SNSsaiExtIes, error) {
-
-	msg := &xnapiesv1.SNSsaiExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSNSsaiExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSpecialSubframeInfoEUTraExtIes(value Empty) (*xnapiesv1.SpecialSubframeInfoEUTraExtIes, error) {
-
-	msg := &xnapiesv1.SpecialSubframeInfoEUTraExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSpecialSubframeInfoEUTraExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5649,18 +4569,6 @@ func CreateSsbareaCapacityValueList(value []*xnapiesv1.SsbareaCapacityValueListI
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSsbareaCapacityValueList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSsbareaCapacityValueListItemExtIes(value Empty) (*xnapiesv1.SsbareaCapacityValueListItemExtIes, error) {
-
-	msg := &xnapiesv1.SsbareaCapacityValueListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSsbareaCapacityValueListItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5723,18 +4631,6 @@ func CreateSsbareaRadioResourceStatusListItem(sSbindex int32, ssbAreaDlGbrPrbUsa
 	return msg, nil
 }
 
-func CreateSsbPositionsInBurstExtIes(value Empty) (*xnapiesv1.SsbPositionsInBurstExtIes, error) {
-
-	msg := &xnapiesv1.SsbPositionsInBurstExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSsbPositionsInBurstExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSsbtoReportList(value []*xnapiesv1.SsbtoReportListItem) (*xnapiesv1.SsbtoReportList, error) {
 
 	msg := &xnapiesv1.SsbtoReportList{}
@@ -5742,18 +4638,6 @@ func CreateSsbtoReportList(value []*xnapiesv1.SsbtoReportListItem) (*xnapiesv1.S
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSsbtoReportList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSsbtoReportListItemExtIes(value Empty) (*xnapiesv1.SsbtoReportListItemExtIes, error) {
-
-	msg := &xnapiesv1.SsbtoReportListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSsbtoReportListItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5822,18 +4706,6 @@ func CreateSupportedSulbandList(value []*xnapiesv1.SupportedSulbandItem) (*xnapi
 	return msg, nil
 }
 
-func CreateSupportedSulbandItemExtIes(value Empty) (*xnapiesv1.SupportedSulbandItemExtIes, error) {
-
-	msg := &xnapiesv1.SupportedSulbandItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSupportedSulbandItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSupportedSulbandItem(sulBandItem *xnapiesv1.SulFrequencyBand) (*xnapiesv1.SupportedSulbandItem, error) {
 
 	msg := &xnapiesv1.SupportedSulbandItem{}
@@ -5841,30 +4713,6 @@ func CreateSupportedSulbandItem(sulBandItem *xnapiesv1.SulFrequencyBand) (*xnapi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSupportedSulbandItem() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSymbolAllocationinSlotExtIes(value Empty) (*xnapiesv1.SymbolAllocationinSlotExtIes, error) {
-
-	msg := &xnapiesv1.SymbolAllocationinSlotExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSymbolAllocationinSlotAllDlExtIes(value Empty) (*xnapiesv1.SymbolAllocationinSlotAllDlExtIes, error) {
-
-	msg := &xnapiesv1.SymbolAllocationinSlotAllDlExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotAllDlExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5881,36 +4729,12 @@ func CreateSymbolAllocationinSlotAllDl() (*xnapiesv1.SymbolAllocationinSlotAllDl
 	return msg, nil
 }
 
-func CreateSymbolAllocationinSlotAllUlExtIes(value Empty) (*xnapiesv1.SymbolAllocationinSlotAllUlExtIes, error) {
-
-	msg := &xnapiesv1.SymbolAllocationinSlotAllUlExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotAllUlExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSymbolAllocationinSlotAllUl() (*xnapiesv1.SymbolAllocationinSlotAllUl, error) {
 
 	msg := &xnapiesv1.SymbolAllocationinSlotAllUl{}
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotAllUl() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateSymbolAllocationinSlotBothDlandUlExtIes(value Empty) (*xnapiesv1.SymbolAllocationinSlotBothDlandUlExtIes, error) {
-
-	msg := &xnapiesv1.SymbolAllocationinSlotBothDlandUlExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotBothDlandUlExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5929,18 +4753,6 @@ func CreateSymbolAllocationinSlotBothDlandUl(numberofDlsymbols int32, numberofUl
 	return msg, nil
 }
 
-func CreateTabasedMdtExtIes(value Empty) (*xnapiesv1.TabasedMdtExtIes, error) {
-
-	msg := &xnapiesv1.TabasedMdtExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTabasedMdtExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTabasedMdt(tAlistforMdt *xnapiesv1.TalistforMdt) (*xnapiesv1.TabasedMdt, error) {
 
 	msg := &xnapiesv1.TabasedMdt{}
@@ -5948,18 +4760,6 @@ func CreateTabasedMdt(tAlistforMdt *xnapiesv1.TalistforMdt) (*xnapiesv1.TabasedM
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTabasedMdt() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTaibasedMdtExtIes(value Empty) (*xnapiesv1.TaibasedMdtExtIes, error) {
-
-	msg := &xnapiesv1.TaibasedMdtExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTaibasedMdtExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -5984,18 +4784,6 @@ func CreateTailistforMdt(value []*xnapiesv1.TaiforMdtItem) (*xnapiesv1.Tailistfo
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTailistforMdt() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTaiforMdtItemExtIes(value Empty) (*xnapiesv1.TaiforMdtItemExtIes, error) {
-
-	msg := &xnapiesv1.TaiforMdtItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTaiforMdtItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6038,18 +4826,6 @@ func CreateTaisupportList(value []*xnapiesv1.TaisupportItem) (*xnapiesv1.Taisupp
 	return msg, nil
 }
 
-func CreateTaisupportItemExtIes(value Empty) (*xnapiesv1.TaisupportItemExtIes, error) {
-
-	msg := &xnapiesv1.TaisupportItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTaisupportItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTaisupportItem(tac *xnapiesv1.Tac, broadcastPlmns []*xnapiesv1.BroadcastPlmninTaisupportItem) (*xnapiesv1.TaisupportItem, error) {
 
 	msg := &xnapiesv1.TaisupportItem{}
@@ -6087,18 +4863,6 @@ func CreateTargetCellinEutran(value []byte) (*xnapiesv1.TargetCellinEutran, erro
 	return msg, nil
 }
 
-func CreateTargetCgiExtIes(value Empty) (*xnapiesv1.TargetCgiExtIes, error) {
-
-	msg := &xnapiesv1.TargetCgiExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTargetCgiExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTdduldlconfigurationCommonNr(value []byte) (*xnapiesv1.TdduldlconfigurationCommonNr, error) {
 
 	msg := &xnapiesv1.TdduldlconfigurationCommonNr{}
@@ -6118,18 +4882,6 @@ func CreateTargetCellList(value []*xnapiesv1.TargetCellListItem) (*xnapiesv1.Tar
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTargetCellList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTargetCellListItemExtIes(value Empty) (*xnapiesv1.TargetCellListItemExtIes, error) {
-
-	msg := &xnapiesv1.TargetCellListItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTargetCellListItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6183,18 +4935,6 @@ func CreateThresholdSInr(value int32) (*xnapiesv1.ThresholdSInr, error) {
 	return msg, nil
 }
 
-func CreateTnlconfigurationInfoExtIes(value Empty) (*xnapiesv1.TnlconfigurationInfoExtIes, error) {
-
-	msg := &xnapiesv1.TnlconfigurationInfoExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlconfigurationInfoExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTnlaToAddList(value []*xnapiesv1.TnlaToAddItem) (*xnapiesv1.TnlaToAddList, error) {
 
 	msg := &xnapiesv1.TnlaToAddList{}
@@ -6202,18 +4942,6 @@ func CreateTnlaToAddList(value []*xnapiesv1.TnlaToAddItem) (*xnapiesv1.TnlaToAdd
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTnlaToAddList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTnlaToAddItemExtIes(value Empty) (*xnapiesv1.TnlaToAddItemExtIes, error) {
-
-	msg := &xnapiesv1.TnlaToAddItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlaToAddItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6244,18 +4972,6 @@ func CreateTnlaToUpdateList(value []*xnapiesv1.TnlaToUpdateItem) (*xnapiesv1.Tnl
 	return msg, nil
 }
 
-func CreateTnlaToUpdateItemExtIes(value Empty) (*xnapiesv1.TnlaToUpdateItemExtIes, error) {
-
-	msg := &xnapiesv1.TnlaToUpdateItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlaToUpdateItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTnlaToRemoveList(value []*xnapiesv1.TnlaToRemoveItem) (*xnapiesv1.TnlaToRemoveList, error) {
 
 	msg := &xnapiesv1.TnlaToRemoveList{}
@@ -6263,18 +4979,6 @@ func CreateTnlaToRemoveList(value []*xnapiesv1.TnlaToRemoveItem) (*xnapiesv1.Tnl
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTnlaToRemoveList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTnlaToRemoveItemExtIes(value Empty) (*xnapiesv1.TnlaToRemoveItemExtIes, error) {
-
-	msg := &xnapiesv1.TnlaToRemoveItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlaToRemoveItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6304,18 +5008,6 @@ func CreateTnlaSetupList(value []*xnapiesv1.TnlaSetupItem) (*xnapiesv1.TnlaSetup
 	return msg, nil
 }
 
-func CreateTnlaSetupItemExtIes(value Empty) (*xnapiesv1.TnlaSetupItemExtIes, error) {
-
-	msg := &xnapiesv1.TnlaSetupItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlaSetupItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateTnlaSetupItem(tNlassociationTransportLayerAddress *xnapiesv1.CptransportLayerInformation) (*xnapiesv1.TnlaSetupItem, error) {
 
 	msg := &xnapiesv1.TnlaSetupItem{}
@@ -6335,18 +5027,6 @@ func CreateTnlaFailedToSetupList(value []*xnapiesv1.TnlaFailedToSetupItem) (*xna
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateTnlaFailedToSetupList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTnlaFailedToSetupItemExtIes(value Empty) (*xnapiesv1.TnlaFailedToSetupItemExtIes, error) {
-
-	msg := &xnapiesv1.TnlaFailedToSetupItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTnlaFailedToSetupItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6406,42 +5086,6 @@ func CreateTraceActivation(ngRanTraceID *xnapiesv1.NgRAntraceId, interfacesToTra
 	return msg, nil
 }
 
-func CreateTsctrafficCharacteristicsExtIes(value Empty) (*xnapiesv1.TsctrafficCharacteristicsExtIes, error) {
-
-	msg := &xnapiesv1.TsctrafficCharacteristicsExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTsctrafficCharacteristicsExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateTscassistanceInformationExtIes(value Empty) (*xnapiesv1.TscassistanceInformationExtIes, error) {
-
-	msg := &xnapiesv1.TscassistanceInformationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTscassistanceInformationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUeaggregateMaximumBitRateExtIes(value Empty) (*xnapiesv1.UeaggregateMaximumBitRateExtIes, error) {
-
-	msg := &xnapiesv1.UeaggregateMaximumBitRateExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUeaggregateMaximumBitRateExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUeaggregateMaximumBitRate(dlUeAmbr *xnapiesv1.BitRate, ulUeAmbr *xnapiesv1.BitRate) (*xnapiesv1.UeaggregateMaximumBitRate, error) {
 
 	msg := &xnapiesv1.UeaggregateMaximumBitRate{}
@@ -6450,30 +5094,6 @@ func CreateUeaggregateMaximumBitRate(dlUeAmbr *xnapiesv1.BitRate, ulUeAmbr *xnap
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateUeaggregateMaximumBitRate() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUecontextIDExtIes(value Empty) (*xnapiesv1.UecontextIdExtIes, error) {
-
-	msg := &xnapiesv1.UecontextIdExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUecontextIDExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUecontextIDforRrcresumeExtIes(value Empty) (*xnapiesv1.UecontextIdforRrcresumeExtIes, error) {
-
-	msg := &xnapiesv1.UecontextIdforRrcresumeExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUecontextIDforRrcresumeExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6488,18 +5108,6 @@ func CreateUecontextIDforRrcresume(iRnti *xnapiesv1.IRNti, allocatedCRnti *xnapi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateUecontextIDforRrcresume() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUecontextIDforRrcreestablishmentExtIes(value Empty) (*xnapiesv1.UecontextIdforRrcreestablishmentExtIes, error) {
-
-	msg := &xnapiesv1.UecontextIdforRrcreestablishmentExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUecontextIDforRrcreestablishmentExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6544,42 +5152,6 @@ func CreateUehistoryInformation(value []*xnapiesv1.LastVisitedCellItem) (*xnapie
 	return msg, nil
 }
 
-func CreateUehistoryInformationFromTheUeExtIes(value Empty) (*xnapiesv1.UehistoryInformationFromTheUeExtIes, error) {
-
-	msg := &xnapiesv1.UehistoryInformationFromTheUeExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUehistoryInformationFromTheUeExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUeidentityIndexValueExtIes(value Empty) (*xnapiesv1.UeidentityIndexValueExtIes, error) {
-
-	msg := &xnapiesv1.UeidentityIndexValueExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUeidentityIndexValueExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUeradioCapabilityForPagingExtIes(value Empty) (*xnapiesv1.UeradioCapabilityForPagingExtIes, error) {
-
-	msg := &xnapiesv1.UeradioCapabilityForPagingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUeradioCapabilityForPagingExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUeradioCapabilityForPagingOfNr(value []byte) (*xnapiesv1.UeradioCapabilityForPagingOfNr, error) {
 
 	msg := &xnapiesv1.UeradioCapabilityForPagingOfNr{}
@@ -6616,30 +5188,6 @@ func CreateUeradioCapabilityID(value []byte) (*xnapiesv1.UeradioCapabilityId, er
 	return msg, nil
 }
 
-func CreateUeranpagingIdentityExtIes(value Empty) (*xnapiesv1.UeranpagingIdentityExtIes, error) {
-
-	msg := &xnapiesv1.UeranpagingIdentityExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUeranpagingIdentityExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUerlfreportContainerExtIes(value Empty) (*xnapiesv1.UerlfreportContainerExtIes, error) {
-
-	msg := &xnapiesv1.UerlfreportContainerExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUerlfreportContainerExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUerlfreportContainerLte(value []byte) (*xnapiesv1.UerlfreportContainerLte, error) {
 
 	msg := &xnapiesv1.UerlfreportContainerLte{}
@@ -6664,18 +5212,6 @@ func CreateUerlfreportContainerNr(value []byte) (*xnapiesv1.UerlfreportContainer
 	return msg, nil
 }
 
-func CreateUesecurityCapabilitiesExtIes(value Empty) (*xnapiesv1.UesecurityCapabilitiesExtIes, error) {
-
-	msg := &xnapiesv1.UesecurityCapabilitiesExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUesecurityCapabilitiesExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUesecurityCapabilities(nrEncyptionAlgorithms *asn1.BitString, nrIntegrityProtectionAlgorithms *asn1.BitString, eUtraEncyptionAlgorithms *asn1.BitString, eUtraIntegrityProtectionAlgorithms *asn1.BitString) (*xnapiesv1.UesecurityCapabilities, error) {
 
 	msg := &xnapiesv1.UesecurityCapabilities{}
@@ -6686,18 +5222,6 @@ func CreateUesecurityCapabilities(nrEncyptionAlgorithms *asn1.BitString, nrInteg
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateUesecurityCapabilities() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUlconfigurationExtIes(value Empty) (*xnapiesv1.UlconfigurationExtIes, error) {
-
-	msg := &xnapiesv1.UlconfigurationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUlconfigurationExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6751,18 +5275,6 @@ func CreateUlTotalPRbusage(value int32) (*xnapiesv1.UlTotalPRbusage, error) {
 	return msg, nil
 }
 
-func CreateUptransportLayerInformationExtIes(value Empty) (*xnapiesv1.UptransportLayerInformationExtIes, error) {
-
-	msg := &xnapiesv1.UptransportLayerInformationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUptransportLayerInformationExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUptransportParameters(value []*xnapiesv1.UptransportParametersItem) (*xnapiesv1.UptransportParameters, error) {
 
 	msg := &xnapiesv1.UptransportParameters{}
@@ -6770,18 +5282,6 @@ func CreateUptransportParameters(value []*xnapiesv1.UptransportParametersItem) (
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateUptransportParameters() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUptransportParametersItemExtIes(value Empty) (*xnapiesv1.UptransportParametersItemExtIes, error) {
-
-	msg := &xnapiesv1.UptransportParametersItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUptransportParametersItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -6824,18 +5324,6 @@ func CreateVolumeTimedReportList(value []*xnapiesv1.VolumeTimedReportItem) (*xna
 	return msg, nil
 }
 
-func CreateVolumeTimedReportItemExtIes(value Empty) (*xnapiesv1.VolumeTimedReportItemExtIes, error) {
-
-	msg := &xnapiesv1.VolumeTimedReportItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateVolumeTimedReportItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateVolumeTimedReportItem(startTimeStamp []byte, endTimeStamp []byte, usageCountUl int32, usageCountDl int32) (*xnapiesv1.VolumeTimedReportItem, error) {
 
 	msg := &xnapiesv1.VolumeTimedReportItem{}
@@ -6846,18 +5334,6 @@ func CreateVolumeTimedReportItem(startTimeStamp []byte, endTimeStamp []byte, usa
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateVolumeTimedReportItem() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateWlanmeasurementConfigurationExtIes(value Empty) (*xnapiesv1.WlanmeasurementConfigurationExtIes, error) {
-
-	msg := &xnapiesv1.WlanmeasurementConfigurationExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateWlanmeasurementConfigurationExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -8521,25 +6997,25 @@ func CreateIDUEhistoryInformation(value int32) (*xnapconstantsv1.IdUEhistoryInfo
 	return msg, nil
 }
 
-func CreateIdUEidentityIndexValue(value int32) (*xnapconstantsv1.IdUEidentityIndexValue, error) {
+func CreateIDUEidentityIndexValue(value int32) (*xnapconstantsv1.IdUEidentityIndexValue, error) {
 
 	msg := &xnapconstantsv1.IdUEidentityIndexValue{}
 	msg.Value = value
 
 	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateIdUEidentityIndexValue() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateIDUEidentityIndexValue() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
 }
 
-func CreateIdUEranpagingIdentity(value int32) (*xnapconstantsv1.IdUEranpagingIdentity, error) {
+func CreateIDUEranpagingIdentity(value int32) (*xnapconstantsv1.IdUEranpagingIdentity, error) {
 
 	msg := &xnapconstantsv1.IdUEranpagingIdentity{}
 	msg.Value = value
 
 	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateIdUEranpagingIdentity() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateIDUEranpagingIdentity() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -8785,13 +7261,13 @@ func CreateIDLocationInformationSn(value int32) (*xnapconstantsv1.IdLocationInfo
 	return msg, nil
 }
 
-func CreateIdLastEUTranplmnidentity(value int32) (*xnapconstantsv1.IdLastEUTranplmnidentity, error) {
+func CreateIDLastEUTranplmnidentity(value int32) (*xnapconstantsv1.IdLastEUTranplmnidentity, error) {
 
 	msg := &xnapconstantsv1.IdLastEUTranplmnidentity{}
 	msg.Value = value
 
 	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateIdLastEUTranplmnidentity() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateIDLastEUTranplmnidentity() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -10153,13 +8629,13 @@ func CreateIDMDtplmnlist(value int32) (*xnapconstantsv1.IdMDtplmnlist, error) {
 	return msg, nil
 }
 
-func CreateIDTraceCollectionEntityUri(value int32) (*xnapconstantsv1.IdTraceCollectionEntityUri, error) {
+func CreateIDTraceCollectionEntityURI(value int32) (*xnapconstantsv1.IdTraceCollectionEntityUri, error) {
 
 	msg := &xnapconstantsv1.IdTraceCollectionEntityUri{}
 	msg.Value = value
 
 	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateIDTraceCollectionEntityUri() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateIDTraceCollectionEntityURI() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -10369,13 +8845,13 @@ func CreateIDQoSmonitoringDisabled(value int32) (*xnapconstantsv1.IdQoSmonitorin
 	return msg, nil
 }
 
-func CreateIdExtendedUeidentityIndexValue(value int32) (*xnapconstantsv1.IdExtendedUeidentityIndexValue, error) {
+func CreateIDExtendedUeidentityIndexValue(value int32) (*xnapconstantsv1.IdExtendedUeidentityIndexValue, error) {
 
 	msg := &xnapconstantsv1.IdExtendedUeidentityIndexValue{}
 	msg.Value = value
 
 	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateIdExtendedUeidentityIndexValue() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateIDExtendedUeidentityIndexValue() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -10679,18 +9155,6 @@ func CreateUecontextInfoHorequestExtIes(ID *xnapcommondatatypesv1.ProtocolIeID, 
 	return msg, nil
 }
 
-func CreateUecontextRefAtSnHOrequestExtIes(value Empty) (*xnappducontentsv1.UecontextRefAtSnHOrequestExtIes, error) {
-
-	msg := &xnappducontentsv1.UecontextRefAtSnHOrequestExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUecontextRefAtSnHOrequestExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUecontextRefAtSnHOrequest(globalNgRannodeID *xnapiesv1.GlobalNgRAnnodeID, sNNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.UecontextRefAtSnHOrequest, error) {
 
 	msg := &xnappducontentsv1.UecontextRefAtSnHOrequest{}
@@ -10912,30 +9376,6 @@ func CreateEarlyStatusTransfer(protocolIes []*xnappducontentsv1.EarlyStatusTrans
 	return msg, nil
 }
 
-func CreateProcedureStageChoiceExtIes(value Empty) (*xnappducontentsv1.ProcedureStageChoiceExtIes, error) {
-
-	msg := &xnappducontentsv1.ProcedureStageChoiceExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateProcedureStageChoiceExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateFirstDlcountExtIes(value Empty) (*xnappducontentsv1.FirstDlcountExtIes, error) {
-
-	msg := &xnappducontentsv1.FirstDlcountExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateFirstDlcountExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateFirstDlcount(dRbsSubjectToEarlyStatusTransfer *xnapiesv1.DrbsSubjectToEarlyStatusTransferList) (*xnappducontentsv1.FirstDlcount, error) {
 
 	msg := &xnappducontentsv1.FirstDlcount{}
@@ -10943,18 +9383,6 @@ func CreateFirstDlcount(dRbsSubjectToEarlyStatusTransfer *xnapiesv1.DrbsSubjectT
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateFirstDlcount() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateDldiscardingExtIes(value Empty) (*xnappducontentsv1.DldiscardingExtIes, error) {
-
-	msg := &xnappducontentsv1.DldiscardingExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateDldiscardingExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11140,18 +9568,6 @@ func CreatePdusessionToBeAddedAddReq(value []*xnappducontentsv1.PdusessionToBeAd
 	return msg, nil
 }
 
-func CreatePdusessionToBeAddedAddReqItemExtIes(value Empty) (*xnappducontentsv1.PdusessionToBeAddedAddReqItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionToBeAddedAddReqItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionToBeAddedAddReqItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeAdditionRequestAcknowledgeIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEs{}
@@ -11185,30 +9601,6 @@ func CreatePdusessionAdmittedAddedAddReqAck(value []*xnappducontentsv1.Pdusessio
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedAddedAddReqAck() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionAdmittedAddedAddReqAckItemExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedAddedAddReqAckItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedAddedAddReqAckItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedAddedAddReqAckItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionNotAdmittedAddReqAckExtIes(value Empty) (*xnappducontentsv1.PdusessionNotAdmittedAddReqAckExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionNotAdmittedAddReqAckExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionNotAdmittedAddReqAckExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11266,18 +9658,6 @@ func CreateSnodeReconfigurationComplete(protocolIes []*xnappducontentsv1.SnodeRe
 	return msg, nil
 }
 
-func CreateResponseInfoReconfComplExtIes(value Empty) (*xnappducontentsv1.ResponseInfoReconfComplExtIes, error) {
-
-	msg := &xnappducontentsv1.ResponseInfoReconfComplExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResponseInfoReconfComplExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateResponseInfoReconfCompl(responseTypeReconfComplete *xnappducontentsv1.ResponseTypeReconfComplete) (*xnappducontentsv1.ResponseInfoReconfCompl, error) {
 
 	msg := &xnappducontentsv1.ResponseInfoReconfCompl{}
@@ -11285,42 +9665,6 @@ func CreateResponseInfoReconfCompl(responseTypeReconfComplete *xnappducontentsv1
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateResponseInfoReconfCompl() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResponseTypeReconfCompleteExtIes(value Empty) (*xnappducontentsv1.ResponseTypeReconfCompleteExtIes, error) {
-
-	msg := &xnappducontentsv1.ResponseTypeReconfCompleteExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResponseTypeReconfCompleteExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateConfigurationsuccessfullyappliedExtIes(value Empty) (*xnappducontentsv1.ConfigurationsuccessfullyappliedExtIes, error) {
-
-	msg := &xnappducontentsv1.ConfigurationsuccessfullyappliedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateConfigurationsuccessfullyappliedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateConfigurationrejectedbyMNGRAnnodeExtIes(value Empty) (*xnappducontentsv1.ConfigurationrejectedbyMNGRAnnodeExtIes, error) {
-
-	msg := &xnappducontentsv1.ConfigurationrejectedbyMNGRAnnodeExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateConfigurationrejectedbyMNGRAnnodeExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11352,18 +9696,6 @@ func CreateSnodeModificationRequest(protocolIes []*xnappducontentsv1.SnodeModifi
 	return msg, nil
 }
 
-func CreateUecontextInfoSNmodRequestExtIes(value Empty) (*xnappducontentsv1.UecontextInfoSNmodRequestExtIes, error) {
-
-	msg := &xnappducontentsv1.UecontextInfoSNmodRequestExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUecontextInfoSNmodRequestExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionsToBeAddedSNmodRequestList(value []*xnappducontentsv1.PdusessionsToBeAddedSNmodRequestItem) (*xnappducontentsv1.PdusessionsToBeAddedSNmodRequestList, error) {
 
 	msg := &xnappducontentsv1.PdusessionsToBeAddedSNmodRequestList{}
@@ -11371,18 +9703,6 @@ func CreatePdusessionsToBeAddedSNmodRequestList(value []*xnappducontentsv1.Pduse
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionsToBeAddedSNmodRequestList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionsToBeAddedSNmodRequestItemExtIes(value Empty) (*xnappducontentsv1.PdusessionsToBeAddedSNmodRequestItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionsToBeAddedSNmodRequestItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionsToBeAddedSNmodRequestItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11414,18 +9734,6 @@ func CreatePdusessionsToBeModifiedSNmodRequestItemExtIes(ID *xnapcommondatatypes
 	return msg, nil
 }
 
-func CreatePdusessionsToBeReleasedSNmodRequestListExtIes(value Empty) (*xnappducontentsv1.PdusessionsToBeReleasedSNmodRequestListExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionsToBeReleasedSNmodRequestListExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionsToBeReleasedSNmodRequestListExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeModificationRequestAcknowledgeIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEs{}
@@ -11452,18 +9760,6 @@ func CreateSnodeModificationRequestAcknowledge(protocolIes []*xnappducontentsv1.
 	return msg, nil
 }
 
-func CreatePdusessionAdmittedSNmodResponseExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedSNmodResponseExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedSNmodResponseExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedSNmodResponseExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionAdmittedToBeAddedSnmodResponse(value []*xnappducontentsv1.PdusessionAdmittedToBeAddedSnmodResponseItem) (*xnappducontentsv1.PdusessionAdmittedToBeAddedSnmodResponse, error) {
 
 	msg := &xnappducontentsv1.PdusessionAdmittedToBeAddedSnmodResponse{}
@@ -11476,18 +9772,6 @@ func CreatePdusessionAdmittedToBeAddedSnmodResponse(value []*xnappducontentsv1.P
 	return msg, nil
 }
 
-func CreatePdusessionAdmittedToBeAddedSnmodResponseItemExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedToBeAddedSnmodResponseItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedToBeAddedSnmodResponseItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedToBeAddedSnmodResponseItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePdusessionAdmittedToBeModifiedSnmodResponse(value []*xnappducontentsv1.PdusessionAdmittedToBeModifiedSnmodResponseItem) (*xnappducontentsv1.PdusessionAdmittedToBeModifiedSnmodResponse, error) {
 
 	msg := &xnappducontentsv1.PdusessionAdmittedToBeModifiedSnmodResponse{}
@@ -11495,54 +9779,6 @@ func CreatePdusessionAdmittedToBeModifiedSnmodResponse(value []*xnappducontentsv
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedToBeModifiedSnmodResponse() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionAdmittedToBeModifiedSnmodResponseItemExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedToBeModifiedSnmodResponseItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedToBeModifiedSnmodResponseItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedToBeModifiedSnmodResponseItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionAdmittedToBeReleasedSnmodResponseExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedToBeReleasedSnmodResponseExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedToBeReleasedSnmodResponseExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedToBeReleasedSnmodResponseExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionNotAdmittedSNmodResponseExtIes(value Empty) (*xnappducontentsv1.PdusessionNotAdmittedSNmodResponseExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionNotAdmittedSNmodResponseExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionNotAdmittedSNmodResponseExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionDataForwardingSNmodResponseExtIes(value Empty) (*xnappducontentsv1.PdusessionDataForwardingSNmodResponseExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionDataForwardingSNmodResponseExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionDataForwardingSNmodResponseExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11624,30 +9860,6 @@ func CreatePdusessionToBeModifiedSnmodRequired(value []*xnappducontentsv1.Pduses
 	return msg, nil
 }
 
-func CreatePdusessionToBeModifiedSnmodRequiredItemExtIes(value Empty) (*xnappducontentsv1.PdusessionToBeModifiedSnmodRequiredItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionToBeModifiedSnmodRequiredItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionToBeModifiedSnmodRequiredItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionToBeReleasedSnmodRequiredExtIes(value Empty) (*xnappducontentsv1.PdusessionToBeReleasedSnmodRequiredExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionToBeReleasedSnmodRequiredExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionToBeReleasedSnmodRequiredExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeModificationConfirmIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeModificationConfirmIEsValue) (*xnappducontentsv1.SnodeModificationConfirmIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeModificationConfirmIEs{}
@@ -11681,30 +9893,6 @@ func CreatePdusessionAdmittedModSnmodConfirm(value []*xnappducontentsv1.Pdusessi
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedModSnmodConfirm() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionAdmittedModSnmodConfirmItemExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedModSnmodConfirmItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedModSnmodConfirmItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedModSnmodConfirmItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionAdmittedToBeReleasedSnmodConfirmExtIes(value Empty) (*xnappducontentsv1.PdusessionAdmittedToBeReleasedSnmodConfirmExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionAdmittedToBeReleasedSnmodConfirmExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionAdmittedToBeReleasedSnmodConfirmExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11788,18 +9976,6 @@ func CreateSnodeReleaseRequestAcknowledge(protocolIes []*xnappducontentsv1.Snode
 	return msg, nil
 }
 
-func CreatePdusessionToBeReleasedListRelReqAckExtIes(value Empty) (*xnappducontentsv1.PdusessionToBeReleasedListRelReqAckExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionToBeReleasedListRelReqAckExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionToBeReleasedListRelReqAckExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeReleaseRejectIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeReleaseRejectIEsValue) (*xnappducontentsv1.SnodeReleaseRejectIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeReleaseRejectIEs{}
@@ -11852,18 +10028,6 @@ func CreateSnodeReleaseRequired(protocolIes []*xnappducontentsv1.SnodeReleaseReq
 	return msg, nil
 }
 
-func CreatePdusessionToBeReleasedListRelRqdExtIes(value Empty) (*xnappducontentsv1.PdusessionToBeReleasedListRelRqdExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionToBeReleasedListRelRqdExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionToBeReleasedListRelRqdExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeReleaseConfirmIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeReleaseConfirmIEsValue) (*xnappducontentsv1.SnodeReleaseConfirmIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeReleaseConfirmIEs{}
@@ -11885,18 +10049,6 @@ func CreateSnodeReleaseConfirm(protocolIes []*xnappducontentsv1.SnodeReleaseConf
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateSnodeReleaseConfirm() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionReleasedListRelConfExtIes(value Empty) (*xnappducontentsv1.PdusessionReleasedListRelConfExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionReleasedListRelConfExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionReleasedListRelConfExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -11935,18 +10087,6 @@ func CreateBearersSubjectToCounterCheckList(value []*xnappducontentsv1.BearersSu
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateBearersSubjectToCounterCheckList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateBearersSubjectToCounterCheckItemExtIes(value Empty) (*xnappducontentsv1.BearersSubjectToCounterCheckItemExtIes, error) {
-
-	msg := &xnappducontentsv1.BearersSubjectToCounterCheckItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateBearersSubjectToCounterCheckItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12004,18 +10144,6 @@ func CreatePdusessionSNchangeRequiredList(value []*xnappducontentsv1.PdusessionS
 	return msg, nil
 }
 
-func CreatePdusessionSNchangeRequiredItemExtIes(value Empty) (*xnappducontentsv1.PdusessionSNchangeRequiredItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionSNchangeRequiredItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionSNchangeRequiredItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateSnodeChangeConfirmIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.SnodeChangeConfirmIEsValue) (*xnappducontentsv1.SnodeChangeConfirmIEs, error) {
 
 	msg := &xnappducontentsv1.SnodeChangeConfirmIEs{}
@@ -12049,18 +10177,6 @@ func CreatePdusessionSNchangeConfirmList(value []*xnappducontentsv1.PdusessionSN
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionSNchangeConfirmList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionSNchangeConfirmItemExtIes(value Empty) (*xnappducontentsv1.PdusessionSNchangeConfirmItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionSNchangeConfirmItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionSNchangeConfirmItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12118,30 +10234,6 @@ func CreateRrctransfer(protocolIes []*xnappducontentsv1.RrctransferIEs) (*xnappd
 	return msg, nil
 }
 
-func CreateSplitSrbRRctransferExtIes(value Empty) (*xnappducontentsv1.SplitSrbRRctransferExtIes, error) {
-
-	msg := &xnappducontentsv1.SplitSrbRRctransferExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSplitSrbRRctransferExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateUereportRrctransferExtIes(value Empty) (*xnappducontentsv1.UereportRrctransferExtIes, error) {
-
-	msg := &xnappducontentsv1.UereportRrctransferExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateUereportRrctransferExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateUereportRrctransfer(rrcContainer []byte) (*xnappducontentsv1.UereportRrctransfer, error) {
 
 	msg := &xnappducontentsv1.UereportRrctransfer{}
@@ -12149,18 +10241,6 @@ func CreateUereportRrctransfer(rrcContainer []byte) (*xnappducontentsv1.Uereport
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateUereportRrctransfer() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateFastMcgrecoveryRrctransferExtIes(value Empty) (*xnappducontentsv1.FastMcgrecoveryRrctransferExtIes, error) {
-
-	msg := &xnappducontentsv1.FastMcgrecoveryRrctransferExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateFastMcgrecoveryRrctransferExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12211,18 +10291,6 @@ func CreatePdusessionResourcesNotifyList(value []*xnappducontentsv1.PdusessionRe
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreatePdusessionResourcesNotifyList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreatePdusessionResourcesNotifyItemExtIes(value Empty) (*xnappducontentsv1.PdusessionResourcesNotifyItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionResourcesNotifyItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourcesNotifyItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12279,18 +10347,6 @@ func CreatePdusessionResourcesActivityNotifyList(value []*xnappducontentsv1.Pdus
 	return msg, nil
 }
 
-func CreatePdusessionResourcesActivityNotifyItemExtIes(value Empty) (*xnappducontentsv1.PdusessionResourcesActivityNotifyItemExtIes, error) {
-
-	msg := &xnappducontentsv1.PdusessionResourcesActivityNotifyItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePdusessionResourcesActivityNotifyItemExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateQoSflowsActivityNotifyList(value []*xnappducontentsv1.QoSflowsActivityNotifyItem) (*xnappducontentsv1.QoSflowsActivityNotifyList, error) {
 
 	msg := &xnappducontentsv1.QoSflowsActivityNotifyList{}
@@ -12298,18 +10354,6 @@ func CreateQoSflowsActivityNotifyList(value []*xnappducontentsv1.QoSflowsActivit
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateQoSflowsActivityNotifyList() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateQoSflowsActivityNotifyItemExtIes(value Empty) (*xnappducontentsv1.QoSflowsActivityNotifyItemExtIes, error) {
-
-	msg := &xnappducontentsv1.QoSflowsActivityNotifyItemExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateQoSflowsActivityNotifyItemExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12460,18 +10504,6 @@ func CreateConfigurationUpdatengeNb(ID *xnapcommondatatypesv1.ProtocolIeID, crit
 	return msg, nil
 }
 
-func CreateServedCellsToUpdateInitiatingNodeChoiceExtIes(value Empty) (*xnappducontentsv1.ServedCellsToUpdateInitiatingNodeChoiceExtIes, error) {
-
-	msg := &xnappducontentsv1.ServedCellsToUpdateInitiatingNodeChoiceExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsToUpdateInitiatingNodeChoiceExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEs, error) {
 
 	msg := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEs{}
@@ -12493,18 +10525,6 @@ func CreateNgrannodeConfigurationUpdateAcknowledge(protocolIes []*xnappducontent
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateNgrannodeConfigurationUpdateAcknowledge() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateRespondingNodeTypeConfigUpdateAckExtIes(value Empty) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckExtIes, error) {
-
-	msg := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRespondingNodeTypeConfigUpdateAckExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12601,30 +10621,6 @@ func CreateEUTraNRCellResourceCoordinationRequest(protocolIes []*xnappducontents
 	return msg, nil
 }
 
-func CreateInitiatingNodeTypeResourceCoordRequestExtIes(value Empty) (*xnappducontentsv1.InitiatingNodeTypeResourceCoordRequestExtIes, error) {
-
-	msg := &xnappducontentsv1.InitiatingNodeTypeResourceCoordRequestExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateInitiatingNodeTypeResourceCoordRequestExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResourceCoordRequestngeNbinitiatedExtIes(value Empty) (*xnappducontentsv1.ResourceCoordRequestngeNbinitiatedExtIes, error) {
-
-	msg := &xnappducontentsv1.ResourceCoordRequestngeNbinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResourceCoordRequestngeNbinitiatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateResourceCoordRequestngeNbinitiated(dataTrafficResourceIndication *xnapiesv1.DataTrafficResourceIndication, spectrumSharingGroupID *xnapiesv1.SpectrumSharingGroupId) (*xnappducontentsv1.ResourceCoordRequestngeNbinitiated, error) {
 
 	msg := &xnappducontentsv1.ResourceCoordRequestngeNbinitiated{}
@@ -12633,18 +10629,6 @@ func CreateResourceCoordRequestngeNbinitiated(dataTrafficResourceIndication *xna
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateResourceCoordRequestngeNbinitiated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResourceCoordRequestgNbinitiatedExtIes(value Empty) (*xnappducontentsv1.ResourceCoordRequestgNbinitiatedExtIes, error) {
-
-	msg := &xnappducontentsv1.ResourceCoordRequestgNbinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResourceCoordRequestgNbinitiatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12689,30 +10673,6 @@ func CreateEUTraNRCellResourceCoordinationResponse(protocolIes []*xnappducontent
 	return msg, nil
 }
 
-func CreateRespondingNodeTypeResourceCoordResponseExtIes(value Empty) (*xnappducontentsv1.RespondingNodeTypeResourceCoordResponseExtIes, error) {
-
-	msg := &xnappducontentsv1.RespondingNodeTypeResourceCoordResponseExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRespondingNodeTypeResourceCoordResponseExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResourceCoordResponsengeNbinitiatedExtIes(value Empty) (*xnappducontentsv1.ResourceCoordResponsengeNbinitiatedExtIes, error) {
-
-	msg := &xnappducontentsv1.ResourceCoordResponsengeNbinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResourceCoordResponsengeNbinitiatedExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateResourceCoordResponsengeNbinitiated(dataTrafficResourceIndication *xnapiesv1.DataTrafficResourceIndication, spectrumSharingGroupID *xnapiesv1.SpectrumSharingGroupId) (*xnappducontentsv1.ResourceCoordResponsengeNbinitiated, error) {
 
 	msg := &xnappducontentsv1.ResourceCoordResponsengeNbinitiated{}
@@ -12721,18 +10681,6 @@ func CreateResourceCoordResponsengeNbinitiated(dataTrafficResourceIndication *xn
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateResourceCoordResponsengeNbinitiated() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateResourceCoordResponsegNbinitiatedExtIes(value Empty) (*xnappducontentsv1.ResourceCoordResponsegNbinitiatedExtIes, error) {
-
-	msg := &xnappducontentsv1.ResourceCoordResponsegNbinitiatedExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateResourceCoordResponsegNbinitiatedExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -12905,18 +10853,6 @@ func CreateEutracellsServedCellsToActivate(eUtraCells []*xnapiesv1.EUTraCGi) (*x
 	return msg, nil
 }
 
-func CreateServedCellsToActivateExtIes(value Empty) (*xnappducontentsv1.ServedCellsToActivateExtIes, error) {
-
-	msg := &xnappducontentsv1.ServedCellsToActivateExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateServedCellsToActivateExtIes() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateCellActivationResponseIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.CellActivationResponseIEsValue) (*xnappducontentsv1.CellActivationResponseIEs, error) {
 
 	msg := &xnappducontentsv1.CellActivationResponseIEs{}
@@ -12962,18 +10898,6 @@ func CreateEutracellsActivatedServedCells(eUtraCells []*xnapiesv1.EUTraCGi) (*xn
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateEutracellsActivatedServedCells() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateActivatedServedCellsExtIes(value Empty) (*xnappducontentsv1.ActivatedServedCellsExtIes, error) {
-
-	msg := &xnappducontentsv1.ActivatedServedCellsExtIes{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateActivatedServedCellsExtIes() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -13083,18 +11007,6 @@ func CreateErrorIndication(protocolIes []*xnappducontentsv1.ErrorIndicationIEs) 
 	return msg, nil
 }
 
-func CreatePrivateMessageIEs(value Empty) (*xnappducontentsv1.PrivateMessageIEs, error) {
-
-	msg := &xnappducontentsv1.PrivateMessageIEs{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreatePrivateMessageIEs() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreatePrivateMessage(privateIes []*xnappducontentsv1.PrivateMessageIEs) (*xnappducontentsv1.PrivateMessage, error) {
 
 	msg := &xnappducontentsv1.PrivateMessage{}
@@ -13154,18 +11066,6 @@ func CreateDeactivateTrace(protocolIes []*xnappducontentsv1.DeactivateTraceIes) 
 
 	//if err := msg.Validate(); err != nil {
 	//	return nil, errors.NewInvalid("CreateDeactivateTrace() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
-func CreateFailureIndicationIEs(value Empty) (*xnappducontentsv1.FailureIndicationIEs, error) {
-
-	msg := &xnappducontentsv1.FailureIndicationIEs{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateFailureIndicationIEs() error validating PDU %s", err.Error())
 	//}
 
 	return msg, nil
@@ -13391,18 +11291,6 @@ func CreateMobilityChangeFailure(protocolIes []*xnappducontentsv1.MobilityChange
 	return msg, nil
 }
 
-func CreateAccessAndMobilityIndicationIEs(value Empty) (*xnappducontentsv1.AccessAndMobilityIndicationIEs, error) {
-
-	msg := &xnappducontentsv1.AccessAndMobilityIndicationIEs{}
-	msg.Value = value
-
-	//if err := msg.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateAccessAndMobilityIndicationIEs() error validating PDU %s", err.Error())
-	//}
-
-	return msg, nil
-}
-
 func CreateAccessAndMobilityIndication(protocolIes []*xnappducontentsv1.AccessAndMobilityIndicationIEs) (*xnappducontentsv1.AccessAndMobilityIndication, error) {
 
 	msg := &xnappducontentsv1.AccessAndMobilityIndication{}
@@ -13418,7 +11306,7 @@ func CreateAccessAndMobilityIndication(protocolIes []*xnappducontentsv1.AccessAn
 func CreateAreaScopeOfMdtNRCellBased(cellBased *xnapiesv1.CellBasedMdtNR) (*xnapiesv1.AreaScopeOfMdtNR, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtNR{
-		AreaScopeOfMdtNR: &xnapiesv1.AreaScopeOfMdtNR_CellBased{
+		AreaScopeOfMdtNr: &xnapiesv1.AreaScopeOfMdtNR_CellBased{
 			CellBased: cellBased,
 		},
 	}
@@ -13432,7 +11320,7 @@ func CreateAreaScopeOfMdtNRCellBased(cellBased *xnapiesv1.CellBasedMdtNR) (*xnap
 func CreateAreaScopeOfMdtNRTAbased(tAbased *xnapiesv1.TabasedMdt) (*xnapiesv1.AreaScopeOfMdtNR, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtNR{
-		AreaScopeOfMdtNR: &xnapiesv1.AreaScopeOfMdtNR_TAbased{
+		AreaScopeOfMdtNr: &xnapiesv1.AreaScopeOfMdtNR_TAbased{
 			TAbased: tAbased,
 		},
 	}
@@ -13446,7 +11334,7 @@ func CreateAreaScopeOfMdtNRTAbased(tAbased *xnapiesv1.TabasedMdt) (*xnapiesv1.Ar
 func CreateAreaScopeOfMdtNRTAibased(tAibased *xnapiesv1.TaibasedMdt) (*xnapiesv1.AreaScopeOfMdtNR, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtNR{
-		AreaScopeOfMdtNR: &xnapiesv1.AreaScopeOfMdtNR_TAibased{
+		AreaScopeOfMdtNr: &xnapiesv1.AreaScopeOfMdtNR_TAibased{
 			TAibased: tAibased,
 		},
 	}
@@ -13460,7 +11348,7 @@ func CreateAreaScopeOfMdtNRTAibased(tAibased *xnapiesv1.TaibasedMdt) (*xnapiesv1
 func CreateAreaScopeOfMdtEUtraCellBased(cellBased *xnapiesv1.CellBasedMdtEUtra) (*xnapiesv1.AreaScopeOfMdtEUtra, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtEUtra{
-		AreaScopeOfMdtEUtra: &xnapiesv1.AreaScopeOfMdtEUtra_CellBased{
+		AreaScopeOfMdtEutra: &xnapiesv1.AreaScopeOfMdtEUtra_CellBased{
 			CellBased: cellBased,
 		},
 	}
@@ -13474,7 +11362,7 @@ func CreateAreaScopeOfMdtEUtraCellBased(cellBased *xnapiesv1.CellBasedMdtEUtra) 
 func CreateAreaScopeOfMdtEUtraTAbased(tAbased *xnapiesv1.TabasedMdt) (*xnapiesv1.AreaScopeOfMdtEUtra, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtEUtra{
-		AreaScopeOfMdtEUtra: &xnapiesv1.AreaScopeOfMdtEUtra_TAbased{
+		AreaScopeOfMdtEutra: &xnapiesv1.AreaScopeOfMdtEUtra_TAbased{
 			TAbased: tAbased,
 		},
 	}
@@ -13488,7 +11376,7 @@ func CreateAreaScopeOfMdtEUtraTAbased(tAbased *xnapiesv1.TabasedMdt) (*xnapiesv1
 func CreateAreaScopeOfMdtEUtraTAibased(tAibased *xnapiesv1.TaibasedMdt) (*xnapiesv1.AreaScopeOfMdtEUtra, error) {
 
 	item := &xnapiesv1.AreaScopeOfMdtEUtra{
-		AreaScopeOfMdtEUtra: &xnapiesv1.AreaScopeOfMdtEUtra_TAibased{
+		AreaScopeOfMdtEutra: &xnapiesv1.AreaScopeOfMdtEUtra_TAibased{
 			TAibased: tAibased,
 		},
 	}
@@ -13502,7 +11390,7 @@ func CreateAreaScopeOfMdtEUtraTAibased(tAibased *xnapiesv1.TaibasedMdt) (*xnapie
 func CreateBplmnIDInfoNRItemExtIesExtensionIDConfiguredTacindication(IDConfiguredTacindication xnapiesv1.ConfiguredTacindication) (*xnapiesv1.BplmnIDInfoNRItemExtIesExtension, error) {
 
 	item := &xnapiesv1.BplmnIDInfoNRItemExtIesExtension{
-		BplmnIDInfoNRItemExtIesExtension: &xnapiesv1.BplmnIDInfoNRItemExtIesExtension_IdConfiguredTacindication{
+		BplmnIdInfoNrItemExtIes: &xnapiesv1.BplmnIDInfoNRItemExtIesExtension_IdConfiguredTacindication{
 			IdConfiguredTacindication: IDConfiguredTacindication,
 		},
 	}
@@ -13516,7 +11404,7 @@ func CreateBplmnIDInfoNRItemExtIesExtensionIDConfiguredTacindication(IDConfigure
 func CreateBplmnIDInfoNRItemExtIesExtensionIDNpnBroadcastInformation(IDNpnBroadcastInformation *xnapiesv1.NpnBroadcastInformation) (*xnapiesv1.BplmnIDInfoNRItemExtIesExtension, error) {
 
 	item := &xnapiesv1.BplmnIDInfoNRItemExtIesExtension{
-		BplmnIDInfoNRItemExtIesExtension: &xnapiesv1.BplmnIDInfoNRItemExtIesExtension_IdNpnBroadcastInformation{
+		BplmnIdInfoNrItemExtIes: &xnapiesv1.BplmnIDInfoNRItemExtIesExtension_IdNpnBroadcastInformation{
 			IdNpnBroadcastInformation: IDNpnBroadcastInformation,
 		},
 	}
@@ -13530,7 +11418,7 @@ func CreateBplmnIDInfoNRItemExtIesExtensionIDNpnBroadcastInformation(IDNpnBroadc
 func CreateBroadcastPlmninTaisupportItemExtIesExtensionIDNpnSupport(IDNpnSupport *xnapiesv1.NpnSupport) (*xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension, error) {
 
 	item := &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension{
-		BroadcastPlmninTaisupportItemExtIesExtension: &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension_IdNpnSupport{
+		BroadcastPlmninTaisupportItemExtIes: &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension_IdNpnSupport{
 			IdNpnSupport: IDNpnSupport,
 		},
 	}
@@ -13544,7 +11432,7 @@ func CreateBroadcastPlmninTaisupportItemExtIesExtensionIDNpnSupport(IDNpnSupport
 func CreateBroadcastPlmninTaisupportItemExtIesExtensionIDExtendedTaisliceSupportList(IDExtendedTaisliceSupportList *xnapiesv1.ExtendedSliceSupportList) (*xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension, error) {
 
 	item := &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension{
-		BroadcastPlmninTaisupportItemExtIesExtension: &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension_IdExtendedTaisliceSupportList{
+		BroadcastPlmninTaisupportItemExtIes: &xnapiesv1.BroadcastPlmninTaisupportItemExtIesExtension_IdExtendedTaisliceSupportList{
 			IdExtendedTaisliceSupportList: IDExtendedTaisliceSupportList,
 		},
 	}
@@ -13628,7 +11516,7 @@ func CreateCauseChoiceExtension(choiceExtension *xnapiesv1.CauseExtIes) (*xnapie
 func CreateCellAssistanceInfoNRLimitedNrList(limitedNrList *xnapiesv1.LimitedNrListCellAssistanceInfoNR) (*xnapiesv1.CellAssistanceInfoNR, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoNR{
-		CellAssistanceInfoNR: &xnapiesv1.CellAssistanceInfoNR_LimitedNrList{
+		CellAssistanceInfoNr: &xnapiesv1.CellAssistanceInfoNR_LimitedNrList{
 			LimitedNrList: limitedNrList,
 		},
 	}
@@ -13642,7 +11530,7 @@ func CreateCellAssistanceInfoNRLimitedNrList(limitedNrList *xnapiesv1.LimitedNrL
 func CreateCellAssistanceInfoNRFullList(fullList xnapiesv1.FullListCellAssistanceInfoNr) (*xnapiesv1.CellAssistanceInfoNR, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoNR{
-		CellAssistanceInfoNR: &xnapiesv1.CellAssistanceInfoNR_FullList{
+		CellAssistanceInfoNr: &xnapiesv1.CellAssistanceInfoNR_FullList{
 			FullList: fullList,
 		},
 	}
@@ -13656,7 +11544,7 @@ func CreateCellAssistanceInfoNRFullList(fullList xnapiesv1.FullListCellAssistanc
 func CreateCellAssistanceInfoNRChoiceExtension(choiceExtension *xnapiesv1.CellAssistanceInfoNRExtIes) (*xnapiesv1.CellAssistanceInfoNR, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoNR{
-		CellAssistanceInfoNR: &xnapiesv1.CellAssistanceInfoNR_ChoiceExtension{
+		CellAssistanceInfoNr: &xnapiesv1.CellAssistanceInfoNR_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -13670,7 +11558,7 @@ func CreateCellAssistanceInfoNRChoiceExtension(choiceExtension *xnapiesv1.CellAs
 func CreateCellAssistanceInfoEUtraLimitedEutraList(limitedEutraList *xnapiesv1.LimitedEutraListCellAssistanceInfoEUtra) (*xnapiesv1.CellAssistanceInfoEUtra, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoEUtra{
-		CellAssistanceInfoEUtra: &xnapiesv1.CellAssistanceInfoEUtra_LimitedEutraList{
+		CellAssistanceInfoEutra: &xnapiesv1.CellAssistanceInfoEUtra_LimitedEutraList{
 			LimitedEutraList: limitedEutraList,
 		},
 	}
@@ -13684,7 +11572,7 @@ func CreateCellAssistanceInfoEUtraLimitedEutraList(limitedEutraList *xnapiesv1.L
 func CreateCellAssistanceInfoEUtraFullList(fullList xnapiesv1.FullListCellAssistanceInfoEutra) (*xnapiesv1.CellAssistanceInfoEUtra, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoEUtra{
-		CellAssistanceInfoEUtra: &xnapiesv1.CellAssistanceInfoEUtra_FullList{
+		CellAssistanceInfoEutra: &xnapiesv1.CellAssistanceInfoEUtra_FullList{
 			FullList: fullList,
 		},
 	}
@@ -13698,7 +11586,7 @@ func CreateCellAssistanceInfoEUtraFullList(fullList xnapiesv1.FullListCellAssist
 func CreateCellAssistanceInfoEUtraChoiceExtension(choiceExtension *xnapiesv1.CellAssistanceInfoEUtraExtIes) (*xnapiesv1.CellAssistanceInfoEUtra, error) {
 
 	item := &xnapiesv1.CellAssistanceInfoEUtra{
-		CellAssistanceInfoEUtra: &xnapiesv1.CellAssistanceInfoEUtra_ChoiceExtension{
+		CellAssistanceInfoEutra: &xnapiesv1.CellAssistanceInfoEUtra_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -13796,7 +11684,7 @@ func CreateCptransportLayerInformationChoiceExtension(choiceExtension *xnapiesv1
 func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDSecondarydataForwardingInfoFromTargetList(IDSecondarydataForwardingInfoFromTargetList *xnapiesv1.SecondarydataForwardingInfoFromTargetList) (*xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension, error) {
 
 	item := &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension{
-		XnUaddressInfoperPdusessionItemExtIesExtension: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdSecondarydataForwardingInfoFromTargetList{
+		XnUaddressInfoperPdusessionItemExtIes: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdSecondarydataForwardingInfoFromTargetList{
 			IdSecondarydataForwardingInfoFromTargetList: IDSecondarydataForwardingInfoFromTargetList,
 		},
 	}
@@ -13810,7 +11698,7 @@ func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDSecondarydataForwardi
 func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDDrbIDsTakenintouse(IDDrbIDsTakenintouse *xnapiesv1.DrbList) (*xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension, error) {
 
 	item := &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension{
-		XnUaddressInfoperPdusessionItemExtIesExtension: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdDrbIdsTakenintouse{
+		XnUaddressInfoperPdusessionItemExtIes: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdDrbIdsTakenintouse{
 			IdDrbIdsTakenintouse: IDDrbIDsTakenintouse,
 		},
 	}
@@ -13824,7 +11712,7 @@ func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDDrbIDsTakenintouse(ID
 func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDDataForwardingInfoFromTargetEUtrannode(IDDataForwardingInfoFromTargetEUtrannode *xnapiesv1.DataForwardingInfoFromTargetEUTrannode) (*xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension, error) {
 
 	item := &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension{
-		XnUaddressInfoperPdusessionItemExtIesExtension: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdDataForwardingInfoFromTargetEUtrannode{
+		XnUaddressInfoperPdusessionItemExtIes: &xnapiesv1.XnUaddressInfoperPdusessionItemExtIesExtension_IdDataForwardingInfoFromTargetEUtrannode{
 			IdDataForwardingInfoFromTargetEUtrannode: IDDataForwardingInfoFromTargetEUtrannode,
 		},
 	}
@@ -13838,7 +11726,7 @@ func CreateXnUaddressInfoperPdusessionItemExtIesExtensionIDDataForwardingInfoFro
 func CreateQoSflowsToBeForwardedItemExtIesExtensionIDUlforwardingProposal(IDUlforwardingProposal xnapiesv1.UlforwardingProposal) (*xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension{
-		QoSflowsToBeForwardedItemExtIesExtension: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdUlforwardingProposal{
+		QoSflowsToBeForwardedItemExtIes: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdUlforwardingProposal{
 			IdUlforwardingProposal: IDUlforwardingProposal,
 		},
 	}
@@ -13852,7 +11740,7 @@ func CreateQoSflowsToBeForwardedItemExtIesExtensionIDUlforwardingProposal(IDUlfo
 func CreateQoSflowsToBeForwardedItemExtIesExtensionIDSourceDlforwardingIpaddress(IDSourceDlforwardingIpaddress *xnapiesv1.TransportLayerAddress) (*xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension{
-		QoSflowsToBeForwardedItemExtIesExtension: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdSourceDlforwardingIpaddress{
+		QoSflowsToBeForwardedItemExtIes: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdSourceDlforwardingIpaddress{
 			IdSourceDlforwardingIpaddress: IDSourceDlforwardingIpaddress,
 		},
 	}
@@ -13866,7 +11754,7 @@ func CreateQoSflowsToBeForwardedItemExtIesExtensionIDSourceDlforwardingIpaddress
 func CreateQoSflowsToBeForwardedItemExtIesExtensionIDSourceNodeDlforwardingIpaddress(IDSourceNodeDlforwardingIpaddress *xnapiesv1.TransportLayerAddress) (*xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension{
-		QoSflowsToBeForwardedItemExtIesExtension: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdSourceNodeDlforwardingIpaddress{
+		QoSflowsToBeForwardedItemExtIes: &xnapiesv1.QoSflowsToBeForwardedItemExtIesExtension_IdSourceNodeDlforwardingIpaddress{
 			IdSourceNodeDlforwardingIpaddress: IDSourceNodeDlforwardingIpaddress,
 		},
 	}
@@ -13922,8 +11810,8 @@ func CreateDlcountChoiceChoiceExtension(choiceExtension *xnapiesv1.DlcountChoice
 func CreateDrbbstatusTransferChoicePdcpSn12Bits(pdcpSn12Bits *xnapiesv1.DrbbstatusTransfer12BitsSn) (*xnapiesv1.DrbbstatusTransferChoice, error) {
 
 	item := &xnapiesv1.DrbbstatusTransferChoice{
-		DrbbstatusTransferChoice: &xnapiesv1.DrbbstatusTransferChoice_PdcpSn12Bits{
-			PdcpSn12Bits: pdcpSn12Bits,
+		DrbbstatusTransferChoice: &xnapiesv1.DrbbstatusTransferChoice_PdcpSn_12Bits{
+			PdcpSn_12Bits: pdcpSn12Bits,
 		},
 	}
 
@@ -13936,8 +11824,8 @@ func CreateDrbbstatusTransferChoicePdcpSn12Bits(pdcpSn12Bits *xnapiesv1.Drbbstat
 func CreateDrbbstatusTransferChoicePdcpSn18Bits(pdcpSn18Bits *xnapiesv1.DrbbstatusTransfer18BitsSn) (*xnapiesv1.DrbbstatusTransferChoice, error) {
 
 	item := &xnapiesv1.DrbbstatusTransferChoice{
-		DrbbstatusTransferChoice: &xnapiesv1.DrbbstatusTransferChoice_PdcpSn18Bits{
-			PdcpSn18Bits: pdcpSn18Bits,
+		DrbbstatusTransferChoice: &xnapiesv1.DrbbstatusTransferChoice_PdcpSn_18Bits{
+			PdcpSn_18Bits: pdcpSn18Bits,
 		},
 	}
 
@@ -13964,7 +11852,7 @@ func CreateDrbbstatusTransferChoiceChoiceExtension(choiceExtension *xnapiesv1.Dr
 func CreateDynamic5QIDescriptorExtIesExtensionIDExtendedPacketDelayBudget(IDExtendedPacketDelayBudget *xnapiesv1.ExtendedPacketDelayBudget) (*xnapiesv1.Dynamic5QidescriptorExtIesExtension, error) {
 
 	item := &xnapiesv1.Dynamic5QidescriptorExtIesExtension{
-		Dynamic5QidescriptorExtIesExtension: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdExtendedPacketDelayBudget{
+		Dynamic5QidescriptorExtIes: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdExtendedPacketDelayBudget{
 			IdExtendedPacketDelayBudget: IDExtendedPacketDelayBudget,
 		},
 	}
@@ -13978,7 +11866,7 @@ func CreateDynamic5QIDescriptorExtIesExtensionIDExtendedPacketDelayBudget(IDExte
 func CreateDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetDownlink(IDCnpacketDelayBudgetDownlink *xnapiesv1.ExtendedPacketDelayBudget) (*xnapiesv1.Dynamic5QidescriptorExtIesExtension, error) {
 
 	item := &xnapiesv1.Dynamic5QidescriptorExtIesExtension{
-		Dynamic5QidescriptorExtIesExtension: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink{
+		Dynamic5QidescriptorExtIes: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink{
 			IdCnpacketDelayBudgetDownlink: IDCnpacketDelayBudgetDownlink,
 		},
 	}
@@ -13992,7 +11880,7 @@ func CreateDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetDownlink(IDCn
 func CreateDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetUplink(IDCnpacketDelayBudgetUplink *xnapiesv1.ExtendedPacketDelayBudget) (*xnapiesv1.Dynamic5QidescriptorExtIesExtension, error) {
 
 	item := &xnapiesv1.Dynamic5QidescriptorExtIesExtension{
-		Dynamic5QidescriptorExtIesExtension: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink{
+		Dynamic5QidescriptorExtIes: &xnapiesv1.Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink{
 			IdCnpacketDelayBudgetUplink: IDCnpacketDelayBudgetUplink,
 		},
 	}
@@ -14076,7 +11964,7 @@ func CreateMeasurementThresholdL1LoggedMdtThresholdRsrq(thresholdRsrq *xnapiesv1
 func CreateGnbIDChoiceGnbID(gnbID *asn1.BitString) (*xnapiesv1.GnbIDChoice, error) {
 
 	item := &xnapiesv1.GnbIDChoice{
-		GnbIDChoice: &xnapiesv1.GnbIDChoice_GnbId{
+		GnbIdChoice: &xnapiesv1.GnbIDChoice_GnbId{
 			GnbId: gnbID,
 		},
 	}
@@ -14090,7 +11978,7 @@ func CreateGnbIDChoiceGnbID(gnbID *asn1.BitString) (*xnapiesv1.GnbIDChoice, erro
 func CreateGnbIDChoiceChoiceExtension(choiceExtension *xnapiesv1.GnbIDChoiceExtIes) (*xnapiesv1.GnbIDChoice, error) {
 
 	item := &xnapiesv1.GnbIDChoice{
-		GnbIDChoice: &xnapiesv1.GnbIDChoice_ChoiceExtension{
+		GnbIdChoice: &xnapiesv1.GnbIDChoice_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14104,7 +11992,7 @@ func CreateGnbIDChoiceChoiceExtension(choiceExtension *xnapiesv1.GnbIDChoiceExtI
 func CreateEnbIDChoiceEnbIDMacro(enbIDMacro *asn1.BitString) (*xnapiesv1.EnbIDChoice, error) {
 
 	item := &xnapiesv1.EnbIDChoice{
-		EnbIDChoice: &xnapiesv1.EnbIDChoice_EnbIdMacro{
+		EnbIdChoice: &xnapiesv1.EnbIDChoice_EnbIdMacro{
 			EnbIdMacro: enbIDMacro,
 		},
 	}
@@ -14118,7 +12006,7 @@ func CreateEnbIDChoiceEnbIDMacro(enbIDMacro *asn1.BitString) (*xnapiesv1.EnbIDCh
 func CreateEnbIDChoiceEnbIDShortmacro(enbIDShortmacro *asn1.BitString) (*xnapiesv1.EnbIDChoice, error) {
 
 	item := &xnapiesv1.EnbIDChoice{
-		EnbIDChoice: &xnapiesv1.EnbIDChoice_EnbIdShortmacro{
+		EnbIdChoice: &xnapiesv1.EnbIDChoice_EnbIdShortmacro{
 			EnbIdShortmacro: enbIDShortmacro,
 		},
 	}
@@ -14132,7 +12020,7 @@ func CreateEnbIDChoiceEnbIDShortmacro(enbIDShortmacro *asn1.BitString) (*xnapies
 func CreateEnbIDChoiceEnbIDLongmacro(enbIDLongmacro *asn1.BitString) (*xnapiesv1.EnbIDChoice, error) {
 
 	item := &xnapiesv1.EnbIDChoice{
-		EnbIDChoice: &xnapiesv1.EnbIDChoice_EnbIdLongmacro{
+		EnbIdChoice: &xnapiesv1.EnbIDChoice_EnbIdLongmacro{
 			EnbIdLongmacro: enbIDLongmacro,
 		},
 	}
@@ -14146,7 +12034,7 @@ func CreateEnbIDChoiceEnbIDLongmacro(enbIDLongmacro *asn1.BitString) (*xnapiesv1
 func CreateEnbIDChoiceChoiceExtension(choiceExtension *xnapiesv1.EnbIDChoiceExtIes) (*xnapiesv1.EnbIDChoice, error) {
 
 	item := &xnapiesv1.EnbIDChoice{
-		EnbIDChoice: &xnapiesv1.EnbIDChoice_ChoiceExtension{
+		EnbIdChoice: &xnapiesv1.EnbIDChoice_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14160,7 +12048,7 @@ func CreateEnbIDChoiceChoiceExtension(choiceExtension *xnapiesv1.EnbIDChoiceExtI
 func CreateGlobalNgRAnnodeIDGNb(gNb *xnapiesv1.GlobalgNbID) (*xnapiesv1.GlobalNgRAnnodeID, error) {
 
 	item := &xnapiesv1.GlobalNgRAnnodeID{
-		GlobalNgRAnnodeID: &xnapiesv1.GlobalNgRAnnodeID_GNb{
+		GlobalNgRannodeId: &xnapiesv1.GlobalNgRAnnodeID_GNb{
 			GNb: gNb,
 		},
 	}
@@ -14174,7 +12062,7 @@ func CreateGlobalNgRAnnodeIDGNb(gNb *xnapiesv1.GlobalgNbID) (*xnapiesv1.GlobalNg
 func CreateGlobalNgRAnnodeIDNgENb(ngENb *xnapiesv1.GlobalngeNbID) (*xnapiesv1.GlobalNgRAnnodeID, error) {
 
 	item := &xnapiesv1.GlobalNgRAnnodeID{
-		GlobalNgRAnnodeID: &xnapiesv1.GlobalNgRAnnodeID_NgENb{
+		GlobalNgRannodeId: &xnapiesv1.GlobalNgRAnnodeID_NgENb{
 			NgENb: ngENb,
 		},
 	}
@@ -14188,7 +12076,7 @@ func CreateGlobalNgRAnnodeIDNgENb(ngENb *xnapiesv1.GlobalngeNbID) (*xnapiesv1.Gl
 func CreateGlobalNgRAnnodeIDChoiceExtension(choiceExtension *xnapiesv1.GlobalNgRAnnodeIDExtIes) (*xnapiesv1.GlobalNgRAnnodeID, error) {
 
 	item := &xnapiesv1.GlobalNgRAnnodeID{
-		GlobalNgRAnnodeID: &xnapiesv1.GlobalNgRAnnodeID_ChoiceExtension{
+		GlobalNgRannodeId: &xnapiesv1.GlobalNgRAnnodeID_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14244,7 +12132,7 @@ func CreateInitiatingConditionFailureIndicationChoiceExtension(choiceExtension *
 func CreateIRNtiIRntiFull(iRntiFull *asn1.BitString) (*xnapiesv1.IRNti, error) {
 
 	item := &xnapiesv1.IRNti{
-		IRNti: &xnapiesv1.IRNti_IRntiFull{
+		IRnti: &xnapiesv1.IRNti_IRntiFull{
 			IRntiFull: iRntiFull,
 		},
 	}
@@ -14258,7 +12146,7 @@ func CreateIRNtiIRntiFull(iRntiFull *asn1.BitString) (*xnapiesv1.IRNti, error) {
 func CreateIRNtiIRntiShort(iRntiShort *asn1.BitString) (*xnapiesv1.IRNti, error) {
 
 	item := &xnapiesv1.IRNti{
-		IRNti: &xnapiesv1.IRNti_IRntiShort{
+		IRnti: &xnapiesv1.IRNti_IRntiShort{
 			IRntiShort: iRntiShort,
 		},
 	}
@@ -14272,7 +12160,7 @@ func CreateIRNtiIRntiShort(iRntiShort *asn1.BitString) (*xnapiesv1.IRNti, error)
 func CreateIRNtiChoiceExtension(choiceExtension *xnapiesv1.IRNtiExtIes) (*xnapiesv1.IRNti, error) {
 
 	item := &xnapiesv1.IRNti{
-		IRNti: &xnapiesv1.IRNti_ChoiceExtension{
+		IRnti: &xnapiesv1.IRNti_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14356,7 +12244,7 @@ func CreateLastVisitedCellItemChoiceExtension(choiceExtension *xnapiesv1.LastVis
 func CreateMbsfnsubframeAllocationEUTraOneframe(oneframe *asn1.BitString) (*xnapiesv1.MbsfnsubframeAllocationEUTra, error) {
 
 	item := &xnapiesv1.MbsfnsubframeAllocationEUTra{
-		MbsfnsubframeAllocationEUTra: &xnapiesv1.MbsfnsubframeAllocationEUTra_Oneframe{
+		MbsfnsubframeAllocationEUtra: &xnapiesv1.MbsfnsubframeAllocationEUTra_Oneframe{
 			Oneframe: oneframe,
 		},
 	}
@@ -14370,7 +12258,7 @@ func CreateMbsfnsubframeAllocationEUTraOneframe(oneframe *asn1.BitString) (*xnap
 func CreateMbsfnsubframeAllocationEUTraFourframes(fourframes *asn1.BitString) (*xnapiesv1.MbsfnsubframeAllocationEUTra, error) {
 
 	item := &xnapiesv1.MbsfnsubframeAllocationEUTra{
-		MbsfnsubframeAllocationEUTra: &xnapiesv1.MbsfnsubframeAllocationEUTra_Fourframes{
+		MbsfnsubframeAllocationEUtra: &xnapiesv1.MbsfnsubframeAllocationEUTra_Fourframes{
 			Fourframes: fourframes,
 		},
 	}
@@ -14384,7 +12272,7 @@ func CreateMbsfnsubframeAllocationEUTraFourframes(fourframes *asn1.BitString) (*
 func CreateMbsfnsubframeAllocationEUTraChoiceExtension(choiceExtension *xnapiesv1.MbsfnsubframeAllocationEUTraExtIes) (*xnapiesv1.MbsfnsubframeAllocationEUTra, error) {
 
 	item := &xnapiesv1.MbsfnsubframeAllocationEUTra{
-		MbsfnsubframeAllocationEUTra: &xnapiesv1.MbsfnsubframeAllocationEUTra_ChoiceExtension{
+		MbsfnsubframeAllocationEUtra: &xnapiesv1.MbsfnsubframeAllocationEUTra_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14398,7 +12286,7 @@ func CreateMbsfnsubframeAllocationEUTraChoiceExtension(choiceExtension *xnapiesv
 func CreateMdtmodeNRImmediateMdt(immediateMdt *xnapiesv1.ImmediateMdtNR) (*xnapiesv1.MdtmodeNR, error) {
 
 	item := &xnapiesv1.MdtmodeNR{
-		MdtmodeNR: &xnapiesv1.MdtmodeNR_ImmediateMdt{
+		MdtmodeNr: &xnapiesv1.MdtmodeNR_ImmediateMdt{
 			ImmediateMdt: immediateMdt,
 		},
 	}
@@ -14412,7 +12300,7 @@ func CreateMdtmodeNRImmediateMdt(immediateMdt *xnapiesv1.ImmediateMdtNR) (*xnapi
 func CreateMdtmodeNRLoggedMdt(loggedMdt *xnapiesv1.LoggedMdtNR) (*xnapiesv1.MdtmodeNR, error) {
 
 	item := &xnapiesv1.MdtmodeNR{
-		MdtmodeNR: &xnapiesv1.MdtmodeNR_LoggedMdt{
+		MdtmodeNr: &xnapiesv1.MdtmodeNR_LoggedMdt{
 			LoggedMdt: loggedMdt,
 		},
 	}
@@ -14426,7 +12314,7 @@ func CreateMdtmodeNRLoggedMdt(loggedMdt *xnapiesv1.LoggedMdtNR) (*xnapiesv1.Mdtm
 func CreateMdtmodeNRMDtmodeNrExtension(mDtmodeNrExtension *xnapiesv1.MdtmodeNRExtension) (*xnapiesv1.MdtmodeNR, error) {
 
 	item := &xnapiesv1.MdtmodeNR{
-		MdtmodeNR: &xnapiesv1.MdtmodeNR_MDtmodeNrExtension{
+		MdtmodeNr: &xnapiesv1.MdtmodeNR_MDtmodeNrExtension{
 			MDtmodeNrExtension: mDtmodeNrExtension,
 		},
 	}
@@ -14440,7 +12328,7 @@ func CreateMdtmodeNRMDtmodeNrExtension(mDtmodeNrExtension *xnapiesv1.MdtmodeNREx
 func CreateMdtmodeEUtraImmediateMdt(immediateMdt *xnapiesv1.ImmediateMdtEUtra) (*xnapiesv1.MdtmodeEUtra, error) {
 
 	item := &xnapiesv1.MdtmodeEUtra{
-		MdtmodeEUtra: &xnapiesv1.MdtmodeEUtra_ImmediateMdt{
+		MdtmodeEutra: &xnapiesv1.MdtmodeEUtra_ImmediateMdt{
 			ImmediateMdt: immediateMdt,
 		},
 	}
@@ -14454,7 +12342,7 @@ func CreateMdtmodeEUtraImmediateMdt(immediateMdt *xnapiesv1.ImmediateMdtEUtra) (
 func CreateMdtmodeEUtraLoggedMdt(loggedMdt *xnapiesv1.LoggedMdtEUtra) (*xnapiesv1.MdtmodeEUtra, error) {
 
 	item := &xnapiesv1.MdtmodeEUtra{
-		MdtmodeEUtra: &xnapiesv1.MdtmodeEUtra_LoggedMdt{
+		MdtmodeEutra: &xnapiesv1.MdtmodeEUtra_LoggedMdt{
 			LoggedMdt: loggedMdt,
 		},
 	}
@@ -14468,7 +12356,7 @@ func CreateMdtmodeEUtraLoggedMdt(loggedMdt *xnapiesv1.LoggedMdtEUtra) (*xnapiesv
 func CreateMdtmodeEUtraMDtmodeEutraExtension(mDtmodeEutraExtension *xnapiesv1.MdtmodeEUtraExtension) (*xnapiesv1.MdtmodeEUtra, error) {
 
 	item := &xnapiesv1.MdtmodeEUtra{
-		MdtmodeEUtra: &xnapiesv1.MdtmodeEUtra_MDtmodeEutraExtension{
+		MdtmodeEutra: &xnapiesv1.MdtmodeEUtra_MDtmodeEutraExtension{
 			MDtmodeEutraExtension: mDtmodeEutraExtension,
 		},
 	}
@@ -14535,16 +12423,16 @@ func CreateMeasurementThresholdA2ChoiceExtension(choiceExtension *xnapiesv1.Meas
 
 	return item, nil
 }
-func CreateMobilityRestrictionListExtIesExtensionIdLastEUtranplmnidentity(idLastEUtranplmnidentity *xnapiesv1.PlmnIdentity) (*xnapiesv1.MobilityRestrictionListExtIesExtension, error) {
+func CreateMobilityRestrictionListExtIesExtensionIDLastEUtranplmnidentity(idLastEUtranplmnidentity *xnapiesv1.PlmnIdentity) (*xnapiesv1.MobilityRestrictionListExtIesExtension, error) {
 
 	item := &xnapiesv1.MobilityRestrictionListExtIesExtension{
-		MobilityRestrictionListExtIesExtension: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdLastEUtranplmnidentity{
+		MobilityRestrictionListExtIes: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdLastEUtranplmnidentity{
 			IdLastEUtranplmnidentity: idLastEUtranplmnidentity,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateMobilityRestrictionListExtIesExtensionIdLastEUtranplmnidentity() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateMobilityRestrictionListExtIesExtensionIDLastEUtranplmnidentity() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
@@ -14552,7 +12440,7 @@ func CreateMobilityRestrictionListExtIesExtensionIdLastEUtranplmnidentity(idLast
 func CreateMobilityRestrictionListExtIesExtensionIDCntypeRestrictionsForServing(IDCntypeRestrictionsForServing xnapiesv1.CntypeRestrictionsForServing) (*xnapiesv1.MobilityRestrictionListExtIesExtension, error) {
 
 	item := &xnapiesv1.MobilityRestrictionListExtIesExtension{
-		MobilityRestrictionListExtIesExtension: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForServing{
+		MobilityRestrictionListExtIes: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForServing{
 			IdCntypeRestrictionsForServing: IDCntypeRestrictionsForServing,
 		},
 	}
@@ -14566,7 +12454,7 @@ func CreateMobilityRestrictionListExtIesExtensionIDCntypeRestrictionsForServing(
 func CreateMobilityRestrictionListExtIesExtensionIDCntypeRestrictionsForEquivalent(IDCntypeRestrictionsForEquivalent *xnapiesv1.CntypeRestrictionsForEquivalent) (*xnapiesv1.MobilityRestrictionListExtIesExtension, error) {
 
 	item := &xnapiesv1.MobilityRestrictionListExtIesExtension{
-		MobilityRestrictionListExtIesExtension: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForEquivalent{
+		MobilityRestrictionListExtIes: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForEquivalent{
 			IdCntypeRestrictionsForEquivalent: IDCntypeRestrictionsForEquivalent,
 		},
 	}
@@ -14580,7 +12468,7 @@ func CreateMobilityRestrictionListExtIesExtensionIDCntypeRestrictionsForEquivale
 func CreateMobilityRestrictionListExtIesExtensionIDNpnmobilityInformation(IDNpnmobilityInformation *xnapiesv1.NpnmobilityInformation) (*xnapiesv1.MobilityRestrictionListExtIesExtension, error) {
 
 	item := &xnapiesv1.MobilityRestrictionListExtIesExtension{
-		MobilityRestrictionListExtIesExtension: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdNpnmobilityInformation{
+		MobilityRestrictionListExtIes: &xnapiesv1.MobilityRestrictionListExtIesExtension_IdNpnmobilityInformation{
 			IdNpnmobilityInformation: IDNpnmobilityInformation,
 		},
 	}
@@ -14594,7 +12482,7 @@ func CreateMobilityRestrictionListExtIesExtensionIDNpnmobilityInformation(IDNpnm
 func CreateNgRAnNodeResourceCoordinationInfoEutraResourceCoordinationInfo(eutraResourceCoordinationInfo *xnapiesv1.EUTraResourceCoordinationInfo) (*xnapiesv1.NgRAnNodeResourceCoordinationInfo, error) {
 
 	item := &xnapiesv1.NgRAnNodeResourceCoordinationInfo{
-		NgRAnNodeResourceCoordinationInfo: &xnapiesv1.NgRAnNodeResourceCoordinationInfo_EutraResourceCoordinationInfo{
+		NgRanNodeResourceCoordinationInfo: &xnapiesv1.NgRAnNodeResourceCoordinationInfo_EutraResourceCoordinationInfo{
 			EutraResourceCoordinationInfo: eutraResourceCoordinationInfo,
 		},
 	}
@@ -14608,7 +12496,7 @@ func CreateNgRAnNodeResourceCoordinationInfoEutraResourceCoordinationInfo(eutraR
 func CreateNgRAnNodeResourceCoordinationInfoNrResourceCoordinationInfo(nrResourceCoordinationInfo *xnapiesv1.NrResourceCoordinationInfo) (*xnapiesv1.NgRAnNodeResourceCoordinationInfo, error) {
 
 	item := &xnapiesv1.NgRAnNodeResourceCoordinationInfo{
-		NgRAnNodeResourceCoordinationInfo: &xnapiesv1.NgRAnNodeResourceCoordinationInfo_NrResourceCoordinationInfo{
+		NgRanNodeResourceCoordinationInfo: &xnapiesv1.NgRAnNodeResourceCoordinationInfo_NrResourceCoordinationInfo{
 			NrResourceCoordinationInfo: nrResourceCoordinationInfo,
 		},
 	}
@@ -14622,7 +12510,7 @@ func CreateNgRAnNodeResourceCoordinationInfoNrResourceCoordinationInfo(nrResourc
 func CreateNeighbourInformationNRModeInfoFddInfo(fddInfo *xnapiesv1.NeighbourInformationNRModeFddinfo) (*xnapiesv1.NeighbourInformationNRModeInfo, error) {
 
 	item := &xnapiesv1.NeighbourInformationNRModeInfo{
-		NeighbourInformationNRModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_FddInfo{
+		NeighbourInformationNrModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_FddInfo{
 			FddInfo: fddInfo,
 		},
 	}
@@ -14636,7 +12524,7 @@ func CreateNeighbourInformationNRModeInfoFddInfo(fddInfo *xnapiesv1.NeighbourInf
 func CreateNeighbourInformationNRModeInfoTddInfo(tddInfo *xnapiesv1.NeighbourInformationNRModeTddinfo) (*xnapiesv1.NeighbourInformationNRModeInfo, error) {
 
 	item := &xnapiesv1.NeighbourInformationNRModeInfo{
-		NeighbourInformationNRModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_TddInfo{
+		NeighbourInformationNrModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_TddInfo{
 			TddInfo: tddInfo,
 		},
 	}
@@ -14650,7 +12538,7 @@ func CreateNeighbourInformationNRModeInfoTddInfo(tddInfo *xnapiesv1.NeighbourInf
 func CreateNeighbourInformationNRModeInfoChoiceExtension(choiceExtension *xnapiesv1.NeighbourInformationNRModeInfoExtIes) (*xnapiesv1.NeighbourInformationNRModeInfo, error) {
 
 	item := &xnapiesv1.NeighbourInformationNRModeInfo{
-		NeighbourInformationNRModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_ChoiceExtension{
+		NeighbourInformationNrModeInfo: &xnapiesv1.NeighbourInformationNRModeInfo_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14664,7 +12552,7 @@ func CreateNeighbourInformationNRModeInfoChoiceExtension(choiceExtension *xnapie
 func CreateNgRAnCellIdentityNr(nr *xnapiesv1.NrCellIdentity) (*xnapiesv1.NgRAnCellIdentity, error) {
 
 	item := &xnapiesv1.NgRAnCellIdentity{
-		NgRAnCellIdentity: &xnapiesv1.NgRAnCellIdentity_Nr{
+		NgRanCellIdentity: &xnapiesv1.NgRAnCellIdentity_Nr{
 			Nr: nr,
 		},
 	}
@@ -14678,7 +12566,7 @@ func CreateNgRAnCellIdentityNr(nr *xnapiesv1.NrCellIdentity) (*xnapiesv1.NgRAnCe
 func CreateNgRAnCellIdentityEUtra(eUtra *xnapiesv1.EUTraCellIdentity) (*xnapiesv1.NgRAnCellIdentity, error) {
 
 	item := &xnapiesv1.NgRAnCellIdentity{
-		NgRAnCellIdentity: &xnapiesv1.NgRAnCellIdentity_EUtra{
+		NgRanCellIdentity: &xnapiesv1.NgRAnCellIdentity_EUtra{
 			EUtra: eUtra,
 		},
 	}
@@ -14692,7 +12580,7 @@ func CreateNgRAnCellIdentityEUtra(eUtra *xnapiesv1.EUTraCellIdentity) (*xnapiesv
 func CreateNgRAnCellIdentityChoiceExtension(choiceExtension *xnapiesv1.NgRAnCellIdentityExtIes) (*xnapiesv1.NgRAnCellIdentity, error) {
 
 	item := &xnapiesv1.NgRAnCellIdentity{
-		NgRAnCellIdentity: &xnapiesv1.NgRAnCellIdentity_ChoiceExtension{
+		NgRanCellIdentity: &xnapiesv1.NgRAnCellIdentity_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14706,7 +12594,7 @@ func CreateNgRAnCellIdentityChoiceExtension(choiceExtension *xnapiesv1.NgRAnCell
 func CreateNgRAnCellPciNr(nr *xnapiesv1.Nrpci) (*xnapiesv1.NgRAnCellPci, error) {
 
 	item := &xnapiesv1.NgRAnCellPci{
-		NgRAnCellPci: &xnapiesv1.NgRAnCellPci_Nr{
+		NgRanCellPci: &xnapiesv1.NgRAnCellPci_Nr{
 			Nr: nr,
 		},
 	}
@@ -14720,7 +12608,7 @@ func CreateNgRAnCellPciNr(nr *xnapiesv1.Nrpci) (*xnapiesv1.NgRAnCellPci, error) 
 func CreateNgRAnCellPciEUtra(eUtra *xnapiesv1.EUTrapci) (*xnapiesv1.NgRAnCellPci, error) {
 
 	item := &xnapiesv1.NgRAnCellPci{
-		NgRAnCellPci: &xnapiesv1.NgRAnCellPci_EUtra{
+		NgRanCellPci: &xnapiesv1.NgRAnCellPci_EUtra{
 			EUtra: eUtra,
 		},
 	}
@@ -14734,7 +12622,7 @@ func CreateNgRAnCellPciEUtra(eUtra *xnapiesv1.EUTrapci) (*xnapiesv1.NgRAnCellPci
 func CreateNgRAnCellPciChoiceExtension(choiceExtension *xnapiesv1.NgRAnCellPciExtIes) (*xnapiesv1.NgRAnCellPci, error) {
 
 	item := &xnapiesv1.NgRAnCellPci{
-		NgRAnCellPci: &xnapiesv1.NgRAnCellPci_ChoiceExtension{
+		NgRanCellPci: &xnapiesv1.NgRAnCellPci_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14748,7 +12636,7 @@ func CreateNgRAnCellPciChoiceExtension(choiceExtension *xnapiesv1.NgRAnCellPciEx
 func CreateNonDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetDownlink(IDCnpacketDelayBudgetDownlink *xnapiesv1.ExtendedPacketDelayBudget) (*xnapiesv1.NonDynamic5QidescriptorExtIesExtension, error) {
 
 	item := &xnapiesv1.NonDynamic5QidescriptorExtIesExtension{
-		NonDynamic5QidescriptorExtIesExtension: &xnapiesv1.NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink{
+		NonDynamic5QidescriptorExtIes: &xnapiesv1.NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink{
 			IdCnpacketDelayBudgetDownlink: IDCnpacketDelayBudgetDownlink,
 		},
 	}
@@ -14762,7 +12650,7 @@ func CreateNonDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetDownlink(I
 func CreateNonDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetUplink(IDCnpacketDelayBudgetUplink *xnapiesv1.ExtendedPacketDelayBudget) (*xnapiesv1.NonDynamic5QidescriptorExtIesExtension, error) {
 
 	item := &xnapiesv1.NonDynamic5QidescriptorExtIesExtension{
-		NonDynamic5QidescriptorExtIesExtension: &xnapiesv1.NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink{
+		NonDynamic5QidescriptorExtIes: &xnapiesv1.NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink{
 			IdCnpacketDelayBudgetUplink: IDCnpacketDelayBudgetUplink,
 		},
 	}
@@ -14776,7 +12664,7 @@ func CreateNonDynamic5QIDescriptorExtIesExtensionIDCnpacketDelayBudgetUplink(IDC
 func CreateNgeNbRadioResourceStatusExtIesExtensionIDDlSchedulingPdcchCceUsage(IDDlSchedulingPdcchCceUsage *xnapiesv1.DlschedulingPDcchCCeusage) (*xnapiesv1.NgeNbRadioResourceStatusExtIesExtension, error) {
 
 	item := &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension{
-		NgeNbRadioResourceStatusExtIesExtension: &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension_IdDlSchedulingPdcchCceUsage{
+		NgENbRadioResourceStatusExtIes: &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension_IdDlSchedulingPdcchCceUsage{
 			IdDlSchedulingPdcchCceUsage: IDDlSchedulingPdcchCceUsage,
 		},
 	}
@@ -14790,7 +12678,7 @@ func CreateNgeNbRadioResourceStatusExtIesExtensionIDDlSchedulingPdcchCceUsage(ID
 func CreateNgeNbRadioResourceStatusExtIesExtensionIDUlSchedulingPdcchCceUsage(IDUlSchedulingPdcchCceUsage *xnapiesv1.UlschedulingPDcchCCeusage) (*xnapiesv1.NgeNbRadioResourceStatusExtIesExtension, error) {
 
 	item := &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension{
-		NgeNbRadioResourceStatusExtIesExtension: &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension_IdUlSchedulingPdcchCceUsage{
+		NgENbRadioResourceStatusExtIes: &xnapiesv1.NgeNbRadioResourceStatusExtIesExtension_IdUlSchedulingPdcchCceUsage{
 			IdUlSchedulingPdcchCceUsage: IDUlSchedulingPdcchCceUsage,
 		},
 	}
@@ -14913,7 +12801,7 @@ func CreateNpnpagingAssistanceInformationChoiceExtension(choiceExtension *xnapie
 
 	return item, nil
 }
-func CreateNpnSupportSNpn(sNpn *xnapiesv1.NpnSupportSNpn) (*xnapiesv1.NpnSupport, error) {
+func CreateNpnSupportSNpnChoice(sNpn *xnapiesv1.NpnSupportSNpn) (*xnapiesv1.NpnSupport, error) {
 
 	item := &xnapiesv1.NpnSupport{
 		NpnSupport: &xnapiesv1.NpnSupport_SNpn{
@@ -14944,7 +12832,7 @@ func CreateNpnSupportChoiceExtensions(choiceExtensions *xnapiesv1.NpnSupportExtI
 func CreateFddortddNprachconfigurationFdd(fdd *xnapiesv1.NprachconfigurationFDd) (*xnapiesv1.FddortddNprachconfiguration, error) {
 
 	item := &xnapiesv1.FddortddNprachconfiguration{
-		FddortddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_Fdd{
+		FddOrTddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_Fdd{
 			Fdd: fdd,
 		},
 	}
@@ -14958,7 +12846,7 @@ func CreateFddortddNprachconfigurationFdd(fdd *xnapiesv1.NprachconfigurationFDd)
 func CreateFddortddNprachconfigurationTdd(tdd *xnapiesv1.NprachconfigurationTDd) (*xnapiesv1.FddortddNprachconfiguration, error) {
 
 	item := &xnapiesv1.FddortddNprachconfiguration{
-		FddortddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_Tdd{
+		FddOrTddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_Tdd{
 			Tdd: tdd,
 		},
 	}
@@ -14972,7 +12860,7 @@ func CreateFddortddNprachconfigurationTdd(tdd *xnapiesv1.NprachconfigurationTDd)
 func CreateFddortddNprachconfigurationChoiceExtension(choiceExtension *xnapiesv1.FddorTDdinNPrachconfigurationChoiceExtIes) (*xnapiesv1.FddortddNprachconfiguration, error) {
 
 	item := &xnapiesv1.FddortddNprachconfiguration{
-		FddortddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_ChoiceExtension{
+		FddOrTddNprachconfiguration: &xnapiesv1.FddortddNprachconfiguration_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -14983,7 +12871,7 @@ func CreateFddortddNprachconfigurationChoiceExtension(choiceExtension *xnapiesv1
 
 	return item, nil
 }
-func CreateNrmodeInfoFdd(fdd *xnapiesv1.NrmodeInfoFdd) (*xnapiesv1.NrmodeInfo, error) {
+func CreateNrmodeInfoFddChoice(fdd *xnapiesv1.NrmodeInfoFdd) (*xnapiesv1.NrmodeInfo, error) {
 
 	item := &xnapiesv1.NrmodeInfo{
 		NrmodeInfo: &xnapiesv1.NrmodeInfo_Fdd{
@@ -14997,7 +12885,7 @@ func CreateNrmodeInfoFdd(fdd *xnapiesv1.NrmodeInfoFdd) (*xnapiesv1.NrmodeInfo, e
 
 	return item, nil
 }
-func CreateNrmodeInfoTdd(tdd *xnapiesv1.NrmodeInfoTdd) (*xnapiesv1.NrmodeInfo, error) {
+func CreateNrmodeInfoTddChoice(tdd *xnapiesv1.NrmodeInfoTdd) (*xnapiesv1.NrmodeInfo, error) {
 
 	item := &xnapiesv1.NrmodeInfo{
 		NrmodeInfo: &xnapiesv1.NrmodeInfo_Tdd{
@@ -15028,7 +12916,7 @@ func CreateNrmodeInfoChoiceExtension(choiceExtension *xnapiesv1.NrmodeInfoExtIes
 func CreateNrmodeInfoFddExtIesExtensionIDUlcarrierList(IDUlcarrierList *xnapiesv1.NrcarrierList) (*xnapiesv1.NrmodeInfoFddExtIesExtension, error) {
 
 	item := &xnapiesv1.NrmodeInfoFddExtIesExtension{
-		NrmodeInfoFddExtIesExtension: &xnapiesv1.NrmodeInfoFddExtIesExtension_IdUlcarrierList{
+		NrmodeInfoFddExtIes: &xnapiesv1.NrmodeInfoFddExtIesExtension_IdUlcarrierList{
 			IdUlcarrierList: IDUlcarrierList,
 		},
 	}
@@ -15042,7 +12930,7 @@ func CreateNrmodeInfoFddExtIesExtensionIDUlcarrierList(IDUlcarrierList *xnapiesv
 func CreateNrmodeInfoFddExtIesExtensionIDDlcarrierList(IDDlcarrierList *xnapiesv1.NrcarrierList) (*xnapiesv1.NrmodeInfoFddExtIesExtension, error) {
 
 	item := &xnapiesv1.NrmodeInfoFddExtIesExtension{
-		NrmodeInfoFddExtIesExtension: &xnapiesv1.NrmodeInfoFddExtIesExtension_IdDlcarrierList{
+		NrmodeInfoFddExtIes: &xnapiesv1.NrmodeInfoFddExtIesExtension_IdDlcarrierList{
 			IdDlcarrierList: IDDlcarrierList,
 		},
 	}
@@ -15056,7 +12944,7 @@ func CreateNrmodeInfoFddExtIesExtensionIDDlcarrierList(IDDlcarrierList *xnapiesv
 func CreateNrmodeInfoTddExtIesExtensionIDIntendedTddDlUlconfigurationNr(IDIntendedTddDlUlconfigurationNr *xnapiesv1.IntendedTddDLULconfigurationNR) (*xnapiesv1.NrmodeInfoTddExtIesExtension, error) {
 
 	item := &xnapiesv1.NrmodeInfoTddExtIesExtension{
-		NrmodeInfoTddExtIesExtension: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdIntendedTddDlUlconfigurationNr{
+		NrmodeInfoTddExtIes: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdIntendedTddDlUlconfigurationNr{
 			IdIntendedTddDlUlconfigurationNr: IDIntendedTddDlUlconfigurationNr,
 		},
 	}
@@ -15070,7 +12958,7 @@ func CreateNrmodeInfoTddExtIesExtensionIDIntendedTddDlUlconfigurationNr(IDIntend
 func CreateNrmodeInfoTddExtIesExtensionIDTdduldlconfigurationCommonNr(IDTdduldlconfigurationCommonNr *xnapiesv1.TdduldlconfigurationCommonNr) (*xnapiesv1.NrmodeInfoTddExtIesExtension, error) {
 
 	item := &xnapiesv1.NrmodeInfoTddExtIesExtension{
-		NrmodeInfoTddExtIesExtension: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdTdduldlconfigurationCommonNr{
+		NrmodeInfoTddExtIes: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdTdduldlconfigurationCommonNr{
 			IdTdduldlconfigurationCommonNr: IDTdduldlconfigurationCommonNr,
 		},
 	}
@@ -15084,7 +12972,7 @@ func CreateNrmodeInfoTddExtIesExtensionIDTdduldlconfigurationCommonNr(IDTdduldlc
 func CreateNrmodeInfoTddExtIesExtensionIDCarrierList(IDCarrierList *xnapiesv1.NrcarrierList) (*xnapiesv1.NrmodeInfoTddExtIesExtension, error) {
 
 	item := &xnapiesv1.NrmodeInfoTddExtIesExtension{
-		NrmodeInfoTddExtIesExtension: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdCarrierList{
+		NrmodeInfoTddExtIes: &xnapiesv1.NrmodeInfoTddExtIesExtension_IdCarrierList{
 			IdCarrierList: IDCarrierList,
 		},
 	}
@@ -15140,7 +13028,7 @@ func CreatePdcpchangeIndicationChoiceExtension(choiceExtension *xnapiesv1.Pdcpch
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDAdditionalUlNgUTnlatUpfList(IDAdditionalUlNgUTnlatUpfList *xnapiesv1.AdditionalULNGUTNlatUpfList) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalUlNgUTnlatUpfList{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalUlNgUTnlatUpfList{
 			IdAdditionalUlNgUTnlatUpfList: IDAdditionalUlNgUTnlatUpfList,
 		},
 	}
@@ -15154,7 +13042,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDAdditionalUlNgUTnlat
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDPdusessionCommonNetworkInstance(IDPdusessionCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdPdusessionCommonNetworkInstance{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdPdusessionCommonNetworkInstance{
 			IdPdusessionCommonNetworkInstance: IDPdusessionCommonNetworkInstance,
 		},
 	}
@@ -15168,7 +13056,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDPdusessionCommonNetw
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantUlNgUTnlatUpf(IDRedundantUlNgUTnlatUpf *xnapiesv1.UptransportLayerInformation) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantUlNgUTnlatUpf{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantUlNgUTnlatUpf{
 			IdRedundantUlNgUTnlatUpf: IDRedundantUlNgUTnlatUpf,
 		},
 	}
@@ -15182,7 +13070,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantUlNgUTnlatU
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDAdditionalRedundantUlNgUTnlatUpfList(IDAdditionalRedundantUlNgUTnlatUpfList *xnapiesv1.AdditionalULNGUTNlatUpfList) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalRedundantUlNgUTnlatUpfList{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalRedundantUlNgUTnlatUpfList{
 			IdAdditionalRedundantUlNgUTnlatUpfList: IDAdditionalRedundantUlNgUTnlatUpfList,
 		},
 	}
@@ -15196,7 +13084,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDAdditionalRedundantU
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantCommonNetworkInstance(IDRedundantCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantCommonNetworkInstance{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantCommonNetworkInstance{
 			IdRedundantCommonNetworkInstance: IDRedundantCommonNetworkInstance,
 		},
 	}
@@ -15210,7 +13098,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantCommonNetwo
 func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantPdusessionInformation(IDRedundantPdusessionInformation *xnapiesv1.RedundantPdusessionInformation) (*xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension{
-		PdusessionResourcesToBeSetupItemExtIesExtension: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantPdusessionInformation{
+		PdusessionResourcesToBeSetupItemExtIes: &xnapiesv1.PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantPdusessionInformation{
 			IdRedundantPdusessionInformation: IDRedundantPdusessionInformation,
 		},
 	}
@@ -15224,7 +13112,7 @@ func CreatePdusessionResourcesToBeSetupItemExtIesExtensionIDRedundantPdusessionI
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDSecurityResult(IDSecurityResult *xnapiesv1.SecurityResult) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSecurityResult{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSecurityResult{
 			IdSecurityResult: IDSecurityResult,
 		},
 	}
@@ -15238,7 +13126,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDSecurityResul
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDPdusessionCommonNetworkInstance(IDPdusessionCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance{
 			IdPdusessionCommonNetworkInstance: IDPdusessionCommonNetworkInstance,
 		},
 	}
@@ -15252,7 +13140,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDPdusessionCom
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDDefaultDrbAllowed(IDDefaultDrbAllowed xnapiesv1.DefaultDrbAllowed) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed{
 			IdDefaultDrbAllowed: IDDefaultDrbAllowed,
 		},
 	}
@@ -15266,7 +13154,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDDefaultDrbAll
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDSplitSessionIndicator(IDSplitSessionIndicator xnapiesv1.SplitSessionIndicator) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSplitSessionIndicator{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSplitSessionIndicator{
 			IdSplitSessionIndicator: IDSplitSessionIndicator,
 		},
 	}
@@ -15280,7 +13168,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDSplitSessionI
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDNonGbrresourcesOffered(IDNonGbrresourcesOffered xnapiesv1.NonGbrresourcesOffered) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered{
 			IdNonGbrresourcesOffered: IDNonGbrresourcesOffered,
 		},
 	}
@@ -15294,7 +13182,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDNonGbrresourc
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantUlNgUTnlatUpf(IDRedundantUlNgUTnlatUpf *xnapiesv1.UptransportLayerInformation) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf{
 			IdRedundantUlNgUTnlatUpf: IDRedundantUlNgUTnlatUpf,
 		},
 	}
@@ -15308,7 +13196,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantUlNg
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantCommonNetworkInstance(IDRedundantCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance{
 			IdRedundantCommonNetworkInstance: IDRedundantCommonNetworkInstance,
 		},
 	}
@@ -15322,7 +13210,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantComm
 func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantPdusessionInformation(IDRedundantPdusessionInformation *xnapiesv1.RedundantPdusessionInformation) (*xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantPdusessionInformation{
+		PdusessionResourceSetupInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantPdusessionInformation{
 			IdRedundantPdusessionInformation: IDRedundantPdusessionInformation,
 		},
 	}
@@ -15336,7 +13224,7 @@ func CreatePdusessionResourceSetupInfoSNterminatedExtIesExtensionIDRedundantPdus
 func CreateQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtensionIDTsctrafficCharacteristics(IDTsctrafficCharacteristics *xnapiesv1.TsctrafficCharacteristics) (*xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension{
-		QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics{
+		QoSflowsToBeSetupListSetupSnterminatedItemExtIes: &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics{
 			IdTsctrafficCharacteristics: IDTsctrafficCharacteristics,
 		},
 	}
@@ -15350,7 +13238,7 @@ func CreateQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtensionIDTsctraffic
 func CreateQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtensionIDRedundantQoSflowIndicator(IDRedundantQoSflowIndicator xnapiesv1.RedundantQoSflowIndicator) (*xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension{
-		QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator{
+		QoSflowsToBeSetupListSetupSnterminatedItemExtIes: &xnapiesv1.QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator{
 			IdRedundantQoSflowIndicator: IDRedundantQoSflowIndicator,
 		},
 	}
@@ -15364,7 +13252,7 @@ func CreateQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtensionIDRedundantQ
 func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDDrbIDsTakenintouse(IDDrbIDsTakenintouse *xnapiesv1.DrbList) (*xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse{
+		PdusessionResourceSetupResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse{
 			IdDrbIdsTakenintouse: IDDrbIDsTakenintouse,
 		},
 	}
@@ -15378,7 +13266,7 @@ func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDDrbID
 func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDRedundantDlNgUTnlatNgRan(IDRedundantDlNgUTnlatNgRan *xnapiesv1.UptransportLayerInformation) (*xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan{
+		PdusessionResourceSetupResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan{
 			IdRedundantDlNgUTnlatNgRan: IDRedundantDlNgUTnlatNgRan,
 		},
 	}
@@ -15392,7 +13280,7 @@ func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDRedun
 func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDUsedRsninformation(IDUsedRsninformation *xnapiesv1.RedundantPdusessionInformation) (*xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdUsedRsninformation{
+		PdusessionResourceSetupResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdUsedRsninformation{
 			IdUsedRsninformation: IDUsedRsninformation,
 		},
 	}
@@ -15406,7 +13294,7 @@ func CreatePdusessionResourceSetupResponseInfoSNterminatedExtIesExtensionIDUsedR
 func CreateDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension{
-		DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeSetupListSetupResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15420,7 +13308,7 @@ func CreateDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtensionIDAdditi
 func CreateDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension{
-		DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeSetupListSetupResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15434,7 +13322,7 @@ func CreateDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtensionIDRlcdup
 func CreateQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtensionIDCurrentQoSparaSetIndex(IDCurrentQoSparaSetIndex *xnapiesv1.QoSparaSetIndex) (*xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension{
-		QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdCurrentQoSparaSetIndex{
+		QoSflowsMappedtoDrbSetupResponseSnterminatedItemExtIes: &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdCurrentQoSparaSetIndex{
 			IdCurrentQoSparaSetIndex: IDCurrentQoSparaSetIndex,
 		},
 	}
@@ -15448,7 +13336,7 @@ func CreateQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtensionIDCurr
 func CreateQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtensionIDSourceDlforwardingIpaddress(IDSourceDlforwardingIpaddress *xnapiesv1.TransportLayerAddress) (*xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension{
-		QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdSourceDlforwardingIpaddress{
+		QoSflowsMappedtoDrbSetupResponseSnterminatedItemExtIes: &xnapiesv1.QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdSourceDlforwardingIpaddress{
 			IdSourceDlforwardingIpaddress: IDSourceDlforwardingIpaddress,
 		},
 	}
@@ -15462,7 +13350,7 @@ func CreateQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtensionIDSour
 func CreateDrbsToBeSetupListSetupMNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension{
-		DrbsToBeSetupListSetupMNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeSetupListSetupMnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15476,7 +13364,7 @@ func CreateDrbsToBeSetupListSetupMNterminatedItemExtIesExtensionIDAdditionalPdcp
 func CreateDrbsToBeSetupListSetupMNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension{
-		DrbsToBeSetupListSetupMNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeSetupListSetupMnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15490,7 +13378,7 @@ func CreateDrbsToBeSetupListSetupMNterminatedItemExtIesExtensionIDRlcduplication
 func CreateDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension{
-		DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension: &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsAdmittedListSetupResponseMnterminatedItemExtIes: &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15504,7 +13392,7 @@ func CreateDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtensionIDAdditio
 func CreateDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtensionIDQoSflowsMappedtoDrbSetupResponseMnterminated(IDQoSflowsMappedtoDrbSetupResponseMnterminated *xnapiesv1.QoSflowsMappedtoDrbSetupResponseMNterminated) (*xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension{
-		DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension: &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated{
+		DrbsAdmittedListSetupResponseMnterminatedItemExtIes: &xnapiesv1.DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated{
 			IdQoSflowsMappedtoDrbSetupResponseMnterminated: IDQoSflowsMappedtoDrbSetupResponseMnterminated,
 		},
 	}
@@ -15518,7 +13406,7 @@ func CreateDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtensionIDQoSflow
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDPdusessionCommonNetworkInstance(IDPdusessionCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance{
 			IdPdusessionCommonNetworkInstance: IDPdusessionCommonNetworkInstance,
 		},
 	}
@@ -15532,7 +13420,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDPduses
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDDefaultDrbAllowed(IDDefaultDrbAllowed xnapiesv1.DefaultDrbAllowed) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed{
 			IdDefaultDrbAllowed: IDDefaultDrbAllowed,
 		},
 	}
@@ -15546,7 +13434,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDDefaul
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDNonGbrresourcesOffered(IDNonGbrresourcesOffered xnapiesv1.NonGbrresourcesOffered) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered{
 			IdNonGbrresourcesOffered: IDNonGbrresourcesOffered,
 		},
 	}
@@ -15560,7 +13448,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDNonGbr
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDRedundantUlNgUTnlatUpf(IDRedundantUlNgUTnlatUpf *xnapiesv1.UptransportLayerInformation) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf{
 			IdRedundantUlNgUTnlatUpf: IDRedundantUlNgUTnlatUpf,
 		},
 	}
@@ -15574,7 +13462,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDRedund
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDRedundantCommonNetworkInstance(IDRedundantCommonNetworkInstance *xnapiesv1.PdusessionCommonNetworkInstance) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance{
 			IdRedundantCommonNetworkInstance: IDRedundantCommonNetworkInstance,
 		},
 	}
@@ -15588,7 +13476,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDRedund
 func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDSecurityIndication(IDSecurityIndication *xnapiesv1.SecurityIndication) (*xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdSecurityIndication{
+		PdusessionResourceModificationInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdSecurityIndication{
 			IdSecurityIndication: IDSecurityIndication,
 		},
 	}
@@ -15602,7 +13490,7 @@ func CreatePdusessionResourceModificationInfoSNterminatedExtIesExtensionIDSecuri
 func CreateQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtensionIDTsctrafficCharacteristics(IDTsctrafficCharacteristics *xnapiesv1.TsctrafficCharacteristics) (*xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension{
-		QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics{
+		QoSflowsToBeSetupListModifiedSnterminatedItemExtIes: &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics{
 			IdTsctrafficCharacteristics: IDTsctrafficCharacteristics,
 		},
 	}
@@ -15616,7 +13504,7 @@ func CreateQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtensionIDTsctraf
 func CreateQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtensionIDRedundantQoSflowIndicator(IDRedundantQoSflowIndicator xnapiesv1.RedundantQoSflowIndicator) (*xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension{
-		QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator{
+		QoSflowsToBeSetupListModifiedSnterminatedItemExtIes: &xnapiesv1.QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator{
 			IdRedundantQoSflowIndicator: IDRedundantQoSflowIndicator,
 		},
 	}
@@ -15630,7 +13518,7 @@ func CreateQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtensionIDRedunda
 func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtensionIDDrbIDsTakenintouse(IDDrbIDsTakenintouse *xnapiesv1.DrbList) (*xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse{
+		PdusessionResourceModificationResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse{
 			IdDrbIdsTakenintouse: IDDrbIDsTakenintouse,
 		},
 	}
@@ -15644,7 +13532,7 @@ func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtension
 func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtensionIDRedundantDlNgUTnlatNgRan(IDRedundantDlNgUTnlatNgRan *xnapiesv1.UptransportLayerInformation) (*xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan{
+		PdusessionResourceModificationResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan{
 			IdRedundantDlNgUTnlatNgRan: IDRedundantDlNgUTnlatNgRan,
 		},
 	}
@@ -15658,7 +13546,7 @@ func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtension
 func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtensionIDSecurityResult(IDSecurityResult *xnapiesv1.SecurityResult) (*xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension, error) {
 
 	item := &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension{
-		PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdSecurityResult{
+		PdusessionResourceModificationResponseInfoSnterminatedExtIes: &xnapiesv1.PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdSecurityResult{
 			IdSecurityResult: IDSecurityResult,
 		},
 	}
@@ -15672,7 +13560,7 @@ func CreatePdusessionResourceModificationResponseInfoSNterminatedExtIesExtension
 func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15686,7 +13574,7 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensi
 func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15700,7 +13588,7 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensi
 func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensionIDSecondarySnUlPdcpUpTnlinfo(IDSecondarySnUlPdcpUpTnlinfo *xnapiesv1.UptransportParameters) (*xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdSecondarySnUlPdcpUpTnlinfo{
+		DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdSecondarySnUlPdcpUpTnlinfo{
 			IdSecondarySnUlPdcpUpTnlinfo: IDSecondarySnUlPdcpUpTnlinfo,
 		},
 	}
@@ -15714,7 +13602,7 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensi
 func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensionIDPdcpDuplicationConfiguration(IDPdcpDuplicationConfiguration xnapiesv1.PdcpduplicationConfiguration) (*xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdPdcpDuplicationConfiguration{
+		DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdPdcpDuplicationConfiguration{
 			IdPdcpDuplicationConfiguration: IDPdcpDuplicationConfiguration,
 		},
 	}
@@ -15728,7 +13616,7 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensi
 func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensionIDDuplicationActivation(IDDuplicationActivation xnapiesv1.DuplicationActivation) (*xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdDuplicationActivation{
+		DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdDuplicationActivation{
 			IdDuplicationActivation: IDDuplicationActivation,
 		},
 	}
@@ -15742,7 +13630,7 @@ func CreateDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtensi
 func CreateDrbsToBeModifiedListModificationMNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeModifiedListModificationMnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15756,7 +13644,7 @@ func CreateDrbsToBeModifiedListModificationMNterminatedItemExtIesExtensionIDAddi
 func CreateDrbsToBeModifiedListModificationMNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeModifiedListModificationMnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15770,7 +13658,7 @@ func CreateDrbsToBeModifiedListModificationMNterminatedItemExtIesExtensionIDRlcd
 func CreateDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension{
-		DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension: &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsAdmittedListModificationResponseMnterminatedItemExtIes: &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15784,7 +13672,7 @@ func CreateDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtensionID
 func CreateDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtensionIDQoSflowsMappedtoDrbSetupResponseMnterminated(IDQoSflowsMappedtoDrbSetupResponseMnterminated *xnapiesv1.QoSflowsMappedtoDrbSetupResponseMNterminated) (*xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension{
-		DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension: &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated{
+		DrbsAdmittedListModificationResponseMnterminatedItemExtIes: &xnapiesv1.DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated{
 			IdQoSflowsMappedtoDrbSetupResponseMnterminated: IDQoSflowsMappedtoDrbSetupResponseMnterminated,
 		},
 	}
@@ -15798,7 +13686,7 @@ func CreateDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtensionID
 func CreateDrbsToBeSetupListModRqdSNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension{
-		DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeSetupListModRqdSnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15812,7 +13700,7 @@ func CreateDrbsToBeSetupListModRqdSNterminatedItemExtIesExtensionIDAdditionalPdc
 func CreateDrbsToBeSetupListModRqdSNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension{
-		DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeSetupListModRqdSnterminatedItemExtIes: &xnapiesv1.DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15826,7 +13714,7 @@ func CreateDrbsToBeSetupListModRqdSNterminatedItemExtIesExtensionIDRlcduplicatio
 func CreateDrbsToBeModifiedListModRqdSNterminatedItemExtIesExtensionIDAdditionalPdcpDuplicationTnlList(IDAdditionalPdcpDuplicationTnlList *xnapiesv1.AdditionalPDcpDuplicationTNlList) (*xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
+		DrbsToBeModifiedListModRqdSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList{
 			IdAdditionalPdcpDuplicationTnlList: IDAdditionalPdcpDuplicationTnlList,
 		},
 	}
@@ -15840,7 +13728,7 @@ func CreateDrbsToBeModifiedListModRqdSNterminatedItemExtIesExtensionIDAdditional
 func CreateDrbsToBeModifiedListModRqdSNterminatedItemExtIesExtensionIDRlcduplicationInformation(IDRlcduplicationInformation *xnapiesv1.RlcduplicationInformation) (*xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension, error) {
 
 	item := &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension{
-		DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension: &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
+		DrbsToBeModifiedListModRqdSnterminatedItemExtIes: &xnapiesv1.DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation{
 			IdRlcduplicationInformation: IDRlcduplicationInformation,
 		},
 	}
@@ -15896,7 +13784,7 @@ func CreateQoScharacteristicsChoiceExtension(choiceExtension *xnapiesv1.QoSchara
 func CreateQoSflowLevelQoSparametersExtIesExtensionIDQoSmonitoringRequest(IDQoSmonitoringRequest xnapiesv1.QosMonitoringRequest) (*xnapiesv1.QoSflowLevelQoSparametersExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension{
-		QoSflowLevelQoSparametersExtIesExtension: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringRequest{
+		QoSflowLevelQoSparametersExtIes: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringRequest{
 			IdQoSmonitoringRequest: IDQoSmonitoringRequest,
 		},
 	}
@@ -15910,7 +13798,7 @@ func CreateQoSflowLevelQoSparametersExtIesExtensionIDQoSmonitoringRequest(IDQoSm
 func CreateQoSflowLevelQoSparametersExtIesExtensionIDQosMonitoringReportingFrequency(IDQosMonitoringReportingFrequency *xnapiesv1.QosMonitoringReportingFrequency) (*xnapiesv1.QoSflowLevelQoSparametersExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension{
-		QoSflowLevelQoSparametersExtIesExtension: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQosMonitoringReportingFrequency{
+		QoSflowLevelQoSparametersExtIes: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQosMonitoringReportingFrequency{
 			IdQosMonitoringReportingFrequency: IDQosMonitoringReportingFrequency,
 		},
 	}
@@ -15924,7 +13812,7 @@ func CreateQoSflowLevelQoSparametersExtIesExtensionIDQosMonitoringReportingFrequ
 func CreateQoSflowLevelQoSparametersExtIesExtensionIDQoSmonitoringDisabled(IDQoSmonitoringDisabled xnapiesv1.QoSmonitoringDisabled) (*xnapiesv1.QoSflowLevelQoSparametersExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension{
-		QoSflowLevelQoSparametersExtIesExtension: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringDisabled{
+		QoSflowLevelQoSparametersExtIes: &xnapiesv1.QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringDisabled{
 			IdQoSmonitoringDisabled: IDQoSmonitoringDisabled,
 		},
 	}
@@ -15938,7 +13826,7 @@ func CreateQoSflowLevelQoSparametersExtIesExtensionIDQoSmonitoringDisabled(IDQoS
 func CreateQoSflowsToBeSetupItemExtIesExtensionIDTsctrafficCharacteristics(IDTsctrafficCharacteristics *xnapiesv1.TsctrafficCharacteristics) (*xnapiesv1.QoSflowsToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension{
-		QoSflowsToBeSetupItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension_IdTsctrafficCharacteristics{
+		QoSflowsToBeSetupItemExtIes: &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension_IdTsctrafficCharacteristics{
 			IdTsctrafficCharacteristics: IDTsctrafficCharacteristics,
 		},
 	}
@@ -15952,7 +13840,7 @@ func CreateQoSflowsToBeSetupItemExtIesExtensionIDTsctrafficCharacteristics(IDTsc
 func CreateQoSflowsToBeSetupItemExtIesExtensionIDRedundantQoSflowIndicator(IDRedundantQoSflowIndicator xnapiesv1.RedundantQoSflowIndicator) (*xnapiesv1.QoSflowsToBeSetupItemExtIesExtension, error) {
 
 	item := &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension{
-		QoSflowsToBeSetupItemExtIesExtension: &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension_IdRedundantQoSflowIndicator{
+		QoSflowsToBeSetupItemExtIes: &xnapiesv1.QoSflowsToBeSetupItemExtIesExtension_IdRedundantQoSflowIndicator{
 			IdRedundantQoSflowIndicator: IDRedundantQoSflowIndicator,
 		},
 	}
@@ -16232,7 +14120,7 @@ func CreateRrcsetupInitiatedReportingChoiceExtension(choiceExtension *xnapiesv1.
 func CreateServedCellInformationEUTraExtIesExtensionIDBplmnIDInfoEutra(IDBplmnIDInfoEutra *xnapiesv1.BplmnIDInfoEUtra) (*xnapiesv1.ServedCellInformationEUTraExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraExtIesExtension{
-		ServedCellInformationEUTraExtIesExtension: &xnapiesv1.ServedCellInformationEUTraExtIesExtension_IdBplmnIdInfoEutra{
+		ServedCellInformationEUtraExtIes: &xnapiesv1.ServedCellInformationEUTraExtIesExtension_IdBplmnIdInfoEutra{
 			IdBplmnIdInfoEutra: IDBplmnIDInfoEutra,
 		},
 	}
@@ -16246,7 +14134,7 @@ func CreateServedCellInformationEUTraExtIesExtensionIDBplmnIDInfoEutra(IDBplmnID
 func CreateServedCellInformationEUTraExtIesExtensionIDNprachconfiguration(IDNprachconfiguration *xnapiesv1.Nprachconfiguration) (*xnapiesv1.ServedCellInformationEUTraExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraExtIesExtension{
-		ServedCellInformationEUTraExtIesExtension: &xnapiesv1.ServedCellInformationEUTraExtIesExtension_IdNprachconfiguration{
+		ServedCellInformationEUtraExtIes: &xnapiesv1.ServedCellInformationEUTraExtIesExtension_IdNprachconfiguration{
 			IdNprachconfiguration: IDNprachconfiguration,
 		},
 	}
@@ -16260,7 +14148,7 @@ func CreateServedCellInformationEUTraExtIesExtensionIDNprachconfiguration(IDNpra
 func CreateServedCellInformationEUTraModeInfoFdd(fdd *xnapiesv1.ServedCellInformationEUTraFDdinfo) (*xnapiesv1.ServedCellInformationEUTraModeInfo, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraModeInfo{
-		ServedCellInformationEUTraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_Fdd{
+		ServedCellInformationEUtraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_Fdd{
 			Fdd: fdd,
 		},
 	}
@@ -16274,7 +14162,7 @@ func CreateServedCellInformationEUTraModeInfoFdd(fdd *xnapiesv1.ServedCellInform
 func CreateServedCellInformationEUTraModeInfoTdd(tdd *xnapiesv1.ServedCellInformationEUTraTDdinfo) (*xnapiesv1.ServedCellInformationEUTraModeInfo, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraModeInfo{
-		ServedCellInformationEUTraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_Tdd{
+		ServedCellInformationEUtraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_Tdd{
 			Tdd: tdd,
 		},
 	}
@@ -16288,7 +14176,7 @@ func CreateServedCellInformationEUTraModeInfoTdd(tdd *xnapiesv1.ServedCellInform
 func CreateServedCellInformationEUTraModeInfoChoiceExtension(choiceExtension *xnapiesv1.ServedCellInformationEUTraModeInfoExtIes) (*xnapiesv1.ServedCellInformationEUTraModeInfo, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraModeInfo{
-		ServedCellInformationEUTraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_ChoiceExtension{
+		ServedCellInformationEUtraModeInfo: &xnapiesv1.ServedCellInformationEUTraModeInfo_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16302,7 +14190,7 @@ func CreateServedCellInformationEUTraModeInfoChoiceExtension(choiceExtension *xn
 func CreateServedCellInformationEUTraFDdinfoExtIesExtensionIDOffsetOfNbiotChannelNumberToDlEarfcn(IDOffsetOfNbiotChannelNumberToDlEarfcn xnapiesv1.OffsetOfNbiotChannelNumberToEarfcn) (*xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension{
-		ServedCellInformationEUTraFDdinfoExtIesExtension: &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn{
+		ServedCellInformationEUtraFddinfoExtIes: &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn{
 			IdOffsetOfNbiotChannelNumberToDlEarfcn: IDOffsetOfNbiotChannelNumberToDlEarfcn,
 		},
 	}
@@ -16316,7 +14204,7 @@ func CreateServedCellInformationEUTraFDdinfoExtIesExtensionIDOffsetOfNbiotChanne
 func CreateServedCellInformationEUTraFDdinfoExtIesExtensionIDOffsetOfNbiotChannelNumberToUlEarfcn(IDOffsetOfNbiotChannelNumberToUlEarfcn xnapiesv1.OffsetOfNbiotChannelNumberToEarfcn) (*xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension{
-		ServedCellInformationEUTraFDdinfoExtIesExtension: &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToUlEarfcn{
+		ServedCellInformationEUtraFddinfoExtIes: &xnapiesv1.ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToUlEarfcn{
 			IdOffsetOfNbiotChannelNumberToUlEarfcn: IDOffsetOfNbiotChannelNumberToUlEarfcn,
 		},
 	}
@@ -16330,7 +14218,7 @@ func CreateServedCellInformationEUTraFDdinfoExtIesExtensionIDOffsetOfNbiotChanne
 func CreateServedCellInformationEUTraTDdinfoExtIesExtensionIDOffsetOfNbiotChannelNumberToDlEarfcn(IDOffsetOfNbiotChannelNumberToDlEarfcn xnapiesv1.OffsetOfNbiotChannelNumberToEarfcn) (*xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension{
-		ServedCellInformationEUTraTDdinfoExtIesExtension: &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn{
+		ServedCellInformationEUtraTddinfoExtIes: &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn{
 			IdOffsetOfNbiotChannelNumberToDlEarfcn: IDOffsetOfNbiotChannelNumberToDlEarfcn,
 		},
 	}
@@ -16344,7 +14232,7 @@ func CreateServedCellInformationEUTraTDdinfoExtIesExtensionIDOffsetOfNbiotChanne
 func CreateServedCellInformationEUTraTDdinfoExtIesExtensionIDNbioTUlDlAlignmentOffset(IDNbioTUlDlAlignmentOffset xnapiesv1.NbioTULDLAlignmentOffset) (*xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension{
-		ServedCellInformationEUTraTDdinfoExtIesExtension: &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension_IdNbioTUlDlAlignmentOffset{
+		ServedCellInformationEUtraTddinfoExtIes: &xnapiesv1.ServedCellInformationEUTraTDdinfoExtIesExtension_IdNbioTUlDlAlignmentOffset{
 			IdNbioTUlDlAlignmentOffset: IDNbioTUlDlAlignmentOffset,
 		},
 	}
@@ -16358,7 +14246,7 @@ func CreateServedCellInformationEUTraTDdinfoExtIesExtensionIDNbioTUlDlAlignmentO
 func CreateServedCellInformationNRExtIesExtensionIDBplmnIDInfoNr(IDBplmnIDInfoNr *xnapiesv1.BplmnIDInfoNR) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdBplmnIdInfoNr{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdBplmnIdInfoNr{
 			IdBplmnIdInfoNr: IDBplmnIDInfoNr,
 		},
 	}
@@ -16372,7 +14260,7 @@ func CreateServedCellInformationNRExtIesExtensionIDBplmnIDInfoNr(IDBplmnIDInfoNr
 func CreateServedCellInformationNRExtIesExtensionIDConfiguredTacindication(IDConfiguredTacindication xnapiesv1.ConfiguredTacindication) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdConfiguredTacindication{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdConfiguredTacindication{
 			IdConfiguredTacindication: IDConfiguredTacindication,
 		},
 	}
@@ -16386,7 +14274,7 @@ func CreateServedCellInformationNRExtIesExtensionIDConfiguredTacindication(IDCon
 func CreateServedCellInformationNRExtIesExtensionIDSsbPositionsInBurst(IDSsbPositionsInBurst *xnapiesv1.SsbPositionsInBurst) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdSsbPositionsInBurst{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdSsbPositionsInBurst{
 			IdSsbPositionsInBurst: IDSsbPositionsInBurst,
 		},
 	}
@@ -16400,7 +14288,7 @@ func CreateServedCellInformationNRExtIesExtensionIDSsbPositionsInBurst(IDSsbPosi
 func CreateServedCellInformationNRExtIesExtensionIDNrcellPrachconfig(IDNrcellPrachconfig *xnapiesv1.NrcellPrachconfig) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdNrcellPrachconfig{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdNrcellPrachconfig{
 			IdNrcellPrachconfig: IDNrcellPrachconfig,
 		},
 	}
@@ -16414,7 +14302,7 @@ func CreateServedCellInformationNRExtIesExtensionIDNrcellPrachconfig(IDNrcellPra
 func CreateServedCellInformationNRExtIesExtensionIDNpnBroadcastInformation(IDNpnBroadcastInformation *xnapiesv1.NpnBroadcastInformation) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdNpnBroadcastInformation{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdNpnBroadcastInformation{
 			IdNpnBroadcastInformation: IDNpnBroadcastInformation,
 		},
 	}
@@ -16428,7 +14316,7 @@ func CreateServedCellInformationNRExtIesExtensionIDNpnBroadcastInformation(IDNpn
 func CreateServedCellInformationNRExtIesExtensionIDCsiRstransmissionIndication(IDCsiRstransmissionIndication xnapiesv1.CsiRStransmissionIndication) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdCsiRstransmissionIndication{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdCsiRstransmissionIndication{
 			IdCsiRstransmissionIndication: IDCsiRstransmissionIndication,
 		},
 	}
@@ -16442,7 +14330,7 @@ func CreateServedCellInformationNRExtIesExtensionIDCsiRstransmissionIndication(I
 func CreateServedCellInformationNRExtIesExtensionIDSfnOffset(IDSfnOffset *xnapiesv1.SfnOffset) (*xnapiesv1.ServedCellInformationNRExtIesExtension, error) {
 
 	item := &xnapiesv1.ServedCellInformationNRExtIesExtension{
-		ServedCellInformationNRExtIesExtension: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdSfnOffset{
+		ServedCellInformationNrExtIes: &xnapiesv1.ServedCellInformationNRExtIesExtension_IdSfnOffset{
 			IdSfnOffset: IDSfnOffset,
 		},
 	}
@@ -16498,7 +14386,7 @@ func CreateSharedResourceTypeChoiceExtension(choiceExtension *xnapiesv1.SharedRe
 func CreateSharedResourceTypeULdlSharingUlResources(ulResources *xnapiesv1.SharedResourceTypeULdlSharingULResources) (*xnapiesv1.SharedResourceTypeULdlSharing, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharing{
-		SharedResourceTypeULdlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_UlResources{
+		SharedResourceTypeUldlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_UlResources{
 			UlResources: ulResources,
 		},
 	}
@@ -16512,7 +14400,7 @@ func CreateSharedResourceTypeULdlSharingUlResources(ulResources *xnapiesv1.Share
 func CreateSharedResourceTypeULdlSharingDlResources(dlResources *xnapiesv1.SharedResourceTypeULdlSharingDLResources) (*xnapiesv1.SharedResourceTypeULdlSharing, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharing{
-		SharedResourceTypeULdlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_DlResources{
+		SharedResourceTypeUldlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_DlResources{
 			DlResources: dlResources,
 		},
 	}
@@ -16526,7 +14414,7 @@ func CreateSharedResourceTypeULdlSharingDlResources(dlResources *xnapiesv1.Share
 func CreateSharedResourceTypeULdlSharingChoiceExtension(choiceExtension *xnapiesv1.SharedResourceTypeULdlSharingExtIes) (*xnapiesv1.SharedResourceTypeULdlSharing, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharing{
-		SharedResourceTypeULdlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_ChoiceExtension{
+		SharedResourceTypeUldlSharing: &xnapiesv1.SharedResourceTypeULdlSharing_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16540,7 +14428,7 @@ func CreateSharedResourceTypeULdlSharingChoiceExtension(choiceExtension *xnapies
 func CreateSharedResourceTypeULdlSharingULResourcesUnchanged(unchanged int32) (*xnapiesv1.SharedResourceTypeULdlSharingULResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingULResources{
-		SharedResourceTypeULdlSharingULResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_Unchanged{
+		SharedResourceTypeUldlSharingUlResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_Unchanged{
 			Unchanged: unchanged,
 		},
 	}
@@ -16551,10 +14439,10 @@ func CreateSharedResourceTypeULdlSharingULResourcesUnchanged(unchanged int32) (*
 
 	return item, nil
 }
-func CreateSharedResourceTypeULdlSharingULResourcesChanged(changed *xnapiesv1.SharedResourceTypeULdlSharingULResourcesChanged) (*xnapiesv1.SharedResourceTypeULdlSharingULResources, error) {
+func CreateSharedResourceTypeULdlSharingULResourcesChangedChoice(changed *xnapiesv1.SharedResourceTypeULdlSharingULResourcesChanged) (*xnapiesv1.SharedResourceTypeULdlSharingULResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingULResources{
-		SharedResourceTypeULdlSharingULResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_Changed{
+		SharedResourceTypeUldlSharingUlResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_Changed{
 			Changed: changed,
 		},
 	}
@@ -16568,7 +14456,7 @@ func CreateSharedResourceTypeULdlSharingULResourcesChanged(changed *xnapiesv1.Sh
 func CreateSharedResourceTypeULdlSharingULResourcesChoiceExtension(choiceExtension *xnapiesv1.SharedResourceTypeULdlSharingULResourcesExtIes) (*xnapiesv1.SharedResourceTypeULdlSharingULResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingULResources{
-		SharedResourceTypeULdlSharingULResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_ChoiceExtension{
+		SharedResourceTypeUldlSharingUlResources: &xnapiesv1.SharedResourceTypeULdlSharingULResources_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16582,7 +14470,7 @@ func CreateSharedResourceTypeULdlSharingULResourcesChoiceExtension(choiceExtensi
 func CreateSharedResourceTypeULdlSharingDLResourcesUnchanged(unchanged int32) (*xnapiesv1.SharedResourceTypeULdlSharingDLResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingDLResources{
-		SharedResourceTypeULdlSharingDLResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_Unchanged{
+		SharedResourceTypeUldlSharingDlResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_Unchanged{
 			Unchanged: unchanged,
 		},
 	}
@@ -16593,10 +14481,10 @@ func CreateSharedResourceTypeULdlSharingDLResourcesUnchanged(unchanged int32) (*
 
 	return item, nil
 }
-func CreateSharedResourceTypeULdlSharingDLResourcesChanged(changed *xnapiesv1.SharedResourceTypeULdlSharingDLResourcesChanged) (*xnapiesv1.SharedResourceTypeULdlSharingDLResources, error) {
+func CreateSharedResourceTypeULdlSharingDLResourcesChangedChoice(changed *xnapiesv1.SharedResourceTypeULdlSharingDLResourcesChanged) (*xnapiesv1.SharedResourceTypeULdlSharingDLResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingDLResources{
-		SharedResourceTypeULdlSharingDLResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_Changed{
+		SharedResourceTypeUldlSharingDlResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_Changed{
 			Changed: changed,
 		},
 	}
@@ -16610,7 +14498,7 @@ func CreateSharedResourceTypeULdlSharingDLResourcesChanged(changed *xnapiesv1.Sh
 func CreateSharedResourceTypeULdlSharingDLResourcesChoiceExtension(choiceExtension *xnapiesv1.SharedResourceTypeULdlSharingDLResourcesExtIes) (*xnapiesv1.SharedResourceTypeULdlSharingDLResources, error) {
 
 	item := &xnapiesv1.SharedResourceTypeULdlSharingDLResources{
-		SharedResourceTypeULdlSharingDLResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_ChoiceExtension{
+		SharedResourceTypeUldlSharingDlResources: &xnapiesv1.SharedResourceTypeULdlSharingDLResources_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16624,7 +14512,7 @@ func CreateSharedResourceTypeULdlSharingDLResourcesChoiceExtension(choiceExtensi
 func CreateSsbareaRadioResourceStatusListItemExtIesExtensionIDDlSchedulingPdcchCceUsage(IDDlSchedulingPdcchCceUsage *xnapiesv1.DlschedulingPDcchCCeusage) (*xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension, error) {
 
 	item := &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension{
-		SsbareaRadioResourceStatusListItemExtIesExtension: &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension_IdDlSchedulingPdcchCceUsage{
+		SsbareaRadioResourceStatusListItemExtIes: &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension_IdDlSchedulingPdcchCceUsage{
 			IdDlSchedulingPdcchCceUsage: IDDlSchedulingPdcchCceUsage,
 		},
 	}
@@ -16638,7 +14526,7 @@ func CreateSsbareaRadioResourceStatusListItemExtIesExtensionIDDlSchedulingPdcchC
 func CreateSsbareaRadioResourceStatusListItemExtIesExtensionIDUlSchedulingPdcchCceUsage(IDUlSchedulingPdcchCceUsage *xnapiesv1.UlschedulingPDcchCCeusage) (*xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension, error) {
 
 	item := &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension{
-		SsbareaRadioResourceStatusListItemExtIesExtension: &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension_IdUlSchedulingPdcchCceUsage{
+		SsbareaRadioResourceStatusListItemExtIes: &xnapiesv1.SsbareaRadioResourceStatusListItemExtIesExtension_IdUlSchedulingPdcchCceUsage{
 			IdUlSchedulingPdcchCceUsage: IDUlSchedulingPdcchCceUsage,
 		},
 	}
@@ -16708,7 +14596,7 @@ func CreateSsbPositionsInBurstChoiceExtension(choiceExtension *xnapiesv1.SsbPosi
 func CreateSulInformationExtIesExtensionIDCarrierList(IDCarrierList *xnapiesv1.NrcarrierList) (*xnapiesv1.SulInformationExtIesExtension, error) {
 
 	item := &xnapiesv1.SulInformationExtIesExtension{
-		SulInformationExtIesExtension: &xnapiesv1.SulInformationExtIesExtension_IdCarrierList{
+		SulInformationExtIes: &xnapiesv1.SulInformationExtIesExtension_IdCarrierList{
 			IdCarrierList: IDCarrierList,
 		},
 	}
@@ -16719,10 +14607,10 @@ func CreateSulInformationExtIesExtensionIDCarrierList(IDCarrierList *xnapiesv1.N
 
 	return item, nil
 }
-func CreateSulInformationExtIesExtensionIDFrequencyShift7P5Khz(IDFrequencyShift7P5Khz FrequencyShift7P5Khz) (*xnapiesv1.SulInformationExtIesExtension, error) {
+func CreateSulInformationExtIesExtensionIDFrequencyShift7P5Khz(IDFrequencyShift7P5Khz xnapiesv1.FrequencyShift7P5Khz) (*xnapiesv1.SulInformationExtIesExtension, error) {
 
 	item := &xnapiesv1.SulInformationExtIesExtension{
-		SulInformationExtIesExtension: &xnapiesv1.SulInformationExtIesExtension_IdFrequencyShift7P5Khz{
+		SulInformationExtIes: &xnapiesv1.SulInformationExtIesExtension_IdFrequencyShift7P5Khz{
 			IdFrequencyShift7P5Khz: IDFrequencyShift7P5Khz,
 		},
 	}
@@ -16733,24 +14621,24 @@ func CreateSulInformationExtIesExtensionIDFrequencyShift7P5Khz(IDFrequencyShift7
 
 	return item, nil
 }
-func CreateSymbolAllocationinSlotAllDl(allDl *xnapiesv1.SymbolAllocationinSlotAllDl) (*xnapiesv1.SymbolAllocationinSlot, error) {
+func CreateSymbolAllocationinSlotAllDlChoice(allDl *xnapiesv1.SymbolAllocationinSlotAllDl) (*xnapiesv1.SymbolAllocationinSlot, error) {
 
 	item := &xnapiesv1.SymbolAllocationinSlot{
-		SymbolAllocationinSlot: &xnapiesv1.SymbolAllocationinSlot_AllDl{
+		SymbolAllocationInSlot: &xnapiesv1.SymbolAllocationinSlot_AllDl{
 			AllDl: allDl,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotAllDl() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateSymbolAllocationinSlotAllDlChoice() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
 }
-func CreateSymbolAllocationinSlotAllUl(allUl *xnapiesv1.SymbolAllocationinSlotAllUl) (*xnapiesv1.SymbolAllocationinSlot, error) {
+func CreateSymbolAllocationinSlotAllUlChoice(allUl *xnapiesv1.SymbolAllocationinSlotAllUl) (*xnapiesv1.SymbolAllocationinSlot, error) {
 
 	item := &xnapiesv1.SymbolAllocationinSlot{
-		SymbolAllocationinSlot: &xnapiesv1.SymbolAllocationinSlot_AllUl{
+		SymbolAllocationInSlot: &xnapiesv1.SymbolAllocationinSlot_AllUl{
 			AllUl: allUl,
 		},
 	}
@@ -16761,10 +14649,10 @@ func CreateSymbolAllocationinSlotAllUl(allUl *xnapiesv1.SymbolAllocationinSlotAl
 
 	return item, nil
 }
-func CreateSymbolAllocationinSlotBothDlandUl(bothDlandUl *xnapiesv1.SymbolAllocationinSlotBothDlandUl) (*xnapiesv1.SymbolAllocationinSlot, error) {
+func CreateSymbolAllocationinSlotBothDlandUlChoice(bothDlandUl *xnapiesv1.SymbolAllocationinSlotBothDlandUl) (*xnapiesv1.SymbolAllocationinSlot, error) {
 
 	item := &xnapiesv1.SymbolAllocationinSlot{
-		SymbolAllocationinSlot: &xnapiesv1.SymbolAllocationinSlot_BothDlandUl{
+		SymbolAllocationInSlot: &xnapiesv1.SymbolAllocationinSlot_BothDlandUl{
 			BothDlandUl: bothDlandUl,
 		},
 	}
@@ -16778,7 +14666,7 @@ func CreateSymbolAllocationinSlotBothDlandUl(bothDlandUl *xnapiesv1.SymbolAlloca
 func CreateSymbolAllocationinSlotChoiceExtension(choiceExtension *xnapiesv1.SymbolAllocationinSlotExtIes) (*xnapiesv1.SymbolAllocationinSlot, error) {
 
 	item := &xnapiesv1.SymbolAllocationinSlot{
-		SymbolAllocationinSlot: &xnapiesv1.SymbolAllocationinSlot_ChoiceExtension{
+		SymbolAllocationInSlot: &xnapiesv1.SymbolAllocationinSlot_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16792,7 +14680,7 @@ func CreateSymbolAllocationinSlotChoiceExtension(choiceExtension *xnapiesv1.Symb
 func CreateTargetCGiNr(nr *xnapiesv1.NrCGi) (*xnapiesv1.TargetCGi, error) {
 
 	item := &xnapiesv1.TargetCGi{
-		TargetCGi: &xnapiesv1.TargetCGi_Nr{
+		TargetCgi: &xnapiesv1.TargetCGi_Nr{
 			Nr: nr,
 		},
 	}
@@ -16806,7 +14694,7 @@ func CreateTargetCGiNr(nr *xnapiesv1.NrCGi) (*xnapiesv1.TargetCGi, error) {
 func CreateTargetCGiEUtra(eUtra *xnapiesv1.EUTraCGi) (*xnapiesv1.TargetCGi, error) {
 
 	item := &xnapiesv1.TargetCGi{
-		TargetCGi: &xnapiesv1.TargetCGi_EUtra{
+		TargetCgi: &xnapiesv1.TargetCGi_EUtra{
 			EUtra: eUtra,
 		},
 	}
@@ -16820,7 +14708,7 @@ func CreateTargetCGiEUtra(eUtra *xnapiesv1.EUTraCGi) (*xnapiesv1.TargetCGi, erro
 func CreateTargetCGiChoiceExtension(choiceExtension *xnapiesv1.TargetCgiExtIes) (*xnapiesv1.TargetCGi, error) {
 
 	item := &xnapiesv1.TargetCGi{
-		TargetCGi: &xnapiesv1.TargetCGi_ChoiceExtension{
+		TargetCgi: &xnapiesv1.TargetCGi_ChoiceExtension{
 			ChoiceExtension: choiceExtension,
 		},
 	}
@@ -16831,16 +14719,16 @@ func CreateTargetCGiChoiceExtension(choiceExtension *xnapiesv1.TargetCgiExtIes) 
 
 	return item, nil
 }
-func CreateTraceActivationExtIesExtensionIDTraceCollectionEntityUri(IDTraceCollectionEntityUri *xnapiesv1.Uriaddress) (*xnapiesv1.TraceActivationExtIesExtension, error) {
+func CreateTraceActivationExtIesExtensionIDTraceCollectionEntityURI(IDTraceCollectionEntityURI *xnapiesv1.Uriaddress) (*xnapiesv1.TraceActivationExtIesExtension, error) {
 
 	item := &xnapiesv1.TraceActivationExtIesExtension{
-		TraceActivationExtIesExtension: &xnapiesv1.TraceActivationExtIesExtension_IdTraceCollectionEntityUri{
-			IdTraceCollectionEntityUri: IDTraceCollectionEntityUri,
+		TraceActivationExtIes: &xnapiesv1.TraceActivationExtIesExtension_IdTraceCollectionEntityUri{
+			IdTraceCollectionEntityUri: IDTraceCollectionEntityURI,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateTraceActivationExtIesExtensionIDTraceCollectionEntityUri() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateTraceActivationExtIesExtensionIDTraceCollectionEntityURI() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
@@ -16848,7 +14736,7 @@ func CreateTraceActivationExtIesExtensionIDTraceCollectionEntityUri(IDTraceColle
 func CreateTraceActivationExtIesExtensionIDMdtConfiguration(IDMdtConfiguration *xnapiesv1.MdtConfiguration) (*xnapiesv1.TraceActivationExtIesExtension, error) {
 
 	item := &xnapiesv1.TraceActivationExtIesExtension{
-		TraceActivationExtIesExtension: &xnapiesv1.TraceActivationExtIesExtension_IdMdtConfiguration{
+		TraceActivationExtIes: &xnapiesv1.TraceActivationExtIesExtension_IdMdtConfiguration{
 			IdMdtConfiguration: IDMdtConfiguration,
 		},
 	}
@@ -16904,7 +14792,7 @@ func CreateUecontextIDChoiceExtension(choiceExtension *xnapiesv1.UecontextIdExtI
 func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDFiveGcmobilityRestrictionListContainer(IDFiveGcmobilityRestrictionListContainer *xnapiesv1.FiveGcmobilityRestrictionListContainer) (*xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension, error) {
 
 	item := &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension{
-		UecontextInfoRetrUectxtRespExtIesExtension: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdFiveGcmobilityRestrictionListContainer{
+		UecontextInfoRetrUectxtRespExtIes: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdFiveGcmobilityRestrictionListContainer{
 			IdFiveGcmobilityRestrictionListContainer: IDFiveGcmobilityRestrictionListContainer,
 		},
 	}
@@ -16918,7 +14806,7 @@ func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDFiveGcmobilityRestriction
 func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDNruesIDelinkAggregateMaximumBitRate(IDNruesIDelinkAggregateMaximumBitRate *xnapiesv1.NruesidelinkAggregateMaximumBitRate) (*xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension, error) {
 
 	item := &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension{
-		UecontextInfoRetrUectxtRespExtIesExtension: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdNruesidelinkAggregateMaximumBitRate{
+		UecontextInfoRetrUectxtRespExtIes: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdNruesidelinkAggregateMaximumBitRate{
 			IdNruesidelinkAggregateMaximumBitRate: IDNruesIDelinkAggregateMaximumBitRate,
 		},
 	}
@@ -16932,7 +14820,7 @@ func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDNruesIDelinkAggregateMaxi
 func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDLteuesIDelinkAggregateMaximumBitRate(IDLteuesIDelinkAggregateMaximumBitRate *xnapiesv1.LteuesidelinkAggregateMaximumBitRate) (*xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension, error) {
 
 	item := &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension{
-		UecontextInfoRetrUectxtRespExtIesExtension: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate{
+		UecontextInfoRetrUectxtRespExtIes: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate{
 			IdLteuesidelinkAggregateMaximumBitRate: IDLteuesIDelinkAggregateMaximumBitRate,
 		},
 	}
@@ -16946,7 +14834,7 @@ func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDLteuesIDelinkAggregateMax
 func CreateUecontextInfoRetrUectxtRespExtIesExtensionIDUeradioCapabilityID(IDUeradioCapabilityID *xnapiesv1.UeradioCapabilityId) (*xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension, error) {
 
 	item := &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension{
-		UecontextInfoRetrUectxtRespExtIesExtension: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdUeradioCapabilityId{
+		UecontextInfoRetrUectxtRespExtIes: &xnapiesv1.UecontextInfoRetrUectxtRespExtIesExtension_IdUeradioCapabilityId{
 			IdUeradioCapabilityId: IDUeradioCapabilityID,
 		},
 	}
@@ -17114,7 +15002,7 @@ func CreateUptransportLayerInformationChoiceExtension(choiceExtension *xnapiesv1
 func CreatePrivateIeIDLocal(local int32) (*xnapcommondatatypesv1.PrivateIeID, error) {
 
 	item := &xnapcommondatatypesv1.PrivateIeID{
-		PrivateIeID: &xnapcommondatatypesv1.PrivateIeID_Local{
+		PrivateIeId: &xnapcommondatatypesv1.PrivateIeID_Local{
 			Local: local,
 		},
 	}
@@ -17128,7 +15016,7 @@ func CreatePrivateIeIDLocal(local int32) (*xnapcommondatatypesv1.PrivateIeID, er
 func CreatePrivateIeIDGlobal(global string) (*xnapcommondatatypesv1.PrivateIeID, error) {
 
 	item := &xnapcommondatatypesv1.PrivateIeID{
-		PrivateIeID: &xnapcommondatatypesv1.PrivateIeID_Global{
+		PrivateIeId: &xnapcommondatatypesv1.PrivateIeID_Global{
 			Global: global,
 		},
 	}
@@ -17142,7 +15030,7 @@ func CreatePrivateIeIDGlobal(global string) (*xnapcommondatatypesv1.PrivateIeID,
 func CreateXnApPDuInitiatingMessage(initiatingMessage *xnappdudescriptionsv1.InitiatingMessage) (*xnappdudescriptionsv1.XnApPDu, error) {
 
 	item := &xnappdudescriptionsv1.XnApPDu{
-		XnApPDu: &xnappdudescriptionsv1.XnApPDu_InitiatingMessage{
+		XnApPdu: &xnappdudescriptionsv1.XnApPDu_InitiatingMessage{
 			InitiatingMessage: initiatingMessage,
 		},
 	}
@@ -17156,7 +15044,7 @@ func CreateXnApPDuInitiatingMessage(initiatingMessage *xnappdudescriptionsv1.Ini
 func CreateXnApPDuSuccessfulOutcome(successfulOutcome *xnappdudescriptionsv1.SuccessfulOutcome) (*xnappdudescriptionsv1.XnApPDu, error) {
 
 	item := &xnappdudescriptionsv1.XnApPDu{
-		XnApPDu: &xnappdudescriptionsv1.XnApPDu_SuccessfulOutcome{
+		XnApPdu: &xnappdudescriptionsv1.XnApPDu_SuccessfulOutcome{
 			SuccessfulOutcome: successfulOutcome,
 		},
 	}
@@ -17170,7 +15058,7 @@ func CreateXnApPDuSuccessfulOutcome(successfulOutcome *xnappdudescriptionsv1.Suc
 func CreateXnApPDuUnsuccessfulOutcome(unsuccessfulOutcome *xnappdudescriptionsv1.UnsuccessfulOutcome) (*xnappdudescriptionsv1.XnApPDu, error) {
 
 	item := &xnappdudescriptionsv1.XnApPDu{
-		XnApPDu: &xnappdudescriptionsv1.XnApPDu_UnsuccessfulOutcome{
+		XnApPdu: &xnappdudescriptionsv1.XnApPDu_UnsuccessfulOutcome{
 			UnsuccessfulOutcome: unsuccessfulOutcome,
 		},
 	}
@@ -17184,7 +15072,7 @@ func CreateXnApPDuUnsuccessfulOutcome(unsuccessfulOutcome *xnappdudescriptionsv1
 func CreateInitiatingMessageXnApElementaryProceduresXnSetupRequest(xnSetupRequest *xnappducontentsv1.XnSetupRequest) (*xnappdudescriptionsv1.InitiatingMessageXnApElementaryProcedures, error) {
 
 	item := &xnappdudescriptionsv1.InitiatingMessageXnApElementaryProcedures{
-		InitiatingMessageXnApElementaryProcedures: &xnappdudescriptionsv1.InitiatingMessageXnApElementaryProcedures_XnSetupRequest{
+		ImValues: &xnappdudescriptionsv1.InitiatingMessageXnApElementaryProcedures_XnSetupRequest{
 			XnSetupRequest: xnSetupRequest,
 		},
 	}
@@ -17198,7 +15086,7 @@ func CreateInitiatingMessageXnApElementaryProceduresXnSetupRequest(xnSetupReques
 func CreateSuccessfulOutcomeXnApElementaryProceduresXnSetupResponse(xnSetupResponse *xnappducontentsv1.XnSetupResponse) (*xnappdudescriptionsv1.SuccessfulOutcomeXnApElementaryProcedures, error) {
 
 	item := &xnappdudescriptionsv1.SuccessfulOutcomeXnApElementaryProcedures{
-		SuccessfulOutcomeXnApElementaryProcedures: &xnappdudescriptionsv1.SuccessfulOutcomeXnApElementaryProcedures_XnSetupResponse{
+		SoValues: &xnappdudescriptionsv1.SuccessfulOutcomeXnApElementaryProcedures_XnSetupResponse{
 			XnSetupResponse: xnSetupResponse,
 		},
 	}
@@ -17212,7 +15100,7 @@ func CreateSuccessfulOutcomeXnApElementaryProceduresXnSetupResponse(xnSetupRespo
 func CreateUnsuccessfulOutcomeXnApElementaryProceduresXnSetupFailure(xnSetupFailure *xnappducontentsv1.XnSetupFailure) (*xnappdudescriptionsv1.UnsuccessfulOutcomeXnApElementaryProcedures, error) {
 
 	item := &xnappdudescriptionsv1.UnsuccessfulOutcomeXnApElementaryProcedures{
-		UnsuccessfulOutcomeXnApElementaryProcedures: &xnappdudescriptionsv1.UnsuccessfulOutcomeXnApElementaryProcedures_XnSetupFailure{
+		UoValues: &xnappdudescriptionsv1.UnsuccessfulOutcomeXnApElementaryProcedures_XnSetupFailure{
 			XnSetupFailure: xnSetupFailure,
 		},
 	}
@@ -17226,7 +15114,7 @@ func CreateUnsuccessfulOutcomeXnApElementaryProceduresXnSetupFailure(xnSetupFail
 func CreateHandoverRequestIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdSourceNgRannodeUexnApid{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17240,7 +15128,7 @@ func CreateHandoverRequestIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUex
 func CreateHandoverRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdCause{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -17254,7 +15142,7 @@ func CreateHandoverRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducon
 func CreateHandoverRequestIEsValueIDTargetCellGlobalID(IDTargetCellGlobalID *xnapiesv1.TargetCGi) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdTargetCellGlobalId{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdTargetCellGlobalId{
 			IdTargetCellGlobalId: IDTargetCellGlobalID,
 		},
 	}
@@ -17268,7 +15156,7 @@ func CreateHandoverRequestIEsValueIDTargetCellGlobalID(IDTargetCellGlobalID *xna
 func CreateHandoverRequestIEsValueIDGuami(IDGuami *xnapiesv1.Guami) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdGuami{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdGuami{
 			IdGuami: IDGuami,
 		},
 	}
@@ -17282,7 +15170,7 @@ func CreateHandoverRequestIEsValueIDGuami(IDGuami *xnapiesv1.Guami) (*xnappducon
 func CreateHandoverRequestIEsValueIDUecontextInfoHorequest(IDUecontextInfoHorequest *xnappducontentsv1.UecontextInfoHorequest) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdUecontextInfoHorequest{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdUecontextInfoHorequest{
 			IdUecontextInfoHorequest: IDUecontextInfoHorequest,
 		},
 	}
@@ -17296,7 +15184,7 @@ func CreateHandoverRequestIEsValueIDUecontextInfoHorequest(IDUecontextInfoHorequ
 func CreateHandoverRequestIEsValueIDTraceActivation(IDTraceActivation *xnapiesv1.TraceActivation) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdTraceActivation{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdTraceActivation{
 			IdTraceActivation: IDTraceActivation,
 		},
 	}
@@ -17310,7 +15198,7 @@ func CreateHandoverRequestIEsValueIDTraceActivation(IDTraceActivation *xnapiesv1
 func CreateHandoverRequestIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapiesv1.MaskedImeisv) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdMaskedImeisv{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdMaskedImeisv{
 			IdMaskedImeisv: IDMaskedImeisv,
 		},
 	}
@@ -17324,7 +15212,7 @@ func CreateHandoverRequestIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapiesv1.Maske
 func CreateHandoverRequestIEsValueIDUehistoryInformation(IDUehistoryInformation *xnapiesv1.UehistoryInformation) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdUehistoryInformation{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdUehistoryInformation{
 			IdUehistoryInformation: IDUehistoryInformation,
 		},
 	}
@@ -17338,7 +15226,7 @@ func CreateHandoverRequestIEsValueIDUehistoryInformation(IDUehistoryInformation 
 func CreateHandoverRequestIEsValueIDUecontextRefAtSnHorequest(IDUecontextRefAtSnHorequest *xnappducontentsv1.UecontextRefAtSnHOrequest) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdUecontextRefAtSnHorequest{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdUecontextRefAtSnHorequest{
 			IdUecontextRefAtSnHorequest: IDUecontextRefAtSnHorequest,
 		},
 	}
@@ -17352,7 +15240,7 @@ func CreateHandoverRequestIEsValueIDUecontextRefAtSnHorequest(IDUecontextRefAtSn
 func CreateHandoverRequestIEsValueIDChoinformationReq(IDChoinformationReq *xnapiesv1.ChoinformationReq) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdChoinformationReq{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdChoinformationReq{
 			IdChoinformationReq: IDChoinformationReq,
 		},
 	}
@@ -17366,7 +15254,7 @@ func CreateHandoverRequestIEsValueIDChoinformationReq(IDChoinformationReq *xnapi
 func CreateHandoverRequestIEsValueIDNrv2XservicesAuthorized(IDNrv2XservicesAuthorized *xnapiesv1.Nrv2XservicesAuthorized) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdNrv2XservicesAuthorized{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdNrv2XservicesAuthorized{
 			IdNrv2XservicesAuthorized: IDNrv2XservicesAuthorized,
 		},
 	}
@@ -17380,7 +15268,7 @@ func CreateHandoverRequestIEsValueIDNrv2XservicesAuthorized(IDNrv2XservicesAutho
 func CreateHandoverRequestIEsValueIDLtev2XservicesAuthorized(IDLtev2XservicesAuthorized *xnapiesv1.Ltev2XservicesAuthorized) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdLtev2XservicesAuthorized{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdLtev2XservicesAuthorized{
 			IdLtev2XservicesAuthorized: IDLtev2XservicesAuthorized,
 		},
 	}
@@ -17394,7 +15282,7 @@ func CreateHandoverRequestIEsValueIDLtev2XservicesAuthorized(IDLtev2XservicesAut
 func CreateHandoverRequestIEsValueIDPc5QoSparameters(IDPc5QoSparameters *xnapiesv1.Pc5QoSparameters) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdPc5QoSparameters{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdPc5QoSparameters{
 			IdPc5QoSparameters: IDPc5QoSparameters,
 		},
 	}
@@ -17408,7 +15296,7 @@ func CreateHandoverRequestIEsValueIDPc5QoSparameters(IDPc5QoSparameters *xnapies
 func CreateHandoverRequestIEsValueIDMobilityInformation(IDMobilityInformation *xnapiesv1.MobilityInformation) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdMobilityInformation{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdMobilityInformation{
 			IdMobilityInformation: IDMobilityInformation,
 		},
 	}
@@ -17422,7 +15310,7 @@ func CreateHandoverRequestIEsValueIDMobilityInformation(IDMobilityInformation *x
 func CreateHandoverRequestIEsValueIDUehistoryInformationFromTheUe(IDUehistoryInformationFromTheUe *xnapiesv1.UehistoryInformationFromTheUe) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdUehistoryInformationFromTheUe{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdUehistoryInformationFromTheUe{
 			IdUehistoryInformationFromTheUe: IDUehistoryInformationFromTheUe,
 		},
 	}
@@ -17436,7 +15324,7 @@ func CreateHandoverRequestIEsValueIDUehistoryInformationFromTheUe(IDUehistoryInf
 func CreateHandoverRequestIEsValueIDIabnodeIndication(IDIabnodeIndication xnapiesv1.IabnodeIndication) (*xnappducontentsv1.HandoverRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestIEsValue{
-		HandoverRequestIEsValue: &xnappducontentsv1.HandoverRequestIEsValue_IdIabnodeIndication{
+		HandoverRequestIes: &xnappducontentsv1.HandoverRequestIEsValue_IdIabnodeIndication{
 			IdIabnodeIndication: IDIabnodeIndication,
 		},
 	}
@@ -17450,7 +15338,7 @@ func CreateHandoverRequestIEsValueIDIabnodeIndication(IDIabnodeIndication xnapie
 func CreateUecontextInfoHorequestExtIesExtensionIDFiveGcmobilityRestrictionListContainer(IDFiveGcmobilityRestrictionListContainer *xnapiesv1.FiveGcmobilityRestrictionListContainer) (*xnappducontentsv1.UecontextInfoHorequestExtIesExtension, error) {
 
 	item := &xnappducontentsv1.UecontextInfoHorequestExtIesExtension{
-		UecontextInfoHorequestExtIesExtension: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdFiveGcmobilityRestrictionListContainer{
+		UecontextInfoHorequestExtIes: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdFiveGcmobilityRestrictionListContainer{
 			IdFiveGcmobilityRestrictionListContainer: IDFiveGcmobilityRestrictionListContainer,
 		},
 	}
@@ -17464,7 +15352,7 @@ func CreateUecontextInfoHorequestExtIesExtensionIDFiveGcmobilityRestrictionListC
 func CreateUecontextInfoHorequestExtIesExtensionIDNruesIDelinkAggregateMaximumBitRate(IDNruesIDelinkAggregateMaximumBitRate *xnapiesv1.NruesidelinkAggregateMaximumBitRate) (*xnappducontentsv1.UecontextInfoHorequestExtIesExtension, error) {
 
 	item := &xnappducontentsv1.UecontextInfoHorequestExtIesExtension{
-		UecontextInfoHorequestExtIesExtension: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdNruesidelinkAggregateMaximumBitRate{
+		UecontextInfoHorequestExtIes: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdNruesidelinkAggregateMaximumBitRate{
 			IdNruesidelinkAggregateMaximumBitRate: IDNruesIDelinkAggregateMaximumBitRate,
 		},
 	}
@@ -17478,7 +15366,7 @@ func CreateUecontextInfoHorequestExtIesExtensionIDNruesIDelinkAggregateMaximumBi
 func CreateUecontextInfoHorequestExtIesExtensionIDLteuesIDelinkAggregateMaximumBitRate(IDLteuesIDelinkAggregateMaximumBitRate *xnapiesv1.LteuesidelinkAggregateMaximumBitRate) (*xnappducontentsv1.UecontextInfoHorequestExtIesExtension, error) {
 
 	item := &xnappducontentsv1.UecontextInfoHorequestExtIesExtension{
-		UecontextInfoHorequestExtIesExtension: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate{
+		UecontextInfoHorequestExtIes: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate{
 			IdLteuesidelinkAggregateMaximumBitRate: IDLteuesIDelinkAggregateMaximumBitRate,
 		},
 	}
@@ -17492,7 +15380,7 @@ func CreateUecontextInfoHorequestExtIesExtensionIDLteuesIDelinkAggregateMaximumB
 func CreateUecontextInfoHorequestExtIesExtensionIDMdtplmnlist(IDMdtplmnlist *xnapiesv1.Mdtplmnlist) (*xnappducontentsv1.UecontextInfoHorequestExtIesExtension, error) {
 
 	item := &xnappducontentsv1.UecontextInfoHorequestExtIesExtension{
-		UecontextInfoHorequestExtIesExtension: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdMdtplmnlist{
+		UecontextInfoHorequestExtIes: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdMdtplmnlist{
 			IdMdtplmnlist: IDMdtplmnlist,
 		},
 	}
@@ -17506,7 +15394,7 @@ func CreateUecontextInfoHorequestExtIesExtensionIDMdtplmnlist(IDMdtplmnlist *xna
 func CreateUecontextInfoHorequestExtIesExtensionIDUeradioCapabilityID(IDUeradioCapabilityID *xnapiesv1.UeradioCapabilityId) (*xnappducontentsv1.UecontextInfoHorequestExtIesExtension, error) {
 
 	item := &xnappducontentsv1.UecontextInfoHorequestExtIesExtension{
-		UecontextInfoHorequestExtIesExtension: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdUeradioCapabilityId{
+		UecontextInfoHorequestExtIes: &xnappducontentsv1.UecontextInfoHorequestExtIesExtension_IdUeradioCapabilityId{
 			IdUeradioCapabilityId: IDUeradioCapabilityID,
 		},
 	}
@@ -17520,7 +15408,7 @@ func CreateUecontextInfoHorequestExtIesExtensionIDUeradioCapabilityID(IDUeradioC
 func CreateHandoverRequestAcknowledgeIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdSourceNgRannodeUexnApid{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17534,7 +15422,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDSourceNgRannodeUexnApID(IDSourceN
 func CreateHandoverRequestAcknowledgeIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdTargetNgRannodeUexnApid{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17548,7 +15436,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDTargetNgRannodeUexnApID(IDTargetN
 func CreateHandoverRequestAcknowledgeIEsValueIDPdusessionResourcesAdmittedList(IDPdusessionResourcesAdmittedList *xnapiesv1.PdusessionResourcesAdmittedList) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesAdmittedList{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesAdmittedList{
 			IdPdusessionResourcesAdmittedList: IDPdusessionResourcesAdmittedList,
 		},
 	}
@@ -17562,7 +15450,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDPdusessionResourcesAdmittedList(I
 func CreateHandoverRequestAcknowledgeIEsValueIDPdusessionResourcesNotAdmittedList(IDPdusessionResourcesNotAdmittedList *xnapiesv1.PdusessionResourcesNotAdmittedList) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesNotAdmittedList{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesNotAdmittedList{
 			IdPdusessionResourcesNotAdmittedList: IDPdusessionResourcesNotAdmittedList,
 		},
 	}
@@ -17576,7 +15464,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDPdusessionResourcesNotAdmittedLis
 func CreateHandoverRequestAcknowledgeIEsValueIDTarget2SourceNgRannodeTranspContainer(IDTarget2SourceNgRannodeTranspContainer string) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdTarget2SourceNgRannodeTranspContainer{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdTarget2SourceNgRannodeTranspContainer{
 			IdTarget2SourceNgRannodeTranspContainer: IDTarget2SourceNgRannodeTranspContainer,
 		},
 	}
@@ -17590,7 +15478,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDTarget2SourceNgRannodeTranspConta
 func CreateHandoverRequestAcknowledgeIEsValueIDUecontextKeptIndicator(IDUecontextKeptIndicator xnapiesv1.UecontextKeptIndicator) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdUecontextKeptIndicator{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdUecontextKeptIndicator{
 			IdUecontextKeptIndicator: IDUecontextKeptIndicator,
 		},
 	}
@@ -17604,7 +15492,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDUecontextKeptIndicator(IDUecontex
 func CreateHandoverRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -17618,7 +15506,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCritical
 func CreateHandoverRequestAcknowledgeIEsValueIDDrbsTransferredToMn(IDDrbsTransferredToMn *xnapiesv1.DrbList) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdDrbsTransferredToMn{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdDrbsTransferredToMn{
 			IdDrbsTransferredToMn: IDDrbsTransferredToMn,
 		},
 	}
@@ -17632,7 +15520,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDDrbsTransferredToMn(IDDrbsTransfe
 func CreateHandoverRequestAcknowledgeIEsValueIDDapsresponseInfoList(IDDapsresponseInfoList *xnapiesv1.DapsresponseInfoList) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdDapsresponseInfoList{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdDapsresponseInfoList{
 			IdDapsresponseInfoList: IDDapsresponseInfoList,
 		},
 	}
@@ -17646,7 +15534,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDDapsresponseInfoList(IDDapsrespon
 func CreateHandoverRequestAcknowledgeIEsValueIDChoinformationAck(IDChoinformationAck *xnapiesv1.ChoinformationAck) (*xnappducontentsv1.HandoverRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue{
-		HandoverRequestAcknowledgeIEsValue: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdChoinformationAck{
+		HandoverRequestAcknowledgeIes: &xnappducontentsv1.HandoverRequestAcknowledgeIEsValue_IdChoinformationAck{
 			IdChoinformationAck: IDChoinformationAck,
 		},
 	}
@@ -17660,7 +15548,7 @@ func CreateHandoverRequestAcknowledgeIEsValueIDChoinformationAck(IDChoinformatio
 func CreateHandoverPreparationFailureIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverPreparationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverPreparationFailureIEsValue{
-		HandoverPreparationFailureIEsValue: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdSourceNgRannodeUexnApid{
+		HandoverPreparationFailureIes: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17674,7 +15562,7 @@ func CreateHandoverPreparationFailureIEsValueIDSourceNgRannodeUexnApID(IDSourceN
 func CreateHandoverPreparationFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.HandoverPreparationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverPreparationFailureIEsValue{
-		HandoverPreparationFailureIEsValue: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdCause{
+		HandoverPreparationFailureIes: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -17688,7 +15576,7 @@ func CreateHandoverPreparationFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (
 func CreateHandoverPreparationFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.HandoverPreparationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverPreparationFailureIEsValue{
-		HandoverPreparationFailureIEsValue: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdCriticalityDiagnostics{
+		HandoverPreparationFailureIes: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -17702,7 +15590,7 @@ func CreateHandoverPreparationFailureIEsValueIDCriticalityDiagnostics(IDCritical
 func CreateHandoverPreparationFailureIEsValueIDRequestedTargetCellGlobalID(IDRequestedTargetCellGlobalID *xnapiesv1.TargetCGi) (*xnappducontentsv1.HandoverPreparationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverPreparationFailureIEsValue{
-		HandoverPreparationFailureIEsValue: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdRequestedTargetCellGlobalId{
+		HandoverPreparationFailureIes: &xnappducontentsv1.HandoverPreparationFailureIEsValue_IdRequestedTargetCellGlobalId{
 			IdRequestedTargetCellGlobalId: IDRequestedTargetCellGlobalID,
 		},
 	}
@@ -17716,7 +15604,7 @@ func CreateHandoverPreparationFailureIEsValueIDRequestedTargetCellGlobalID(IDReq
 func CreateSnstatusTransferIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnstatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.SnstatusTransferIEsValue{
-		SnstatusTransferIEsValue: &xnappducontentsv1.SnstatusTransferIEsValue_IdSourceNgRannodeUexnApid{
+		SnstatusTransferIes: &xnappducontentsv1.SnstatusTransferIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17730,7 +15618,7 @@ func CreateSnstatusTransferIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUe
 func CreateSnstatusTransferIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnstatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.SnstatusTransferIEsValue{
-		SnstatusTransferIEsValue: &xnappducontentsv1.SnstatusTransferIEsValue_IdTargetNgRannodeUexnApid{
+		SnstatusTransferIes: &xnappducontentsv1.SnstatusTransferIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17744,7 +15632,7 @@ func CreateSnstatusTransferIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUe
 func CreateSnstatusTransferIEsValueIDDrbsSubjectToStatusTransferList(IDDrbsSubjectToStatusTransferList *xnapiesv1.DrbsSubjectToStatusTransferList) (*xnappducontentsv1.SnstatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.SnstatusTransferIEsValue{
-		SnstatusTransferIEsValue: &xnappducontentsv1.SnstatusTransferIEsValue_IdDrbsSubjectToStatusTransferList{
+		SnstatusTransferIes: &xnappducontentsv1.SnstatusTransferIEsValue_IdDrbsSubjectToStatusTransferList{
 			IdDrbsSubjectToStatusTransferList: IDDrbsSubjectToStatusTransferList,
 		},
 	}
@@ -17758,7 +15646,7 @@ func CreateSnstatusTransferIEsValueIDDrbsSubjectToStatusTransferList(IDDrbsSubje
 func CreateUecontextReleaseIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.UecontextReleaseIEsValue, error) {
 
 	item := &xnappducontentsv1.UecontextReleaseIEsValue{
-		UecontextReleaseIEsValue: &xnappducontentsv1.UecontextReleaseIEsValue_IdSourceNgRannodeUexnApid{
+		UecontextReleaseIes: &xnappducontentsv1.UecontextReleaseIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17772,7 +15660,7 @@ func CreateUecontextReleaseIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUe
 func CreateUecontextReleaseIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.UecontextReleaseIEsValue, error) {
 
 	item := &xnappducontentsv1.UecontextReleaseIEsValue{
-		UecontextReleaseIEsValue: &xnappducontentsv1.UecontextReleaseIEsValue_IdTargetNgRannodeUexnApid{
+		UecontextReleaseIes: &xnappducontentsv1.UecontextReleaseIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17786,7 +15674,7 @@ func CreateUecontextReleaseIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUe
 func CreateHandoverCancelIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverCancelIEsValue{
-		HandoverCancelIEsValue: &xnappducontentsv1.HandoverCancelIEsValue_IdSourceNgRannodeUexnApid{
+		HandoverCancelIes: &xnappducontentsv1.HandoverCancelIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17800,7 +15688,7 @@ func CreateHandoverCancelIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexn
 func CreateHandoverCancelIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverCancelIEsValue{
-		HandoverCancelIEsValue: &xnappducontentsv1.HandoverCancelIEsValue_IdTargetNgRannodeUexnApid{
+		HandoverCancelIes: &xnappducontentsv1.HandoverCancelIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17814,7 +15702,7 @@ func CreateHandoverCancelIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexn
 func CreateHandoverCancelIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.HandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverCancelIEsValue{
-		HandoverCancelIEsValue: &xnappducontentsv1.HandoverCancelIEsValue_IdCause{
+		HandoverCancelIes: &xnappducontentsv1.HandoverCancelIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -17828,7 +15716,7 @@ func CreateHandoverCancelIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducont
 func CreateHandoverCancelIEsValueIDTargetCellsToCancel(IDTargetCellsToCancel *xnapiesv1.TargetCellList) (*xnappducontentsv1.HandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverCancelIEsValue{
-		HandoverCancelIEsValue: &xnappducontentsv1.HandoverCancelIEsValue_IdTargetCellsToCancel{
+		HandoverCancelIes: &xnappducontentsv1.HandoverCancelIEsValue_IdTargetCellsToCancel{
 			IdTargetCellsToCancel: IDTargetCellsToCancel,
 		},
 	}
@@ -17842,7 +15730,7 @@ func CreateHandoverCancelIEsValueIDTargetCellsToCancel(IDTargetCellsToCancel *xn
 func CreateHandoverSuccessIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverSuccessIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverSuccessIEsValue{
-		HandoverSuccessIEsValue: &xnappducontentsv1.HandoverSuccessIEsValue_IdSourceNgRannodeUexnApid{
+		HandoverSuccessIes: &xnappducontentsv1.HandoverSuccessIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17856,7 +15744,7 @@ func CreateHandoverSuccessIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUex
 func CreateHandoverSuccessIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.HandoverSuccessIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverSuccessIEsValue{
-		HandoverSuccessIEsValue: &xnappducontentsv1.HandoverSuccessIEsValue_IdTargetNgRannodeUexnApid{
+		HandoverSuccessIes: &xnappducontentsv1.HandoverSuccessIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17870,7 +15758,7 @@ func CreateHandoverSuccessIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUex
 func CreateHandoverSuccessIEsValueIDRequestedTargetCellGlobalID(IDRequestedTargetCellGlobalID *xnapiesv1.TargetCGi) (*xnappducontentsv1.HandoverSuccessIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverSuccessIEsValue{
-		HandoverSuccessIEsValue: &xnappducontentsv1.HandoverSuccessIEsValue_IdRequestedTargetCellGlobalId{
+		HandoverSuccessIes: &xnappducontentsv1.HandoverSuccessIEsValue_IdRequestedTargetCellGlobalId{
 			IdRequestedTargetCellGlobalId: IDRequestedTargetCellGlobalID,
 		},
 	}
@@ -17884,7 +15772,7 @@ func CreateHandoverSuccessIEsValueIDRequestedTargetCellGlobalID(IDRequestedTarge
 func CreateConditionalHandoverCancelIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ConditionalHandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.ConditionalHandoverCancelIEsValue{
-		ConditionalHandoverCancelIEsValue: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdSourceNgRannodeUexnApid{
+		ConditionalHandoverCancelIes: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17898,7 +15786,7 @@ func CreateConditionalHandoverCancelIEsValueIDSourceNgRannodeUexnApID(IDSourceNg
 func CreateConditionalHandoverCancelIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ConditionalHandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.ConditionalHandoverCancelIEsValue{
-		ConditionalHandoverCancelIEsValue: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdTargetNgRannodeUexnApid{
+		ConditionalHandoverCancelIes: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17912,7 +15800,7 @@ func CreateConditionalHandoverCancelIEsValueIDTargetNgRannodeUexnApID(IDTargetNg
 func CreateConditionalHandoverCancelIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.ConditionalHandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.ConditionalHandoverCancelIEsValue{
-		ConditionalHandoverCancelIEsValue: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdCause{
+		ConditionalHandoverCancelIes: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -17926,7 +15814,7 @@ func CreateConditionalHandoverCancelIEsValueIDCause(IDCause *xnapiesv1.Cause) (*
 func CreateConditionalHandoverCancelIEsValueIDTargetCellsToCancel(IDTargetCellsToCancel *xnapiesv1.TargetCellList) (*xnappducontentsv1.ConditionalHandoverCancelIEsValue, error) {
 
 	item := &xnappducontentsv1.ConditionalHandoverCancelIEsValue{
-		ConditionalHandoverCancelIEsValue: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdTargetCellsToCancel{
+		ConditionalHandoverCancelIes: &xnappducontentsv1.ConditionalHandoverCancelIEsValue_IdTargetCellsToCancel{
 			IdTargetCellsToCancel: IDTargetCellsToCancel,
 		},
 	}
@@ -17940,7 +15828,7 @@ func CreateConditionalHandoverCancelIEsValueIDTargetCellsToCancel(IDTargetCellsT
 func CreateEarlyStatusTransferIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.EarlyStatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.EarlyStatusTransferIEsValue{
-		EarlyStatusTransferIEsValue: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdSourceNgRannodeUexnApid{
+		EarlyStatusTransferIes: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdSourceNgRannodeUexnApid{
 			IdSourceNgRannodeUexnApid: IDSourceNgRannodeUexnApID,
 		},
 	}
@@ -17954,7 +15842,7 @@ func CreateEarlyStatusTransferIEsValueIDSourceNgRannodeUexnApID(IDSourceNgRannod
 func CreateEarlyStatusTransferIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.EarlyStatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.EarlyStatusTransferIEsValue{
-		EarlyStatusTransferIEsValue: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdTargetNgRannodeUexnApid{
+		EarlyStatusTransferIes: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdTargetNgRannodeUexnApid{
 			IdTargetNgRannodeUexnApid: IDTargetNgRannodeUexnApID,
 		},
 	}
@@ -17968,7 +15856,7 @@ func CreateEarlyStatusTransferIEsValueIDTargetNgRannodeUexnApID(IDTargetNgRannod
 func CreateEarlyStatusTransferIEsValueIDProcedureStage(IDProcedureStage *xnappducontentsv1.ProcedureStageChoice) (*xnappducontentsv1.EarlyStatusTransferIEsValue, error) {
 
 	item := &xnappducontentsv1.EarlyStatusTransferIEsValue{
-		EarlyStatusTransferIEsValue: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdProcedureStage{
+		EarlyStatusTransferIes: &xnappducontentsv1.EarlyStatusTransferIEsValue_IdProcedureStage{
 			IdProcedureStage: IDProcedureStage,
 		},
 	}
@@ -18021,30 +15909,30 @@ func CreateProcedureStageChoiceChoiceExtension(choiceExtension *xnappducontentsv
 
 	return item, nil
 }
-func CreateRanpagingIEsValueIdUeidentityIndexValue(idUeidentityIndexValue *xnapiesv1.UeidentityIndexValue) (*xnappducontentsv1.RanpagingIEsValue, error) {
+func CreateRanpagingIEsValueIDUeidentityIndexValue(idUeidentityIndexValue *xnapiesv1.UeidentityIndexValue) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdUeidentityIndexValue{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdUeidentityIndexValue{
 			IdUeidentityIndexValue: idUeidentityIndexValue,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIdUeidentityIndexValue() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIDUeidentityIndexValue() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
 }
-func CreateRanpagingIEsValueIdUeranpagingIdentity(idUeranpagingIdentity *xnapiesv1.UeranpagingIdentity) (*xnappducontentsv1.RanpagingIEsValue, error) {
+func CreateRanpagingIEsValueIDUeranpagingIdentity(idUeranpagingIdentity *xnapiesv1.UeranpagingIdentity) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdUeranpagingIdentity{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdUeranpagingIdentity{
 			IdUeranpagingIdentity: idUeranpagingIdentity,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIdUeranpagingIdentity() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIDUeranpagingIdentity() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
@@ -18052,7 +15940,7 @@ func CreateRanpagingIEsValueIdUeranpagingIdentity(idUeranpagingIdentity *xnapies
 func CreateRanpagingIEsValueIDPagingDrx(IDPagingDrx xnapiesv1.PagingDrx) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdPagingDrx{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdPagingDrx{
 			IdPagingDrx: IDPagingDrx,
 		},
 	}
@@ -18066,7 +15954,7 @@ func CreateRanpagingIEsValueIDPagingDrx(IDPagingDrx xnapiesv1.PagingDrx) (*xnapp
 func CreateRanpagingIEsValueIDRanpagingArea(IDRanpagingArea *xnapiesv1.RanpagingArea) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdRanpagingArea{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdRanpagingArea{
 			IdRanpagingArea: IDRanpagingArea,
 		},
 	}
@@ -18080,7 +15968,7 @@ func CreateRanpagingIEsValueIDRanpagingArea(IDRanpagingArea *xnapiesv1.Ranpaging
 func CreateRanpagingIEsValueIDPagingPriority(IDPagingPriority xnapiesv1.PagingPriority) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdPagingPriority{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdPagingPriority{
 			IdPagingPriority: IDPagingPriority,
 		},
 	}
@@ -18094,7 +15982,7 @@ func CreateRanpagingIEsValueIDPagingPriority(IDPagingPriority xnapiesv1.PagingPr
 func CreateRanpagingIEsValueIDAssistanceDataForRanpaging(IDAssistanceDataForRanpaging *xnapiesv1.AssistanceDataForRanpaging) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdAssistanceDataForRanpaging{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdAssistanceDataForRanpaging{
 			IdAssistanceDataForRanpaging: IDAssistanceDataForRanpaging,
 		},
 	}
@@ -18108,7 +15996,7 @@ func CreateRanpagingIEsValueIDAssistanceDataForRanpaging(IDAssistanceDataForRanp
 func CreateRanpagingIEsValueIDUeradioCapabilityForPaging(IDUeradioCapabilityForPaging *xnapiesv1.UeradioCapabilityForPaging) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdUeradioCapabilityForPaging{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdUeradioCapabilityForPaging{
 			IdUeradioCapabilityForPaging: IDUeradioCapabilityForPaging,
 		},
 	}
@@ -18119,16 +16007,16 @@ func CreateRanpagingIEsValueIDUeradioCapabilityForPaging(IDUeradioCapabilityForP
 
 	return item, nil
 }
-func CreateRanpagingIEsValueIdExtendedUeidentityIndexValue(idExtendedUeidentityIndexValue *xnapiesv1.ExtendedUeidentityIndexValue) (*xnappducontentsv1.RanpagingIEsValue, error) {
+func CreateRanpagingIEsValueIDExtendedUeidentityIndexValue(idExtendedUeidentityIndexValue *xnapiesv1.ExtendedUeidentityIndexValue) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdExtendedUeidentityIndexValue{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdExtendedUeidentityIndexValue{
 			IdExtendedUeidentityIndexValue: idExtendedUeidentityIndexValue,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIdExtendedUeidentityIndexValue() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateRanpagingIEsValueIDExtendedUeidentityIndexValue() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
@@ -18136,7 +16024,7 @@ func CreateRanpagingIEsValueIdExtendedUeidentityIndexValue(idExtendedUeidentityI
 func CreateRanpagingIEsValueIDPagingeDrxinformation(IDPagingeDrxinformation *xnapiesv1.PagingeDrxinformation) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdPagingeDrxinformation{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdPagingeDrxinformation{
 			IdPagingeDrxinformation: IDPagingeDrxinformation,
 		},
 	}
@@ -18150,7 +16038,7 @@ func CreateRanpagingIEsValueIDPagingeDrxinformation(IDPagingeDrxinformation *xna
 func CreateRanpagingIEsValueIDUespecificDrx(IDUespecificDrx xnapiesv1.UespecificDrx) (*xnappducontentsv1.RanpagingIEsValue, error) {
 
 	item := &xnappducontentsv1.RanpagingIEsValue{
-		RanpagingIEsValue: &xnappducontentsv1.RanpagingIEsValue_IdUespecificDrx{
+		RanpagingIes: &xnappducontentsv1.RanpagingIEsValue_IdUespecificDrx{
 			IdUespecificDrx: IDUespecificDrx,
 		},
 	}
@@ -18164,7 +16052,7 @@ func CreateRanpagingIEsValueIDUespecificDrx(IDUespecificDrx xnapiesv1.Uespecific
 func CreateRetrieveUecontextRequestIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextRequestIEsValue{
-		RetrieveUecontextRequestIEsValue: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdNewNgRannodeUexnApid{
+		RetrieveUecontextRequestIes: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdNewNgRannodeUexnApid{
 			IdNewNgRannodeUexnApid: IDNewNgRannodeUexnApID,
 		},
 	}
@@ -18178,7 +16066,7 @@ func CreateRetrieveUecontextRequestIEsValueIDNewNgRannodeUexnApID(IDNewNgRannode
 func CreateRetrieveUecontextRequestIEsValueIDUecontextID(IDUecontextID *xnapiesv1.UecontextId) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextRequestIEsValue{
-		RetrieveUecontextRequestIEsValue: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdUecontextId{
+		RetrieveUecontextRequestIes: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdUecontextId{
 			IdUecontextId: IDUecontextID,
 		},
 	}
@@ -18192,7 +16080,7 @@ func CreateRetrieveUecontextRequestIEsValueIDUecontextID(IDUecontextID *xnapiesv
 func CreateRetrieveUecontextRequestIEsValueIDMacI(IDMacI *xnapiesv1.MacI) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextRequestIEsValue{
-		RetrieveUecontextRequestIEsValue: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdMacI{
+		RetrieveUecontextRequestIes: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdMacI{
 			IdMacI: IDMacI,
 		},
 	}
@@ -18203,16 +16091,16 @@ func CreateRetrieveUecontextRequestIEsValueIDMacI(IDMacI *xnapiesv1.MacI) (*xnap
 
 	return item, nil
 }
-func CreateRetrieveUecontextRequestIEsValueIdNewNgRanCellIdentity(idNewNgRanCellIdentity *xnapiesv1.NgRAnCellIdentity) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
+func CreateRetrieveUecontextRequestIEsValueIDNewNgRanCellIdentity(idNewNgRanCellIdentity *xnapiesv1.NgRAnCellIdentity) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextRequestIEsValue{
-		RetrieveUecontextRequestIEsValue: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdNewNgRanCellIdentity{
+		RetrieveUecontextRequestIes: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdNewNgRanCellIdentity{
 			IdNewNgRanCellIdentity: idNewNgRanCellIdentity,
 		},
 	}
 
 	//if err := item.Validate(); err != nil {
-	//	return nil, errors.NewInvalid("CreateRetrieveUecontextRequestIEsValueIdNewNgRanCellIdentity() error validating PDU %s", err.Error())
+	//	return nil, errors.NewInvalid("CreateRetrieveUecontextRequestIEsValueIDNewNgRanCellIdentity() error validating PDU %s", err.Error())
 	//}
 
 	return item, nil
@@ -18220,7 +16108,7 @@ func CreateRetrieveUecontextRequestIEsValueIdNewNgRanCellIdentity(idNewNgRanCell
 func CreateRetrieveUecontextRequestIEsValueIDRrcresumeCause(IDRrcresumeCause xnapiesv1.RrcresumeCause) (*xnappducontentsv1.RetrieveUecontextRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextRequestIEsValue{
-		RetrieveUecontextRequestIEsValue: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdRrcresumeCause{
+		RetrieveUecontextRequestIes: &xnappducontentsv1.RetrieveUecontextRequestIEsValue_IdRrcresumeCause{
 			IdRrcresumeCause: IDRrcresumeCause,
 		},
 	}
@@ -18234,7 +16122,7 @@ func CreateRetrieveUecontextRequestIEsValueIDRrcresumeCause(IDRrcresumeCause xna
 func CreateRetrieveUecontextResponseIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdNewNgRannodeUexnApid{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdNewNgRannodeUexnApid{
 			IdNewNgRannodeUexnApid: IDNewNgRannodeUexnApID,
 		},
 	}
@@ -18248,7 +16136,7 @@ func CreateRetrieveUecontextResponseIEsValueIDNewNgRannodeUexnApID(IDNewNgRannod
 func CreateRetrieveUecontextResponseIEsValueIDOldNgRannodeUexnApID(IDOldNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdOldNgRannodeUexnApid{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdOldNgRannodeUexnApid{
 			IdOldNgRannodeUexnApid: IDOldNgRannodeUexnApID,
 		},
 	}
@@ -18262,7 +16150,7 @@ func CreateRetrieveUecontextResponseIEsValueIDOldNgRannodeUexnApID(IDOldNgRannod
 func CreateRetrieveUecontextResponseIEsValueIDGuami(IDGuami *xnapiesv1.Guami) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdGuami{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdGuami{
 			IdGuami: IDGuami,
 		},
 	}
@@ -18276,7 +16164,7 @@ func CreateRetrieveUecontextResponseIEsValueIDGuami(IDGuami *xnapiesv1.Guami) (*
 func CreateRetrieveUecontextResponseIEsValueIDUecontextInfoRetrUectxtResp(IDUecontextInfoRetrUectxtResp *xnapiesv1.UecontextInfoRetrUectxtResp) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUecontextInfoRetrUectxtResp{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUecontextInfoRetrUectxtResp{
 			IdUecontextInfoRetrUectxtResp: IDUecontextInfoRetrUectxtResp,
 		},
 	}
@@ -18290,7 +16178,7 @@ func CreateRetrieveUecontextResponseIEsValueIDUecontextInfoRetrUectxtResp(IDUeco
 func CreateRetrieveUecontextResponseIEsValueIDTraceActivation(IDTraceActivation *xnapiesv1.TraceActivation) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdTraceActivation{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdTraceActivation{
 			IdTraceActivation: IDTraceActivation,
 		},
 	}
@@ -18304,7 +16192,7 @@ func CreateRetrieveUecontextResponseIEsValueIDTraceActivation(IDTraceActivation 
 func CreateRetrieveUecontextResponseIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapiesv1.MaskedImeisv) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdMaskedImeisv{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdMaskedImeisv{
 			IdMaskedImeisv: IDMaskedImeisv,
 		},
 	}
@@ -18318,7 +16206,7 @@ func CreateRetrieveUecontextResponseIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapi
 func CreateRetrieveUecontextResponseIEsValueIDLocationReportingInformation(IDLocationReportingInformation *xnapiesv1.LocationReportingInformation) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdLocationReportingInformation{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdLocationReportingInformation{
 			IdLocationReportingInformation: IDLocationReportingInformation,
 		},
 	}
@@ -18332,7 +16220,7 @@ func CreateRetrieveUecontextResponseIEsValueIDLocationReportingInformation(IDLoc
 func CreateRetrieveUecontextResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdCriticalityDiagnostics{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -18346,7 +16234,7 @@ func CreateRetrieveUecontextResponseIEsValueIDCriticalityDiagnostics(IDCriticali
 func CreateRetrieveUecontextResponseIEsValueIDNrv2XservicesAuthorized(IDNrv2XservicesAuthorized *xnapiesv1.Nrv2XservicesAuthorized) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdNrv2XservicesAuthorized{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdNrv2XservicesAuthorized{
 			IdNrv2XservicesAuthorized: IDNrv2XservicesAuthorized,
 		},
 	}
@@ -18360,7 +16248,7 @@ func CreateRetrieveUecontextResponseIEsValueIDNrv2XservicesAuthorized(IDNrv2Xser
 func CreateRetrieveUecontextResponseIEsValueIDLtev2XservicesAuthorized(IDLtev2XservicesAuthorized *xnapiesv1.Ltev2XservicesAuthorized) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdLtev2XservicesAuthorized{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdLtev2XservicesAuthorized{
 			IdLtev2XservicesAuthorized: IDLtev2XservicesAuthorized,
 		},
 	}
@@ -18374,7 +16262,7 @@ func CreateRetrieveUecontextResponseIEsValueIDLtev2XservicesAuthorized(IDLtev2Xs
 func CreateRetrieveUecontextResponseIEsValueIDPc5QoSparameters(IDPc5QoSparameters *xnapiesv1.Pc5QoSparameters) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdPc5QoSparameters{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdPc5QoSparameters{
 			IdPc5QoSparameters: IDPc5QoSparameters,
 		},
 	}
@@ -18388,7 +16276,7 @@ func CreateRetrieveUecontextResponseIEsValueIDPc5QoSparameters(IDPc5QoSparameter
 func CreateRetrieveUecontextResponseIEsValueIDUehistoryInformation(IDUehistoryInformation *xnapiesv1.UehistoryInformation) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUehistoryInformation{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUehistoryInformation{
 			IdUehistoryInformation: IDUehistoryInformation,
 		},
 	}
@@ -18402,7 +16290,7 @@ func CreateRetrieveUecontextResponseIEsValueIDUehistoryInformation(IDUehistoryIn
 func CreateRetrieveUecontextResponseIEsValueIDUehistoryInformationFromTheUe(IDUehistoryInformationFromTheUe *xnapiesv1.UehistoryInformationFromTheUe) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUehistoryInformationFromTheUe{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdUehistoryInformationFromTheUe{
 			IdUehistoryInformationFromTheUe: IDUehistoryInformationFromTheUe,
 		},
 	}
@@ -18416,7 +16304,7 @@ func CreateRetrieveUecontextResponseIEsValueIDUehistoryInformationFromTheUe(IDUe
 func CreateRetrieveUecontextResponseIEsValueIDMdtplmnlist(IDMdtplmnlist *xnapiesv1.Mdtplmnlist) (*xnappducontentsv1.RetrieveUecontextResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextResponseIEsValue{
-		RetrieveUecontextResponseIEsValue: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdMdtplmnlist{
+		RetrieveUecontextResponseIes: &xnappducontentsv1.RetrieveUecontextResponseIEsValue_IdMdtplmnlist{
 			IdMdtplmnlist: IDMdtplmnlist,
 		},
 	}
@@ -18430,7 +16318,7 @@ func CreateRetrieveUecontextResponseIEsValueIDMdtplmnlist(IDMdtplmnlist *xnapies
 func CreateRetrieveUecontextFailureIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RetrieveUecontextFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextFailureIEsValue{
-		RetrieveUecontextFailureIEsValue: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdNewNgRannodeUexnApid{
+		RetrieveUecontextFailureIes: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdNewNgRannodeUexnApid{
 			IdNewNgRannodeUexnApid: IDNewNgRannodeUexnApID,
 		},
 	}
@@ -18444,7 +16332,7 @@ func CreateRetrieveUecontextFailureIEsValueIDNewNgRannodeUexnApID(IDNewNgRannode
 func CreateRetrieveUecontextFailureIEsValueIDOldtoNewNgRannodeResumeContainer(IDOldtoNewNgRannodeResumeContainer string) (*xnappducontentsv1.RetrieveUecontextFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextFailureIEsValue{
-		RetrieveUecontextFailureIEsValue: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdOldtoNewNgRannodeResumeContainer{
+		RetrieveUecontextFailureIes: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdOldtoNewNgRannodeResumeContainer{
 			IdOldtoNewNgRannodeResumeContainer: IDOldtoNewNgRannodeResumeContainer,
 		},
 	}
@@ -18458,7 +16346,7 @@ func CreateRetrieveUecontextFailureIEsValueIDOldtoNewNgRannodeResumeContainer(ID
 func CreateRetrieveUecontextFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.RetrieveUecontextFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextFailureIEsValue{
-		RetrieveUecontextFailureIEsValue: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdCause{
+		RetrieveUecontextFailureIes: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -18472,7 +16360,7 @@ func CreateRetrieveUecontextFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*x
 func CreateRetrieveUecontextFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.RetrieveUecontextFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.RetrieveUecontextFailureIEsValue{
-		RetrieveUecontextFailureIEsValue: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdCriticalityDiagnostics{
+		RetrieveUecontextFailureIes: &xnappducontentsv1.RetrieveUecontextFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -18486,7 +16374,7 @@ func CreateRetrieveUecontextFailureIEsValueIDCriticalityDiagnostics(IDCriticalit
 func CreateXnUaddressIndicationIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.XnUaddressIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.XnUaddressIndicationIEsValue{
-		XnUaddressIndicationIEsValue: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdNewNgRannodeUexnApid{
+		XnUaddressIndicationIes: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdNewNgRannodeUexnApid{
 			IdNewNgRannodeUexnApid: IDNewNgRannodeUexnApID,
 		},
 	}
@@ -18500,7 +16388,7 @@ func CreateXnUaddressIndicationIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexn
 func CreateXnUaddressIndicationIEsValueIDOldNgRannodeUexnApID(IDOldNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.XnUaddressIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.XnUaddressIndicationIEsValue{
-		XnUaddressIndicationIEsValue: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdOldNgRannodeUexnApid{
+		XnUaddressIndicationIes: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdOldNgRannodeUexnApid{
 			IdOldNgRannodeUexnApid: IDOldNgRannodeUexnApID,
 		},
 	}
@@ -18514,7 +16402,7 @@ func CreateXnUaddressIndicationIEsValueIDOldNgRannodeUexnApID(IDOldNgRannodeUexn
 func CreateXnUaddressIndicationIEsValueIDXnUaddressInfoperPdusessionList(IDXnUaddressInfoperPdusessionList *xnapiesv1.XnUaddressInfoperPdusessionList) (*xnappducontentsv1.XnUaddressIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.XnUaddressIndicationIEsValue{
-		XnUaddressIndicationIEsValue: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdXnUaddressInfoperPdusessionList{
+		XnUaddressIndicationIes: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdXnUaddressInfoperPdusessionList{
 			IdXnUaddressInfoperPdusessionList: IDXnUaddressInfoperPdusessionList,
 		},
 	}
@@ -18528,7 +16416,7 @@ func CreateXnUaddressIndicationIEsValueIDXnUaddressInfoperPdusessionList(IDXnUad
 func CreateXnUaddressIndicationIEsValueIDChoMrdcIndicator(IDChoMrdcIndicator xnapiesv1.ChoMRdcIndicator) (*xnappducontentsv1.XnUaddressIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.XnUaddressIndicationIEsValue{
-		XnUaddressIndicationIEsValue: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdChoMrdcIndicator{
+		XnUaddressIndicationIes: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdChoMrdcIndicator{
 			IdChoMrdcIndicator: IDChoMrdcIndicator,
 		},
 	}
@@ -18542,7 +16430,7 @@ func CreateXnUaddressIndicationIEsValueIDChoMrdcIndicator(IDChoMrdcIndicator xna
 func CreateXnUaddressIndicationIEsValueIDChoMrdcEarlyDataForwarding(IDChoMrdcEarlyDataForwarding xnapiesv1.ChoMRdcEarlyDataForwarding) (*xnappducontentsv1.XnUaddressIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.XnUaddressIndicationIEsValue{
-		XnUaddressIndicationIEsValue: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdChoMrdcEarlyDataForwarding{
+		XnUaddressIndicationIes: &xnappducontentsv1.XnUaddressIndicationIEsValue_IdChoMrdcEarlyDataForwarding{
 			IdChoMrdcEarlyDataForwarding: IDChoMrdcEarlyDataForwarding,
 		},
 	}
@@ -18556,7 +16444,7 @@ func CreateXnUaddressIndicationIEsValueIDChoMrdcEarlyDataForwarding(IDChoMrdcEar
 func CreateSnodeAdditionRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMNgRannodeUexnApid{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -18570,7 +16458,7 @@ func CreateSnodeAdditionRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID
 func CreateSnodeAdditionRequestIEsValueIDUesecurityCapabilities(IDUesecurityCapabilities *xnapiesv1.UesecurityCapabilities) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdUesecurityCapabilities{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdUesecurityCapabilities{
 			IdUesecurityCapabilities: IDUesecurityCapabilities,
 		},
 	}
@@ -18584,7 +16472,7 @@ func CreateSnodeAdditionRequestIEsValueIDUesecurityCapabilities(IDUesecurityCapa
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeSecurityKey(IDSNgRannodeSecurityKey *xnapiesv1.SNGRAnnodeSecurityKey) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeSecurityKey{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeSecurityKey{
 			IdSNgRannodeSecurityKey: IDSNgRannodeSecurityKey,
 		},
 	}
@@ -18598,7 +16486,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeSecurityKey(IDSNgRannodeSecur
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeUeAmbr(IDSNgRannodeUeAmbr *xnapiesv1.UeaggregateMaximumBitRate) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeUeAmbr{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeUeAmbr{
 			IdSNgRannodeUeAmbr: IDSNgRannodeUeAmbr,
 		},
 	}
@@ -18612,7 +16500,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeUeAmbr(IDSNgRannodeUeAmbr *xn
 func CreateSnodeAdditionRequestIEsValueIDSelectedPlmn(IDSelectedPlmn *xnapiesv1.PlmnIdentity) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSelectedPlmn{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSelectedPlmn{
 			IdSelectedPlmn: IDSelectedPlmn,
 		},
 	}
@@ -18626,7 +16514,7 @@ func CreateSnodeAdditionRequestIEsValueIDSelectedPlmn(IDSelectedPlmn *xnapiesv1.
 func CreateSnodeAdditionRequestIEsValueIDMobilityRestrictionList(IDMobilityRestrictionList *xnapiesv1.MobilityRestrictionList) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMobilityRestrictionList{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMobilityRestrictionList{
 			IdMobilityRestrictionList: IDMobilityRestrictionList,
 		},
 	}
@@ -18640,7 +16528,7 @@ func CreateSnodeAdditionRequestIEsValueIDMobilityRestrictionList(IDMobilityRestr
 func CreateSnodeAdditionRequestIEsValueIDIndexToRatFrequSelectionPriority(IDIndexToRatFrequSelectionPriority *xnapiesv1.RfspIndex) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdIndexToRatFrequSelectionPriority{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdIndexToRatFrequSelectionPriority{
 			IdIndexToRatFrequSelectionPriority: IDIndexToRatFrequSelectionPriority,
 		},
 	}
@@ -18654,7 +16542,7 @@ func CreateSnodeAdditionRequestIEsValueIDIndexToRatFrequSelectionPriority(IDInde
 func CreateSnodeAdditionRequestIEsValueIDPdusessionToBeAddedAddReq(IDPdusessionToBeAddedAddReq *xnappducontentsv1.PdusessionToBeAddedAddReq) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdPdusessionToBeAddedAddReq{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdPdusessionToBeAddedAddReq{
 			IdPdusessionToBeAddedAddReq: IDPdusessionToBeAddedAddReq,
 		},
 	}
@@ -18668,7 +16556,7 @@ func CreateSnodeAdditionRequestIEsValueIDPdusessionToBeAddedAddReq(IDPdusessionT
 func CreateSnodeAdditionRequestIEsValueIDMnToSnContainer(IDMnToSnContainer string) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMnToSnContainer{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMnToSnContainer{
 			IdMnToSnContainer: IDMnToSnContainer,
 		},
 	}
@@ -18682,7 +16570,7 @@ func CreateSnodeAdditionRequestIEsValueIDMnToSnContainer(IDMnToSnContainer strin
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeUexnApid{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -18696,7 +16584,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID
 func CreateSnodeAdditionRequestIEsValueIDExpectedUebehaviour(IDExpectedUebehaviour *xnapiesv1.ExpectedUebehaviour) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdExpectedUebehaviour{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdExpectedUebehaviour{
 			IdExpectedUebehaviour: IDExpectedUebehaviour,
 		},
 	}
@@ -18710,7 +16598,7 @@ func CreateSnodeAdditionRequestIEsValueIDExpectedUebehaviour(IDExpectedUebehavio
 func CreateSnodeAdditionRequestIEsValueIDRequestedSplitSrb(IDRequestedSplitSrb xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdRequestedSplitSrb{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdRequestedSplitSrb{
 			IdRequestedSplitSrb: IDRequestedSplitSrb,
 		},
 	}
@@ -18724,7 +16612,7 @@ func CreateSnodeAdditionRequestIEsValueIDRequestedSplitSrb(IDRequestedSplitSrb x
 func CreateSnodeAdditionRequestIEsValueIDPcellID(IDPcellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdPcellId{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdPcellId{
 			IdPcellId: IDPcellID,
 		},
 	}
@@ -18738,7 +16626,7 @@ func CreateSnodeAdditionRequestIEsValueIDPcellID(IDPcellID *xnapiesv1.GlobalNgRA
 func CreateSnodeAdditionRequestIEsValueIDDesiredActNotificationLevel(IDDesiredActNotificationLevel xnapiesv1.DesiredActNotificationLevel) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdDesiredActNotificationLevel{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdDesiredActNotificationLevel{
 			IdDesiredActNotificationLevel: IDDesiredActNotificationLevel,
 		},
 	}
@@ -18752,7 +16640,7 @@ func CreateSnodeAdditionRequestIEsValueIDDesiredActNotificationLevel(IDDesiredAc
 func CreateSnodeAdditionRequestIEsValueIDAvailableDrbIDs(IDAvailableDrbIDs *xnapiesv1.DrbList) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdAvailableDrbids{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdAvailableDrbids{
 			IdAvailableDrbids: IDAvailableDrbIDs,
 		},
 	}
@@ -18766,7 +16654,7 @@ func CreateSnodeAdditionRequestIEsValueIDAvailableDrbIDs(IDAvailableDrbIDs *xnap
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeMaxIpdataRateUl(IDSNgRannodeMaxIpdataRateUl *xnapiesv1.BitRate) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateUl{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateUl{
 			IdSNgRannodeMaxIpdataRateUl: IDSNgRannodeMaxIpdataRateUl,
 		},
 	}
@@ -18780,7 +16668,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeMaxIpdataRateUl(IDSNgRannodeM
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeMaxIpdataRateDl(IDSNgRannodeMaxIpdataRateDl *xnapiesv1.BitRate) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateDl{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateDl{
 			IdSNgRannodeMaxIpdataRateDl: IDSNgRannodeMaxIpdataRateDl,
 		},
 	}
@@ -18794,7 +16682,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeMaxIpdataRateDl(IDSNgRannodeM
 func CreateSnodeAdditionRequestIEsValueIDLocationInformationSnreporting(IDLocationInformationSnreporting xnapiesv1.LocationInformationSnreporting) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdLocationInformationSnreporting{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdLocationInformationSnreporting{
 			IdLocationInformationSnreporting: IDLocationInformationSnreporting,
 		},
 	}
@@ -18808,7 +16696,7 @@ func CreateSnodeAdditionRequestIEsValueIDLocationInformationSnreporting(IDLocati
 func CreateSnodeAdditionRequestIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -18822,7 +16710,7 @@ func CreateSnodeAdditionRequestIEsValueIDMrDcResourceCoordinationInfo(IDMrDcReso
 func CreateSnodeAdditionRequestIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapiesv1.MaskedImeisv) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMaskedImeisv{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdMaskedImeisv{
 			IdMaskedImeisv: IDMaskedImeisv,
 		},
 	}
@@ -18836,7 +16724,7 @@ func CreateSnodeAdditionRequestIEsValueIDMaskedImeisv(IDMaskedImeisv *xnapiesv1.
 func CreateSnodeAdditionRequestIEsValueIDNeDcTdmPattern(IDNeDcTdmPattern *xnapiesv1.NeDCTDmPattern) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdNeDcTdmPattern{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdNeDcTdmPattern{
 			IdNeDcTdmPattern: IDNeDcTdmPattern,
 		},
 	}
@@ -18850,7 +16738,7 @@ func CreateSnodeAdditionRequestIEsValueIDNeDcTdmPattern(IDNeDcTdmPattern *xnapie
 func CreateSnodeAdditionRequestIEsValueIDSNgRannodeAdditionTriggerInd(IDSNgRannodeAdditionTriggerInd xnapiesv1.SNGRAnnodeAdditionTriggerInd) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeAdditionTriggerInd{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSNgRannodeAdditionTriggerInd{
 			IdSNgRannodeAdditionTriggerInd: IDSNgRannodeAdditionTriggerInd,
 		},
 	}
@@ -18864,7 +16752,7 @@ func CreateSnodeAdditionRequestIEsValueIDSNgRannodeAdditionTriggerInd(IDSNgRanno
 func CreateSnodeAdditionRequestIEsValueIDTraceActivation(IDTraceActivation *xnapiesv1.TraceActivation) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdTraceActivation{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdTraceActivation{
 			IdTraceActivation: IDTraceActivation,
 		},
 	}
@@ -18878,7 +16766,7 @@ func CreateSnodeAdditionRequestIEsValueIDTraceActivation(IDTraceActivation *xnap
 func CreateSnodeAdditionRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3(IDRequestedFastMcgrecoveryViaSrb3 xnappducontentsv1.RequestedFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3{
 			IdRequestedFastMcgrecoveryViaSrb3: IDRequestedFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -18892,7 +16780,7 @@ func CreateSnodeAdditionRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3(IDReque
 func CreateSnodeAdditionRequestIEsValueIDUeradioCapabilityID(IDUeradioCapabilityID *xnapiesv1.UeradioCapabilityId) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdUeradioCapabilityId{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdUeradioCapabilityId{
 			IdUeradioCapabilityId: IDUeradioCapabilityID,
 		},
 	}
@@ -18906,7 +16794,7 @@ func CreateSnodeAdditionRequestIEsValueIDUeradioCapabilityID(IDUeradioCapability
 func CreateSnodeAdditionRequestIEsValueIDSourceNgRanNodeID(IDSourceNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.SnodeAdditionRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestIEsValue{
-		SnodeAdditionRequestIEsValue: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSourceNgRanNodeId{
+		SnodeAdditionRequestIes: &xnappducontentsv1.SnodeAdditionRequestIEsValue_IdSourceNgRanNodeId{
 			IdSourceNgRanNodeId: IDSourceNgRanNodeID,
 		},
 	}
@@ -18920,7 +16808,7 @@ func CreateSnodeAdditionRequestIEsValueIDSourceNgRanNodeID(IDSourceNgRanNodeID *
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -18934,7 +16822,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNgRann
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -18948,7 +16836,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNgRann
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDPdusessionAdmittedAddedAddReqAck(IDPdusessionAdmittedAddedAddReqAck *xnappducontentsv1.PdusessionAdmittedAddedAddReqAck) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionAdmittedAddedAddReqAck{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionAdmittedAddedAddReqAck{
 			IdPdusessionAdmittedAddedAddReqAck: IDPdusessionAdmittedAddedAddReqAck,
 		},
 	}
@@ -18962,7 +16850,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDPdusessionAdmittedAddedAddRe
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDPdusessionNotAdmittedAddReqAck(IDPdusessionNotAdmittedAddReqAck *xnappducontentsv1.PdusessionNotAdmittedAddReqAck) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedAddReqAck{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedAddReqAck{
 			IdPdusessionNotAdmittedAddReqAck: IDPdusessionNotAdmittedAddReqAck,
 		},
 	}
@@ -18976,7 +16864,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDPdusessionNotAdmittedAddReqA
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDSnToMnContainer(IDSnToMnContainer string) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdSnToMnContainer{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdSnToMnContainer{
 			IdSnToMnContainer: IDSnToMnContainer,
 		},
 	}
@@ -18990,7 +16878,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDSnToMnContainer(IDSnToMnCont
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDAdmittedSplitSrb(IDAdmittedSplitSrb xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdAdmittedSplitSrb{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdAdmittedSplitSrb{
 			IdAdmittedSplitSrb: IDAdmittedSplitSrb,
 		},
 	}
@@ -19004,7 +16892,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDAdmittedSplitSrb(IDAdmittedS
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDRrcconfigIndication(IDRrcconfigIndication xnapiesv1.RrcconfigIndication) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdRrcconfigIndication{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdRrcconfigIndication{
 			IdRrcconfigIndication: IDRrcconfigIndication,
 		},
 	}
@@ -19018,7 +16906,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDRrcconfigIndication(IDRrccon
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -19032,7 +16920,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCri
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDLocationInformationSn(IDLocationInformationSn *xnapiesv1.TargetCGi) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdLocationInformationSn{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdLocationInformationSn{
 			IdLocationInformationSn: IDLocationInformationSn,
 		},
 	}
@@ -19046,7 +16934,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDLocationInformationSn(IDLoca
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -19060,7 +16948,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDMrDcResourceCoordinationInfo
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDAvailableFastMcgrecoveryViaSrb3(IDAvailableFastMcgrecoveryViaSrb3 xnappducontentsv1.AvailableFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
 			IdAvailableFastMcgrecoveryViaSrb3: IDAvailableFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -19074,7 +16962,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDAvailableFastMcgrecoveryViaS
 func CreateSnodeAdditionRequestAcknowledgeIEsValueIDDirectForwardingPathAvailability(IDDirectForwardingPathAvailability xnapiesv1.DirectForwardingPathAvailability) (*xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue{
-		SnodeAdditionRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability{
+		SnodeAdditionRequestAcknowledgeIes: &xnappducontentsv1.SnodeAdditionRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability{
 			IdDirectForwardingPathAvailability: IDDirectForwardingPathAvailability,
 		},
 	}
@@ -19088,7 +16976,7 @@ func CreateSnodeAdditionRequestAcknowledgeIEsValueIDDirectForwardingPathAvailabi
 func CreateSnodeAdditionRequestRejectIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue{
-		SnodeAdditionRequestRejectIEsValue: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdMNgRannodeUexnApid{
+		SnodeAdditionRequestRejectIes: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19102,7 +16990,7 @@ func CreateSnodeAdditionRequestRejectIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUe
 func CreateSnodeAdditionRequestRejectIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeAdditionRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue{
-		SnodeAdditionRequestRejectIEsValue: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdSNgRannodeUexnApid{
+		SnodeAdditionRequestRejectIes: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19116,7 +17004,7 @@ func CreateSnodeAdditionRequestRejectIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUe
 func CreateSnodeAdditionRequestRejectIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeAdditionRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue{
-		SnodeAdditionRequestRejectIEsValue: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdCause{
+		SnodeAdditionRequestRejectIes: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -19130,7 +17018,7 @@ func CreateSnodeAdditionRequestRejectIEsValueIDCause(IDCause *xnapiesv1.Cause) (
 func CreateSnodeAdditionRequestRejectIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeAdditionRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue{
-		SnodeAdditionRequestRejectIEsValue: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdCriticalityDiagnostics{
+		SnodeAdditionRequestRejectIes: &xnappducontentsv1.SnodeAdditionRequestRejectIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -19144,7 +17032,7 @@ func CreateSnodeAdditionRequestRejectIEsValueIDCriticalityDiagnostics(IDCritical
 func CreateSnodeReconfigurationCompleteIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReconfigurationCompleteIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue{
-		SnodeReconfigurationCompleteIEsValue: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdMNgRannodeUexnApid{
+		SnodeReconfigurationCompleteIes: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19158,7 +17046,7 @@ func CreateSnodeReconfigurationCompleteIEsValueIDMNgRannodeUexnApID(IDMNgRannode
 func CreateSnodeReconfigurationCompleteIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReconfigurationCompleteIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue{
-		SnodeReconfigurationCompleteIEsValue: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdSNgRannodeUexnApid{
+		SnodeReconfigurationCompleteIes: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19172,7 +17060,7 @@ func CreateSnodeReconfigurationCompleteIEsValueIDSNgRannodeUexnApID(IDSNgRannode
 func CreateSnodeReconfigurationCompleteIEsValueIDResponseInfoReconfCompl(IDResponseInfoReconfCompl *xnappducontentsv1.ResponseInfoReconfCompl) (*xnappducontentsv1.SnodeReconfigurationCompleteIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue{
-		SnodeReconfigurationCompleteIEsValue: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdResponseInfoReconfCompl{
+		SnodeReconfigurationCompleteIes: &xnappducontentsv1.SnodeReconfigurationCompleteIEsValue_IdResponseInfoReconfCompl{
 			IdResponseInfoReconfCompl: IDResponseInfoReconfCompl,
 		},
 	}
@@ -19228,7 +17116,7 @@ func CreateResponseTypeReconfCompleteChoiceExtension(choiceExtension *xnappducon
 func CreateSnodeModificationRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19242,7 +17130,7 @@ func CreateSnodeModificationRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexn
 func CreateSnodeModificationRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19256,7 +17144,7 @@ func CreateSnodeModificationRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexn
 func CreateSnodeModificationRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdCause{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -19270,7 +17158,7 @@ func CreateSnodeModificationRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*x
 func CreateSnodeModificationRequestIEsValueIDPdcpchangeIndication(IDPdcpchangeIndication *xnapiesv1.PdcpchangeIndication) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdPdcpchangeIndication{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdPdcpchangeIndication{
 			IdPdcpchangeIndication: IDPdcpchangeIndication,
 		},
 	}
@@ -19284,7 +17172,7 @@ func CreateSnodeModificationRequestIEsValueIDPdcpchangeIndication(IDPdcpchangeIn
 func CreateSnodeModificationRequestIEsValueIDSelectedPlmn(IDSelectedPlmn *xnapiesv1.PlmnIdentity) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSelectedPlmn{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSelectedPlmn{
 			IdSelectedPlmn: IDSelectedPlmn,
 		},
 	}
@@ -19298,7 +17186,7 @@ func CreateSnodeModificationRequestIEsValueIDSelectedPlmn(IDSelectedPlmn *xnapie
 func CreateSnodeModificationRequestIEsValueIDMobilityRestrictionList(IDMobilityRestrictionList *xnapiesv1.MobilityRestrictionList) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMobilityRestrictionList{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMobilityRestrictionList{
 			IdMobilityRestrictionList: IDMobilityRestrictionList,
 		},
 	}
@@ -19312,7 +17200,7 @@ func CreateSnodeModificationRequestIEsValueIDMobilityRestrictionList(IDMobilityR
 func CreateSnodeModificationRequestIEsValueIDScgconfigurationQuery(IDScgconfigurationQuery xnapiesv1.ScgconfigurationQuery) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdScgconfigurationQuery{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdScgconfigurationQuery{
 			IdScgconfigurationQuery: IDScgconfigurationQuery,
 		},
 	}
@@ -19326,7 +17214,7 @@ func CreateSnodeModificationRequestIEsValueIDScgconfigurationQuery(IDScgconfigur
 func CreateSnodeModificationRequestIEsValueIDUecontextInfoSnmodRequest(IDUecontextInfoSnmodRequest *xnappducontentsv1.UecontextInfoSNmodRequest) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdUecontextInfoSnmodRequest{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdUecontextInfoSnmodRequest{
 			IdUecontextInfoSnmodRequest: IDUecontextInfoSnmodRequest,
 		},
 	}
@@ -19340,7 +17228,7 @@ func CreateSnodeModificationRequestIEsValueIDUecontextInfoSnmodRequest(IDUeconte
 func CreateSnodeModificationRequestIEsValueIDMnToSnContainer(IDMnToSnContainer string) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMnToSnContainer{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMnToSnContainer{
 			IdMnToSnContainer: IDMnToSnContainer,
 		},
 	}
@@ -19354,7 +17242,7 @@ func CreateSnodeModificationRequestIEsValueIDMnToSnContainer(IDMnToSnContainer s
 func CreateSnodeModificationRequestIEsValueIDRequestedSplitSrb(IDRequestedSplitSrb xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedSplitSrb{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedSplitSrb{
 			IdRequestedSplitSrb: IDRequestedSplitSrb,
 		},
 	}
@@ -19368,7 +17256,7 @@ func CreateSnodeModificationRequestIEsValueIDRequestedSplitSrb(IDRequestedSplitS
 func CreateSnodeModificationRequestIEsValueIDRequestedSplitSrbrelease(IDRequestedSplitSrbrelease xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedSplitSrbrelease{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedSplitSrbrelease{
 			IdRequestedSplitSrbrelease: IDRequestedSplitSrbrelease,
 		},
 	}
@@ -19382,7 +17270,7 @@ func CreateSnodeModificationRequestIEsValueIDRequestedSplitSrbrelease(IDRequeste
 func CreateSnodeModificationRequestIEsValueIDDesiredActNotificationLevel(IDDesiredActNotificationLevel xnapiesv1.DesiredActNotificationLevel) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdDesiredActNotificationLevel{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdDesiredActNotificationLevel{
 			IdDesiredActNotificationLevel: IDDesiredActNotificationLevel,
 		},
 	}
@@ -19396,7 +17284,7 @@ func CreateSnodeModificationRequestIEsValueIDDesiredActNotificationLevel(IDDesir
 func CreateSnodeModificationRequestIEsValueIDAdditionalDrbIDs(IDAdditionalDrbIDs *xnapiesv1.DrbList) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdAdditionalDrbids{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdAdditionalDrbids{
 			IdAdditionalDrbids: IDAdditionalDrbIDs,
 		},
 	}
@@ -19410,7 +17298,7 @@ func CreateSnodeModificationRequestIEsValueIDAdditionalDrbIDs(IDAdditionalDrbIDs
 func CreateSnodeModificationRequestIEsValueIDSNgRannodeMaxIpdataRateUl(IDSNgRannodeMaxIpdataRateUl *xnapiesv1.BitRate) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateUl{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateUl{
 			IdSNgRannodeMaxIpdataRateUl: IDSNgRannodeMaxIpdataRateUl,
 		},
 	}
@@ -19424,7 +17312,7 @@ func CreateSnodeModificationRequestIEsValueIDSNgRannodeMaxIpdataRateUl(IDSNgRann
 func CreateSnodeModificationRequestIEsValueIDSNgRannodeMaxIpdataRateDl(IDSNgRannodeMaxIpdataRateDl *xnapiesv1.BitRate) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateDl{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateDl{
 			IdSNgRannodeMaxIpdataRateDl: IDSNgRannodeMaxIpdataRateDl,
 		},
 	}
@@ -19438,7 +17326,7 @@ func CreateSnodeModificationRequestIEsValueIDSNgRannodeMaxIpdataRateDl(IDSNgRann
 func CreateSnodeModificationRequestIEsValueIDLocationInformationSnreporting(IDLocationInformationSnreporting xnapiesv1.LocationInformationSnreporting) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdLocationInformationSnreporting{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdLocationInformationSnreporting{
 			IdLocationInformationSnreporting: IDLocationInformationSnreporting,
 		},
 	}
@@ -19452,7 +17340,7 @@ func CreateSnodeModificationRequestIEsValueIDLocationInformationSnreporting(IDLo
 func CreateSnodeModificationRequestIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -19466,7 +17354,7 @@ func CreateSnodeModificationRequestIEsValueIDMrDcResourceCoordinationInfo(IDMrDc
 func CreateSnodeModificationRequestIEsValueIDPcellID(IDPcellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdPcellId{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdPcellId{
 			IdPcellId: IDPcellID,
 		},
 	}
@@ -19480,7 +17368,7 @@ func CreateSnodeModificationRequestIEsValueIDPcellID(IDPcellID *xnapiesv1.Global
 func CreateSnodeModificationRequestIEsValueIDNeDcTdmPattern(IDNeDcTdmPattern *xnapiesv1.NeDCTDmPattern) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdNeDcTdmPattern{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdNeDcTdmPattern{
 			IdNeDcTdmPattern: IDNeDcTdmPattern,
 		},
 	}
@@ -19494,7 +17382,7 @@ func CreateSnodeModificationRequestIEsValueIDNeDcTdmPattern(IDNeDcTdmPattern *xn
 func CreateSnodeModificationRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3(IDRequestedFastMcgrecoveryViaSrb3 xnappducontentsv1.RequestedFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3{
 			IdRequestedFastMcgrecoveryViaSrb3: IDRequestedFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -19508,7 +17396,7 @@ func CreateSnodeModificationRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3(IDR
 func CreateSnodeModificationRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3Release(IDRequestedFastMcgrecoveryViaSrb3Release xnappducontentsv1.RequestedFastMcgrecoveryViaSrb3Release) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3Release{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3Release{
 			IdRequestedFastMcgrecoveryViaSrb3Release: IDRequestedFastMcgrecoveryViaSrb3Release,
 		},
 	}
@@ -19522,7 +17410,7 @@ func CreateSnodeModificationRequestIEsValueIDRequestedFastMcgrecoveryViaSrb3Rele
 func CreateSnodeModificationRequestIEsValueIDSntriggered(IDSntriggered xnapiesv1.Sntriggered) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSntriggered{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdSntriggered{
 			IdSntriggered: IDSntriggered,
 		},
 	}
@@ -19536,7 +17424,7 @@ func CreateSnodeModificationRequestIEsValueIDSntriggered(IDSntriggered xnapiesv1
 func CreateSnodeModificationRequestIEsValueIDTargetNodeID(IDTargetNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.SnodeModificationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestIEsValue{
-		SnodeModificationRequestIEsValue: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdTargetNodeId{
+		SnodeModificationRequestIes: &xnappducontentsv1.SnodeModificationRequestIEsValue_IdTargetNodeId{
 			IdTargetNodeId: IDTargetNodeID,
 		},
 	}
@@ -19550,7 +17438,7 @@ func CreateSnodeModificationRequestIEsValueIDTargetNodeID(IDTargetNodeID *xnapie
 func CreatePdusessionsToBeModifiedSNmodRequestItemExtIesExtensionIDSNssai(IDSNssai *xnapiesv1.SNSsai) (*xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension, error) {
 
 	item := &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension{
-		PdusessionsToBeModifiedSNmodRequestItemExtIesExtension: &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdSNssai{
+		PdusessionsToBeModifiedSnmodRequestItemExtIes: &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdSNssai{
 			IdSNssai: IDSNssai,
 		},
 	}
@@ -19564,7 +17452,7 @@ func CreatePdusessionsToBeModifiedSNmodRequestItemExtIesExtensionIDSNssai(IDSNss
 func CreatePdusessionsToBeModifiedSNmodRequestItemExtIesExtensionIDPdusessionExpectedUeactivityBehaviour(IDPdusessionExpectedUeactivityBehaviour *xnapiesv1.ExpectedUeactivityBehaviour) (*xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension, error) {
 
 	item := &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension{
-		PdusessionsToBeModifiedSNmodRequestItemExtIesExtension: &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdPdusessionExpectedUeactivityBehaviour{
+		PdusessionsToBeModifiedSnmodRequestItemExtIes: &xnappducontentsv1.PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdPdusessionExpectedUeactivityBehaviour{
 			IdPdusessionExpectedUeactivityBehaviour: IDPdusessionExpectedUeactivityBehaviour,
 		},
 	}
@@ -19578,7 +17466,7 @@ func CreatePdusessionsToBeModifiedSNmodRequestItemExtIesExtensionIDPdusessionExp
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19592,7 +17480,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNg
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19606,7 +17494,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNg
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionAdmittedSnmodResponse(IDPdusessionAdmittedSnmodResponse *xnappducontentsv1.PdusessionAdmittedSNmodResponse) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionAdmittedSnmodResponse{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionAdmittedSnmodResponse{
 			IdPdusessionAdmittedSnmodResponse: IDPdusessionAdmittedSnmodResponse,
 		},
 	}
@@ -19620,7 +17508,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionAdmittedSnmodR
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionNotAdmittedSnmodResponse(IDPdusessionNotAdmittedSnmodResponse *xnappducontentsv1.PdusessionNotAdmittedSNmodResponse) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedSnmodResponse{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedSnmodResponse{
 			IdPdusessionNotAdmittedSnmodResponse: IDPdusessionNotAdmittedSnmodResponse,
 		},
 	}
@@ -19634,7 +17522,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionNotAdmittedSnm
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDSnToMnContainer(IDSnToMnContainer string) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdSnToMnContainer{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdSnToMnContainer{
 			IdSnToMnContainer: IDSnToMnContainer,
 		},
 	}
@@ -19648,7 +17536,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDSnToMnContainer(IDSnToMn
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDAdmittedSplitSrb(IDAdmittedSplitSrb xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrb{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrb{
 			IdAdmittedSplitSrb: IDAdmittedSplitSrb,
 		},
 	}
@@ -19662,7 +17550,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDAdmittedSplitSrb(IDAdmit
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDAdmittedSplitSrbrelease(IDAdmittedSplitSrbrelease xnapiesv1.SplitSrbsTypes) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrbrelease{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrbrelease{
 			IdAdmittedSplitSrbrelease: IDAdmittedSplitSrbrelease,
 		},
 	}
@@ -19676,7 +17564,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDAdmittedSplitSrbrelease(
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -19690,7 +17578,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDCriticalityDiagnostics(I
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDLocationInformationSn(IDLocationInformationSn *xnapiesv1.TargetCGi) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdLocationInformationSn{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdLocationInformationSn{
 			IdLocationInformationSn: IDLocationInformationSn,
 		},
 	}
@@ -19704,7 +17592,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDLocationInformationSn(ID
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -19718,7 +17606,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDMrDcResourceCoordination
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionDataForwardingSnmodResponse(IDPdusessionDataForwardingSnmodResponse *xnappducontentsv1.PdusessionDataForwardingSNmodResponse) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionDataForwardingSnmodResponse{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionDataForwardingSnmodResponse{
 			IdPdusessionDataForwardingSnmodResponse: IDPdusessionDataForwardingSnmodResponse,
 		},
 	}
@@ -19732,7 +17620,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDPdusessionDataForwarding
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDRrcconfigIndication(IDRrcconfigIndication xnapiesv1.RrcconfigIndication) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdRrcconfigIndication{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdRrcconfigIndication{
 			IdRrcconfigIndication: IDRrcconfigIndication,
 		},
 	}
@@ -19746,7 +17634,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDRrcconfigIndication(IDRr
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDAvailableFastMcgrecoveryViaSrb3(IDAvailableFastMcgrecoveryViaSrb3 xnappducontentsv1.AvailableFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
 			IdAvailableFastMcgrecoveryViaSrb3: IDAvailableFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -19760,7 +17648,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDAvailableFastMcgrecovery
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDReleaseFastMcgrecoveryViaSrb3(IDReleaseFastMcgrecoveryViaSrb3 xnappducontentsv1.ReleaseFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdReleaseFastMcgrecoveryViaSrb3{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdReleaseFastMcgrecoveryViaSrb3{
 			IdReleaseFastMcgrecoveryViaSrb3: IDReleaseFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -19774,7 +17662,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDReleaseFastMcgrecoveryVi
 func CreateSnodeModificationRequestAcknowledgeIEsValueIDDirectForwardingPathAvailability(IDDirectForwardingPathAvailability xnapiesv1.DirectForwardingPathAvailability) (*xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue{
-		SnodeModificationRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability{
+		SnodeModificationRequestAcknowledgeIes: &xnappducontentsv1.SnodeModificationRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability{
 			IdDirectForwardingPathAvailability: IDDirectForwardingPathAvailability,
 		},
 	}
@@ -19788,7 +17676,7 @@ func CreateSnodeModificationRequestAcknowledgeIEsValueIDDirectForwardingPathAvai
 func CreateSnodeModificationRequestRejectIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestRejectIEsValue{
-		SnodeModificationRequestRejectIEsValue: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationRequestRejectIes: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19802,7 +17690,7 @@ func CreateSnodeModificationRequestRejectIEsValueIDMNgRannodeUexnApID(IDMNgRanno
 func CreateSnodeModificationRequestRejectIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestRejectIEsValue{
-		SnodeModificationRequestRejectIEsValue: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationRequestRejectIes: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19816,7 +17704,7 @@ func CreateSnodeModificationRequestRejectIEsValueIDSNgRannodeUexnApID(IDSNgRanno
 func CreateSnodeModificationRequestRejectIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeModificationRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestRejectIEsValue{
-		SnodeModificationRequestRejectIEsValue: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdCause{
+		SnodeModificationRequestRejectIes: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -19830,7 +17718,7 @@ func CreateSnodeModificationRequestRejectIEsValueIDCause(IDCause *xnapiesv1.Caus
 func CreateSnodeModificationRequestRejectIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeModificationRequestRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequestRejectIEsValue{
-		SnodeModificationRequestRejectIEsValue: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdCriticalityDiagnostics{
+		SnodeModificationRequestRejectIes: &xnappducontentsv1.SnodeModificationRequestRejectIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -19844,7 +17732,7 @@ func CreateSnodeModificationRequestRejectIEsValueIDCriticalityDiagnostics(IDCrit
 func CreateSnodeModificationRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -19858,7 +17746,7 @@ func CreateSnodeModificationRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUex
 func CreateSnodeModificationRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -19872,7 +17760,7 @@ func CreateSnodeModificationRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUex
 func CreateSnodeModificationRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdCause{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -19886,7 +17774,7 @@ func CreateSnodeModificationRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*
 func CreateSnodeModificationRequiredIEsValueIDPdcpchangeIndication(IDPdcpchangeIndication *xnapiesv1.PdcpchangeIndication) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdcpchangeIndication{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdcpchangeIndication{
 			IdPdcpchangeIndication: IDPdcpchangeIndication,
 		},
 	}
@@ -19900,7 +17788,7 @@ func CreateSnodeModificationRequiredIEsValueIDPdcpchangeIndication(IDPdcpchangeI
 func CreateSnodeModificationRequiredIEsValueIDPdusessionToBeModifiedSnmodRequired(IDPdusessionToBeModifiedSnmodRequired *xnappducontentsv1.PdusessionToBeModifiedSnmodRequired) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdusessionToBeModifiedSnmodRequired{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdusessionToBeModifiedSnmodRequired{
 			IdPdusessionToBeModifiedSnmodRequired: IDPdusessionToBeModifiedSnmodRequired,
 		},
 	}
@@ -19914,7 +17802,7 @@ func CreateSnodeModificationRequiredIEsValueIDPdusessionToBeModifiedSnmodRequire
 func CreateSnodeModificationRequiredIEsValueIDPdusessionToBeReleasedSnmodRequired(IDPdusessionToBeReleasedSnmodRequired *xnappducontentsv1.PdusessionToBeReleasedSnmodRequired) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdusessionToBeReleasedSnmodRequired{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdPdusessionToBeReleasedSnmodRequired{
 			IdPdusessionToBeReleasedSnmodRequired: IDPdusessionToBeReleasedSnmodRequired,
 		},
 	}
@@ -19928,7 +17816,7 @@ func CreateSnodeModificationRequiredIEsValueIDPdusessionToBeReleasedSnmodRequire
 func CreateSnodeModificationRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer string) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSnToMnContainer{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSnToMnContainer{
 			IdSnToMnContainer: IDSnToMnContainer,
 		},
 	}
@@ -19942,7 +17830,7 @@ func CreateSnodeModificationRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer 
 func CreateSnodeModificationRequiredIEsValueIDSpareDrbIDs(IDSpareDrbIDs *xnapiesv1.DrbList) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSpareDrbids{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdSpareDrbids{
 			IdSpareDrbids: IDSpareDrbIDs,
 		},
 	}
@@ -19956,7 +17844,7 @@ func CreateSnodeModificationRequiredIEsValueIDSpareDrbIDs(IDSpareDrbIDs *xnapies
 func CreateSnodeModificationRequiredIEsValueIDRequiredNumberOfDrbIDs(IDRequiredNumberOfDrbIDs *xnapiesv1.DrbNumber) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdRequiredNumberOfDrbids{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdRequiredNumberOfDrbids{
 			IdRequiredNumberOfDrbids: IDRequiredNumberOfDrbIDs,
 		},
 	}
@@ -19970,7 +17858,7 @@ func CreateSnodeModificationRequiredIEsValueIDRequiredNumberOfDrbIDs(IDRequiredN
 func CreateSnodeModificationRequiredIEsValueIDLocationInformationSn(IDLocationInformationSn *xnapiesv1.TargetCGi) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdLocationInformationSn{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdLocationInformationSn{
 			IdLocationInformationSn: IDLocationInformationSn,
 		},
 	}
@@ -19984,7 +17872,7 @@ func CreateSnodeModificationRequiredIEsValueIDLocationInformationSn(IDLocationIn
 func CreateSnodeModificationRequiredIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -19998,7 +17886,7 @@ func CreateSnodeModificationRequiredIEsValueIDMrDcResourceCoordinationInfo(IDMrD
 func CreateSnodeModificationRequiredIEsValueIDRrcconfigIndication(IDRrcconfigIndication xnapiesv1.RrcconfigIndication) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdRrcconfigIndication{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdRrcconfigIndication{
 			IdRrcconfigIndication: IDRrcconfigIndication,
 		},
 	}
@@ -20012,7 +17900,7 @@ func CreateSnodeModificationRequiredIEsValueIDRrcconfigIndication(IDRrcconfigInd
 func CreateSnodeModificationRequiredIEsValueIDAvailableFastMcgrecoveryViaSrb3(IDAvailableFastMcgrecoveryViaSrb3 xnappducontentsv1.AvailableFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdAvailableFastMcgrecoveryViaSrb3{
 			IdAvailableFastMcgrecoveryViaSrb3: IDAvailableFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -20026,7 +17914,7 @@ func CreateSnodeModificationRequiredIEsValueIDAvailableFastMcgrecoveryViaSrb3(ID
 func CreateSnodeModificationRequiredIEsValueIDReleaseFastMcgrecoveryViaSrb3(IDReleaseFastMcgrecoveryViaSrb3 xnappducontentsv1.ReleaseFastMcgrecoveryViaSrb3) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdReleaseFastMcgrecoveryViaSrb3{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdReleaseFastMcgrecoveryViaSrb3{
 			IdReleaseFastMcgrecoveryViaSrb3: IDReleaseFastMcgrecoveryViaSrb3,
 		},
 	}
@@ -20040,7 +17928,7 @@ func CreateSnodeModificationRequiredIEsValueIDReleaseFastMcgrecoveryViaSrb3(IDRe
 func CreateSnodeModificationRequiredIEsValueIDScgindicator(IDScgindicator xnapiesv1.Scgindicator) (*xnappducontentsv1.SnodeModificationRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRequiredIEsValue{
-		SnodeModificationRequiredIEsValue: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdScgindicator{
+		SnodeModificationRequiredIes: &xnappducontentsv1.SnodeModificationRequiredIEsValue_IdScgindicator{
 			IdScgindicator: IDScgindicator,
 		},
 	}
@@ -20054,7 +17942,7 @@ func CreateSnodeModificationRequiredIEsValueIDScgindicator(IDScgindicator xnapie
 func CreateSnodeModificationConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20068,7 +17956,7 @@ func CreateSnodeModificationConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexn
 func CreateSnodeModificationConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20082,7 +17970,7 @@ func CreateSnodeModificationConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexn
 func CreateSnodeModificationConfirmIEsValueIDPdusessionAdmittedModSnmodConfirm(IDPdusessionAdmittedModSnmodConfirm *xnappducontentsv1.PdusessionAdmittedModSnmodConfirm) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdPdusessionAdmittedModSnmodConfirm{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdPdusessionAdmittedModSnmodConfirm{
 			IdPdusessionAdmittedModSnmodConfirm: IDPdusessionAdmittedModSnmodConfirm,
 		},
 	}
@@ -20096,7 +17984,7 @@ func CreateSnodeModificationConfirmIEsValueIDPdusessionAdmittedModSnmodConfirm(I
 func CreateSnodeModificationConfirmIEsValueIDPdusessionReleasedSnmodConfirm(IDPdusessionReleasedSnmodConfirm *xnappducontentsv1.PdusessionReleasedSnmodConfirm) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdPdusessionReleasedSnmodConfirm{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdPdusessionReleasedSnmodConfirm{
 			IdPdusessionReleasedSnmodConfirm: IDPdusessionReleasedSnmodConfirm,
 		},
 	}
@@ -20110,7 +17998,7 @@ func CreateSnodeModificationConfirmIEsValueIDPdusessionReleasedSnmodConfirm(IDPd
 func CreateSnodeModificationConfirmIEsValueIDMnToSnContainer(IDMnToSnContainer string) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMnToSnContainer{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMnToSnContainer{
 			IdMnToSnContainer: IDMnToSnContainer,
 		},
 	}
@@ -20124,7 +18012,7 @@ func CreateSnodeModificationConfirmIEsValueIDMnToSnContainer(IDMnToSnContainer s
 func CreateSnodeModificationConfirmIEsValueIDAdditionalDrbIDs(IDAdditionalDrbIDs *xnapiesv1.DrbList) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdAdditionalDrbids{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdAdditionalDrbids{
 			IdAdditionalDrbids: IDAdditionalDrbIDs,
 		},
 	}
@@ -20138,7 +18026,7 @@ func CreateSnodeModificationConfirmIEsValueIDAdditionalDrbIDs(IDAdditionalDrbIDs
 func CreateSnodeModificationConfirmIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdCriticalityDiagnostics{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20152,7 +18040,7 @@ func CreateSnodeModificationConfirmIEsValueIDCriticalityDiagnostics(IDCriticalit
 func CreateSnodeModificationConfirmIEsValueIDMrDcResourceCoordinationInfo(IDMrDcResourceCoordinationInfo *xnapiesv1.MrDCResourceCoordinationInfo) (*xnappducontentsv1.SnodeModificationConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationConfirmIEsValue{
-		SnodeModificationConfirmIEsValue: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMrDcResourceCoordinationInfo{
+		SnodeModificationConfirmIes: &xnappducontentsv1.SnodeModificationConfirmIEsValue_IdMrDcResourceCoordinationInfo{
 			IdMrDcResourceCoordinationInfo: IDMrDcResourceCoordinationInfo,
 		},
 	}
@@ -20166,7 +18054,7 @@ func CreateSnodeModificationConfirmIEsValueIDMrDcResourceCoordinationInfo(IDMrDc
 func CreateSnodeModificationRefuseIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRefuseIEsValue{
-		SnodeModificationRefuseIEsValue: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdMNgRannodeUexnApid{
+		SnodeModificationRefuseIes: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20180,7 +18068,7 @@ func CreateSnodeModificationRefuseIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnA
 func CreateSnodeModificationRefuseIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeModificationRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRefuseIEsValue{
-		SnodeModificationRefuseIEsValue: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdSNgRannodeUexnApid{
+		SnodeModificationRefuseIes: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20194,7 +18082,7 @@ func CreateSnodeModificationRefuseIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnA
 func CreateSnodeModificationRefuseIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeModificationRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRefuseIEsValue{
-		SnodeModificationRefuseIEsValue: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdCause{
+		SnodeModificationRefuseIes: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20208,7 +18096,7 @@ func CreateSnodeModificationRefuseIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xn
 func CreateSnodeModificationRefuseIEsValueIDMnToSnContainer(IDMnToSnContainer string) (*xnappducontentsv1.SnodeModificationRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRefuseIEsValue{
-		SnodeModificationRefuseIEsValue: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdMnToSnContainer{
+		SnodeModificationRefuseIes: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdMnToSnContainer{
 			IdMnToSnContainer: IDMnToSnContainer,
 		},
 	}
@@ -20222,7 +18110,7 @@ func CreateSnodeModificationRefuseIEsValueIDMnToSnContainer(IDMnToSnContainer st
 func CreateSnodeModificationRefuseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeModificationRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeModificationRefuseIEsValue{
-		SnodeModificationRefuseIEsValue: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdCriticalityDiagnostics{
+		SnodeModificationRefuseIes: &xnappducontentsv1.SnodeModificationRefuseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20236,7 +18124,7 @@ func CreateSnodeModificationRefuseIEsValueIDCriticalityDiagnostics(IDCriticality
 func CreateSnodeReleaseRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdMNgRannodeUexnApid{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20250,7 +18138,7 @@ func CreateSnodeReleaseRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID 
 func CreateSnodeReleaseRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdSNgRannodeUexnApid{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20264,7 +18152,7 @@ func CreateSnodeReleaseRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID 
 func CreateSnodeReleaseRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdCause{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20278,7 +18166,7 @@ func CreateSnodeReleaseRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappd
 func CreateSnodeReleaseRequestIEsValueIDPdusessionToBeReleasedRelReq(IDPdusessionToBeReleasedRelReq *xnapiesv1.PdusessionListwithCause) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdPdusessionToBeReleasedRelReq{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdPdusessionToBeReleasedRelReq{
 			IdPdusessionToBeReleasedRelReq: IDPdusessionToBeReleasedRelReq,
 		},
 	}
@@ -20292,7 +18180,7 @@ func CreateSnodeReleaseRequestIEsValueIDPdusessionToBeReleasedRelReq(IDPdusessio
 func CreateSnodeReleaseRequestIEsValueIDUecontextKeptIndicator(IDUecontextKeptIndicator xnapiesv1.UecontextKeptIndicator) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdUecontextKeptIndicator{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdUecontextKeptIndicator{
 			IdUecontextKeptIndicator: IDUecontextKeptIndicator,
 		},
 	}
@@ -20306,7 +18194,7 @@ func CreateSnodeReleaseRequestIEsValueIDUecontextKeptIndicator(IDUecontextKeptIn
 func CreateSnodeReleaseRequestIEsValueIDMnToSnContainer(IDMnToSnContainer string) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdMnToSnContainer{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdMnToSnContainer{
 			IdMnToSnContainer: IDMnToSnContainer,
 		},
 	}
@@ -20320,7 +18208,7 @@ func CreateSnodeReleaseRequestIEsValueIDMnToSnContainer(IDMnToSnContainer string
 func CreateSnodeReleaseRequestIEsValueIDDrbsTransferredToMn(IDDrbsTransferredToMn *xnapiesv1.DrbList) (*xnappducontentsv1.SnodeReleaseRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestIEsValue{
-		SnodeReleaseRequestIEsValue: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdDrbsTransferredToMn{
+		SnodeReleaseRequestIes: &xnappducontentsv1.SnodeReleaseRequestIEsValue_IdDrbsTransferredToMn{
 			IdDrbsTransferredToMn: IDDrbsTransferredToMn,
 		},
 	}
@@ -20334,7 +18222,7 @@ func CreateSnodeReleaseRequestIEsValueIDDrbsTransferredToMn(IDDrbsTransferredToM
 func CreateSnodeReleaseRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue{
-		SnodeReleaseRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
+		SnodeReleaseRequestAcknowledgeIes: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20348,7 +18236,7 @@ func CreateSnodeReleaseRequestAcknowledgeIEsValueIDMNgRannodeUexnApID(IDMNgRanno
 func CreateSnodeReleaseRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue{
-		SnodeReleaseRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
+		SnodeReleaseRequestAcknowledgeIes: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20362,7 +18250,7 @@ func CreateSnodeReleaseRequestAcknowledgeIEsValueIDSNgRannodeUexnApID(IDSNgRanno
 func CreateSnodeReleaseRequestAcknowledgeIEsValueIDPdusessionToBeReleasedRelReqAck(IDPdusessionToBeReleasedRelReqAck *xnappducontentsv1.PdusessionToBeReleasedListRelReqAck) (*xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue{
-		SnodeReleaseRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdPdusessionToBeReleasedRelReqAck{
+		SnodeReleaseRequestAcknowledgeIes: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdPdusessionToBeReleasedRelReqAck{
 			IdPdusessionToBeReleasedRelReqAck: IDPdusessionToBeReleasedRelReqAck,
 		},
 	}
@@ -20376,7 +18264,7 @@ func CreateSnodeReleaseRequestAcknowledgeIEsValueIDPdusessionToBeReleasedRelReqA
 func CreateSnodeReleaseRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue{
-		SnodeReleaseRequestAcknowledgeIEsValue: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		SnodeReleaseRequestAcknowledgeIes: &xnappducontentsv1.SnodeReleaseRequestAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20390,7 +18278,7 @@ func CreateSnodeReleaseRequestAcknowledgeIEsValueIDCriticalityDiagnostics(IDCrit
 func CreateSnodeReleaseRejectIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRejectIEsValue{
-		SnodeReleaseRejectIEsValue: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdMNgRannodeUexnApid{
+		SnodeReleaseRejectIes: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20404,7 +18292,7 @@ func CreateSnodeReleaseRejectIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *
 func CreateSnodeReleaseRejectIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRejectIEsValue{
-		SnodeReleaseRejectIEsValue: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdSNgRannodeUexnApid{
+		SnodeReleaseRejectIes: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20418,7 +18306,7 @@ func CreateSnodeReleaseRejectIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *
 func CreateSnodeReleaseRejectIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeReleaseRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRejectIEsValue{
-		SnodeReleaseRejectIEsValue: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdCause{
+		SnodeReleaseRejectIes: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20432,7 +18320,7 @@ func CreateSnodeReleaseRejectIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappdu
 func CreateSnodeReleaseRejectIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeReleaseRejectIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRejectIEsValue{
-		SnodeReleaseRejectIEsValue: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdCriticalityDiagnostics{
+		SnodeReleaseRejectIes: &xnappducontentsv1.SnodeReleaseRejectIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20446,7 +18334,7 @@ func CreateSnodeReleaseRejectIEsValueIDCriticalityDiagnostics(IDCriticalityDiagn
 func CreateSnodeReleaseRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequiredIEsValue{
-		SnodeReleaseRequiredIEsValue: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdMNgRannodeUexnApid{
+		SnodeReleaseRequiredIes: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20460,7 +18348,7 @@ func CreateSnodeReleaseRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID
 func CreateSnodeReleaseRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequiredIEsValue{
-		SnodeReleaseRequiredIEsValue: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdSNgRannodeUexnApid{
+		SnodeReleaseRequiredIes: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20474,7 +18362,7 @@ func CreateSnodeReleaseRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID
 func CreateSnodeReleaseRequiredIEsValueIDPdusessionToBeReleasedListRelRqd(IDPdusessionToBeReleasedListRelRqd *xnappducontentsv1.PdusessionToBeReleasedListRelRqd) (*xnappducontentsv1.SnodeReleaseRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequiredIEsValue{
-		SnodeReleaseRequiredIEsValue: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdPdusessionToBeReleasedListRelRqd{
+		SnodeReleaseRequiredIes: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdPdusessionToBeReleasedListRelRqd{
 			IdPdusessionToBeReleasedListRelRqd: IDPdusessionToBeReleasedListRelRqd,
 		},
 	}
@@ -20488,7 +18376,7 @@ func CreateSnodeReleaseRequiredIEsValueIDPdusessionToBeReleasedListRelRqd(IDPdus
 func CreateSnodeReleaseRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeReleaseRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequiredIEsValue{
-		SnodeReleaseRequiredIEsValue: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdCause{
+		SnodeReleaseRequiredIes: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20502,7 +18390,7 @@ func CreateSnodeReleaseRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnapp
 func CreateSnodeReleaseRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer string) (*xnappducontentsv1.SnodeReleaseRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseRequiredIEsValue{
-		SnodeReleaseRequiredIEsValue: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdSnToMnContainer{
+		SnodeReleaseRequiredIes: &xnappducontentsv1.SnodeReleaseRequiredIEsValue_IdSnToMnContainer{
 			IdSnToMnContainer: IDSnToMnContainer,
 		},
 	}
@@ -20516,7 +18404,7 @@ func CreateSnodeReleaseRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer strin
 func CreateSnodeReleaseConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseConfirmIEsValue{
-		SnodeReleaseConfirmIEsValue: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdMNgRannodeUexnApid{
+		SnodeReleaseConfirmIes: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20530,7 +18418,7 @@ func CreateSnodeReleaseConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID 
 func CreateSnodeReleaseConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeReleaseConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseConfirmIEsValue{
-		SnodeReleaseConfirmIEsValue: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdSNgRannodeUexnApid{
+		SnodeReleaseConfirmIes: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20544,7 +18432,7 @@ func CreateSnodeReleaseConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID 
 func CreateSnodeReleaseConfirmIEsValueIDPdusessionReleasedListRelConf(IDPdusessionReleasedListRelConf *xnappducontentsv1.PdusessionReleasedListRelConf) (*xnappducontentsv1.SnodeReleaseConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseConfirmIEsValue{
-		SnodeReleaseConfirmIEsValue: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdPdusessionReleasedListRelConf{
+		SnodeReleaseConfirmIes: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdPdusessionReleasedListRelConf{
 			IdPdusessionReleasedListRelConf: IDPdusessionReleasedListRelConf,
 		},
 	}
@@ -20558,7 +18446,7 @@ func CreateSnodeReleaseConfirmIEsValueIDPdusessionReleasedListRelConf(IDPdusessi
 func CreateSnodeReleaseConfirmIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeReleaseConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeReleaseConfirmIEsValue{
-		SnodeReleaseConfirmIEsValue: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdCriticalityDiagnostics{
+		SnodeReleaseConfirmIes: &xnappducontentsv1.SnodeReleaseConfirmIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20572,7 +18460,7 @@ func CreateSnodeReleaseConfirmIEsValueIDCriticalityDiagnostics(IDCriticalityDiag
 func CreateSnodeCounterCheckRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeCounterCheckRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeCounterCheckRequestIEsValue{
-		SnodeCounterCheckRequestIEsValue: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdMNgRannodeUexnApid{
+		SnodeCounterCheckRequestIes: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20586,7 +18474,7 @@ func CreateSnodeCounterCheckRequestIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexn
 func CreateSnodeCounterCheckRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeCounterCheckRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeCounterCheckRequestIEsValue{
-		SnodeCounterCheckRequestIEsValue: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdSNgRannodeUexnApid{
+		SnodeCounterCheckRequestIes: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20600,7 +18488,7 @@ func CreateSnodeCounterCheckRequestIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexn
 func CreateSnodeCounterCheckRequestIEsValueIDBearersSubjectToCounterCheck(IDBearersSubjectToCounterCheck *xnappducontentsv1.BearersSubjectToCounterCheckList) (*xnappducontentsv1.SnodeCounterCheckRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeCounterCheckRequestIEsValue{
-		SnodeCounterCheckRequestIEsValue: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdBearersSubjectToCounterCheck{
+		SnodeCounterCheckRequestIes: &xnappducontentsv1.SnodeCounterCheckRequestIEsValue_IdBearersSubjectToCounterCheck{
 			IdBearersSubjectToCounterCheck: IDBearersSubjectToCounterCheck,
 		},
 	}
@@ -20614,7 +18502,7 @@ func CreateSnodeCounterCheckRequestIEsValueIDBearersSubjectToCounterCheck(IDBear
 func CreateSnodeChangeRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdMNgRannodeUexnApid{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20628,7 +18516,7 @@ func CreateSnodeChangeRequiredIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID 
 func CreateSnodeChangeRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdSNgRannodeUexnApid{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20642,7 +18530,7 @@ func CreateSnodeChangeRequiredIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID 
 func CreateSnodeChangeRequiredIEsValueIDTargetSNgRannodeID(IDTargetSNgRannodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdTargetSNgRannodeId{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdTargetSNgRannodeId{
 			IdTargetSNgRannodeId: IDTargetSNgRannodeID,
 		},
 	}
@@ -20656,7 +18544,7 @@ func CreateSnodeChangeRequiredIEsValueIDTargetSNgRannodeID(IDTargetSNgRannodeID 
 func CreateSnodeChangeRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdCause{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20670,7 +18558,7 @@ func CreateSnodeChangeRequiredIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappd
 func CreateSnodeChangeRequiredIEsValueIDPdusessionSnchangeRequiredList(IDPdusessionSnchangeRequiredList *xnappducontentsv1.PdusessionSNchangeRequiredList) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdPdusessionSnchangeRequiredList{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdPdusessionSnchangeRequiredList{
 			IdPdusessionSnchangeRequiredList: IDPdusessionSnchangeRequiredList,
 		},
 	}
@@ -20684,7 +18572,7 @@ func CreateSnodeChangeRequiredIEsValueIDPdusessionSnchangeRequiredList(IDPdusess
 func CreateSnodeChangeRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer string) (*xnappducontentsv1.SnodeChangeRequiredIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRequiredIEsValue{
-		SnodeChangeRequiredIEsValue: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdSnToMnContainer{
+		SnodeChangeRequiredIes: &xnappducontentsv1.SnodeChangeRequiredIEsValue_IdSnToMnContainer{
 			IdSnToMnContainer: IDSnToMnContainer,
 		},
 	}
@@ -20698,7 +18586,7 @@ func CreateSnodeChangeRequiredIEsValueIDSnToMnContainer(IDSnToMnContainer string
 func CreateSnodeChangeConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeConfirmIEsValue{
-		SnodeChangeConfirmIEsValue: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdMNgRannodeUexnApid{
+		SnodeChangeConfirmIes: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20712,7 +18600,7 @@ func CreateSnodeChangeConfirmIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *
 func CreateSnodeChangeConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeConfirmIEsValue{
-		SnodeChangeConfirmIEsValue: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdSNgRannodeUexnApid{
+		SnodeChangeConfirmIes: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20726,7 +18614,7 @@ func CreateSnodeChangeConfirmIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *
 func CreateSnodeChangeConfirmIEsValueIDPdusessionSnchangeConfirmList(IDPdusessionSnchangeConfirmList *xnappducontentsv1.PdusessionSNchangeConfirmList) (*xnappducontentsv1.SnodeChangeConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeConfirmIEsValue{
-		SnodeChangeConfirmIEsValue: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdPdusessionSnchangeConfirmList{
+		SnodeChangeConfirmIes: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdPdusessionSnchangeConfirmList{
 			IdPdusessionSnchangeConfirmList: IDPdusessionSnchangeConfirmList,
 		},
 	}
@@ -20740,7 +18628,7 @@ func CreateSnodeChangeConfirmIEsValueIDPdusessionSnchangeConfirmList(IDPdusessio
 func CreateSnodeChangeConfirmIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeChangeConfirmIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeConfirmIEsValue{
-		SnodeChangeConfirmIEsValue: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdCriticalityDiagnostics{
+		SnodeChangeConfirmIes: &xnappducontentsv1.SnodeChangeConfirmIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20754,7 +18642,7 @@ func CreateSnodeChangeConfirmIEsValueIDCriticalityDiagnostics(IDCriticalityDiagn
 func CreateSnodeChangeRefuseIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRefuseIEsValue{
-		SnodeChangeRefuseIEsValue: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdMNgRannodeUexnApid{
+		SnodeChangeRefuseIes: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20768,7 +18656,7 @@ func CreateSnodeChangeRefuseIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *x
 func CreateSnodeChangeRefuseIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SnodeChangeRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRefuseIEsValue{
-		SnodeChangeRefuseIEsValue: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdSNgRannodeUexnApid{
+		SnodeChangeRefuseIes: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20782,7 +18670,7 @@ func CreateSnodeChangeRefuseIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *x
 func CreateSnodeChangeRefuseIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.SnodeChangeRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRefuseIEsValue{
-		SnodeChangeRefuseIEsValue: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdCause{
+		SnodeChangeRefuseIes: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -20796,7 +18684,7 @@ func CreateSnodeChangeRefuseIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappduc
 func CreateSnodeChangeRefuseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.SnodeChangeRefuseIEsValue, error) {
 
 	item := &xnappducontentsv1.SnodeChangeRefuseIEsValue{
-		SnodeChangeRefuseIEsValue: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdCriticalityDiagnostics{
+		SnodeChangeRefuseIes: &xnappducontentsv1.SnodeChangeRefuseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -20810,7 +18698,7 @@ func CreateSnodeChangeRefuseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagno
 func CreateRrctransferIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdMNgRannodeUexnApid{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20824,7 +18712,7 @@ func CreateRrctransferIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapies
 func CreateRrctransferIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdSNgRannodeUexnApid{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20838,7 +18726,7 @@ func CreateRrctransferIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapies
 func CreateRrctransferIEsValueIDSplitSrbRrctransfer(IDSplitSrbRrctransfer *xnappducontentsv1.SplitSrbRRctransfer) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdSplitSrbRrctransfer{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdSplitSrbRrctransfer{
 			IdSplitSrbRrctransfer: IDSplitSrbRrctransfer,
 		},
 	}
@@ -20852,7 +18740,7 @@ func CreateRrctransferIEsValueIDSplitSrbRrctransfer(IDSplitSrbRrctransfer *xnapp
 func CreateRrctransferIEsValueIDUereportRrctransfer(IDUereportRrctransfer *xnappducontentsv1.UereportRrctransfer) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdUereportRrctransfer{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdUereportRrctransfer{
 			IdUereportRrctransfer: IDUereportRrctransfer,
 		},
 	}
@@ -20866,7 +18754,7 @@ func CreateRrctransferIEsValueIDUereportRrctransfer(IDUereportRrctransfer *xnapp
 func CreateRrctransferIEsValueIDFastMcgrecoveryRrctransferSnToMn(IDFastMcgrecoveryRrctransferSnToMn *xnappducontentsv1.FastMcgrecoveryRrctransfer) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdFastMcgrecoveryRrctransferSnToMn{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdFastMcgrecoveryRrctransferSnToMn{
 			IdFastMcgrecoveryRrctransferSnToMn: IDFastMcgrecoveryRrctransferSnToMn,
 		},
 	}
@@ -20880,7 +18768,7 @@ func CreateRrctransferIEsValueIDFastMcgrecoveryRrctransferSnToMn(IDFastMcgrecove
 func CreateRrctransferIEsValueIDFastMcgrecoveryRrctransferMnToSn(IDFastMcgrecoveryRrctransferMnToSn *xnappducontentsv1.FastMcgrecoveryRrctransfer) (*xnappducontentsv1.RrctransferIEsValue, error) {
 
 	item := &xnappducontentsv1.RrctransferIEsValue{
-		RrctransferIEsValue: &xnappducontentsv1.RrctransferIEsValue_IdFastMcgrecoveryRrctransferMnToSn{
+		RrctransferIes: &xnappducontentsv1.RrctransferIEsValue_IdFastMcgrecoveryRrctransferMnToSn{
 			IdFastMcgrecoveryRrctransferMnToSn: IDFastMcgrecoveryRrctransferMnToSn,
 		},
 	}
@@ -20894,7 +18782,7 @@ func CreateRrctransferIEsValueIDFastMcgrecoveryRrctransferMnToSn(IDFastMcgrecove
 func CreateNotificationControlIndicationIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.NotificationControlIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.NotificationControlIndicationIEsValue{
-		NotificationControlIndicationIEsValue: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdMNgRannodeUexnApid{
+		NotificationControlIndicationIes: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20908,7 +18796,7 @@ func CreateNotificationControlIndicationIEsValueIDMNgRannodeUexnApID(IDMNgRannod
 func CreateNotificationControlIndicationIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.NotificationControlIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.NotificationControlIndicationIEsValue{
-		NotificationControlIndicationIEsValue: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdSNgRannodeUexnApid{
+		NotificationControlIndicationIes: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20922,7 +18810,7 @@ func CreateNotificationControlIndicationIEsValueIDSNgRannodeUexnApID(IDSNgRannod
 func CreateNotificationControlIndicationIEsValueIDPdusessionResourcesNotifyList(IDPdusessionResourcesNotifyList *xnappducontentsv1.PdusessionResourcesNotifyList) (*xnappducontentsv1.NotificationControlIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.NotificationControlIndicationIEsValue{
-		NotificationControlIndicationIEsValue: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdPdusessionResourcesNotifyList{
+		NotificationControlIndicationIes: &xnappducontentsv1.NotificationControlIndicationIEsValue_IdPdusessionResourcesNotifyList{
 			IdPdusessionResourcesNotifyList: IDPdusessionResourcesNotifyList,
 		},
 	}
@@ -20936,7 +18824,7 @@ func CreateNotificationControlIndicationIEsValueIDPdusessionResourcesNotifyList(
 func CreateActivityNotificationIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ActivityNotificationIEsValue, error) {
 
 	item := &xnappducontentsv1.ActivityNotificationIEsValue{
-		ActivityNotificationIEsValue: &xnappducontentsv1.ActivityNotificationIEsValue_IdMNgRannodeUexnApid{
+		ActivityNotificationIes: &xnappducontentsv1.ActivityNotificationIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -20950,7 +18838,7 @@ func CreateActivityNotificationIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID
 func CreateActivityNotificationIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ActivityNotificationIEsValue, error) {
 
 	item := &xnappducontentsv1.ActivityNotificationIEsValue{
-		ActivityNotificationIEsValue: &xnappducontentsv1.ActivityNotificationIEsValue_IdSNgRannodeUexnApid{
+		ActivityNotificationIes: &xnappducontentsv1.ActivityNotificationIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -20964,7 +18852,7 @@ func CreateActivityNotificationIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID
 func CreateActivityNotificationIEsValueIDUserPlaneTrafficActivityReport(IDUserPlaneTrafficActivityReport xnapiesv1.UserPlaneTrafficActivityReport) (*xnappducontentsv1.ActivityNotificationIEsValue, error) {
 
 	item := &xnappducontentsv1.ActivityNotificationIEsValue{
-		ActivityNotificationIEsValue: &xnappducontentsv1.ActivityNotificationIEsValue_IdUserPlaneTrafficActivityReport{
+		ActivityNotificationIes: &xnappducontentsv1.ActivityNotificationIEsValue_IdUserPlaneTrafficActivityReport{
 			IdUserPlaneTrafficActivityReport: IDUserPlaneTrafficActivityReport,
 		},
 	}
@@ -20978,7 +18866,7 @@ func CreateActivityNotificationIEsValueIDUserPlaneTrafficActivityReport(IDUserPl
 func CreateActivityNotificationIEsValueIDPdusessionResourcesActivityNotifyList(IDPdusessionResourcesActivityNotifyList *xnappducontentsv1.PdusessionResourcesActivityNotifyList) (*xnappducontentsv1.ActivityNotificationIEsValue, error) {
 
 	item := &xnappducontentsv1.ActivityNotificationIEsValue{
-		ActivityNotificationIEsValue: &xnappducontentsv1.ActivityNotificationIEsValue_IdPdusessionResourcesActivityNotifyList{
+		ActivityNotificationIes: &xnappducontentsv1.ActivityNotificationIEsValue_IdPdusessionResourcesActivityNotifyList{
 			IdPdusessionResourcesActivityNotifyList: IDPdusessionResourcesActivityNotifyList,
 		},
 	}
@@ -20992,7 +18880,7 @@ func CreateActivityNotificationIEsValueIDPdusessionResourcesActivityNotifyList(I
 func CreateActivityNotificationIEsValueIDRanpagingFailure(IDRanpagingFailure xnapiesv1.RanpagingFailure) (*xnappducontentsv1.ActivityNotificationIEsValue, error) {
 
 	item := &xnappducontentsv1.ActivityNotificationIEsValue{
-		ActivityNotificationIEsValue: &xnappducontentsv1.ActivityNotificationIEsValue_IdRanpagingFailure{
+		ActivityNotificationIes: &xnappducontentsv1.ActivityNotificationIEsValue_IdRanpagingFailure{
 			IdRanpagingFailure: IDRanpagingFailure,
 		},
 	}
@@ -21006,7 +18894,7 @@ func CreateActivityNotificationIEsValueIDRanpagingFailure(IDRanpagingFailure xna
 func CreateXnSetupRequestIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdGlobalNgRanNodeId{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdGlobalNgRanNodeId{
 			IdGlobalNgRanNodeId: IDGlobalNgRanNodeID,
 		},
 	}
@@ -21020,7 +18908,7 @@ func CreateXnSetupRequestIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapie
 func CreateXnSetupRequestIEsValueIDTaisupportList(IDTaisupportList *xnapiesv1.TaisupportList) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdTaisupportList{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdTaisupportList{
 			IdTaisupportList: IDTaisupportList,
 		},
 	}
@@ -21034,7 +18922,7 @@ func CreateXnSetupRequestIEsValueIDTaisupportList(IDTaisupportList *xnapiesv1.Ta
 func CreateXnSetupRequestIEsValueIDAmfRegionInformation(IDAmfRegionInformation *xnapiesv1.AmfRegionInformation) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdAmfRegionInformation{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdAmfRegionInformation{
 			IdAmfRegionInformation: IDAmfRegionInformation,
 		},
 	}
@@ -21048,7 +18936,7 @@ func CreateXnSetupRequestIEsValueIDAmfRegionInformation(IDAmfRegionInformation *
 func CreateXnSetupRequestIEsValueIDListOfServedCellsNr(IDListOfServedCellsNr *xnapiesv1.ServedCellsNR) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdListOfServedCellsNr{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdListOfServedCellsNr{
 			IdListOfServedCellsNr: IDListOfServedCellsNr,
 		},
 	}
@@ -21062,7 +18950,7 @@ func CreateXnSetupRequestIEsValueIDListOfServedCellsNr(IDListOfServedCellsNr *xn
 func CreateXnSetupRequestIEsValueIDListOfServedCellsEUtra(IDListOfServedCellsEUtra *xnapiesv1.ServedCellsEUTra) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdListOfServedCellsEUtra{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdListOfServedCellsEUtra{
 			IdListOfServedCellsEUtra: IDListOfServedCellsEUtra,
 		},
 	}
@@ -21076,7 +18964,7 @@ func CreateXnSetupRequestIEsValueIDListOfServedCellsEUtra(IDListOfServedCellsEUt
 func CreateXnSetupRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdInterfaceInstanceIndication{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21090,7 +18978,7 @@ func CreateXnSetupRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstan
 func CreateXnSetupRequestIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo *xnapiesv1.TnlconfigurationInfo) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdTnlconfigurationInfo{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdTnlconfigurationInfo{
 			IdTnlconfigurationInfo: IDTnlconfigurationInfo,
 		},
 	}
@@ -21104,7 +18992,7 @@ func CreateXnSetupRequestIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo *
 func CreateXnSetupRequestIEsValueIDPartialListIndicatorNr(IDPartialListIndicatorNr xnapiesv1.PartialListIndicator) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdPartialListIndicatorNr{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdPartialListIndicatorNr{
 			IdPartialListIndicatorNr: IDPartialListIndicatorNr,
 		},
 	}
@@ -21118,7 +19006,7 @@ func CreateXnSetupRequestIEsValueIDPartialListIndicatorNr(IDPartialListIndicator
 func CreateXnSetupRequestIEsValueIDCellAndCapacityAssistanceInfoNr(IDCellAndCapacityAssistanceInfoNr *xnapiesv1.CellAndCapacityAssistanceInfoNR) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoNr{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoNr{
 			IdCellAndCapacityAssistanceInfoNr: IDCellAndCapacityAssistanceInfoNr,
 		},
 	}
@@ -21132,7 +19020,7 @@ func CreateXnSetupRequestIEsValueIDCellAndCapacityAssistanceInfoNr(IDCellAndCapa
 func CreateXnSetupRequestIEsValueIDPartialListIndicatorEutra(IDPartialListIndicatorEutra xnapiesv1.PartialListIndicator) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdPartialListIndicatorEutra{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdPartialListIndicatorEutra{
 			IdPartialListIndicatorEutra: IDPartialListIndicatorEutra,
 		},
 	}
@@ -21146,7 +19034,7 @@ func CreateXnSetupRequestIEsValueIDPartialListIndicatorEutra(IDPartialListIndica
 func CreateXnSetupRequestIEsValueIDCellAndCapacityAssistanceInfoEutra(IDCellAndCapacityAssistanceInfoEutra *xnapiesv1.CellAndCapacityAssistanceInfoEUtra) (*xnappducontentsv1.XnSetupRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupRequestIEsValue{
-		XnSetupRequestIEsValue: &xnappducontentsv1.XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoEutra{
+		XnSetupRequestIes: &xnappducontentsv1.XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoEutra{
 			IdCellAndCapacityAssistanceInfoEutra: IDCellAndCapacityAssistanceInfoEutra,
 		},
 	}
@@ -21160,7 +19048,7 @@ func CreateXnSetupRequestIEsValueIDCellAndCapacityAssistanceInfoEutra(IDCellAndC
 func CreateXnSetupResponseIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdGlobalNgRanNodeId{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdGlobalNgRanNodeId{
 			IdGlobalNgRanNodeId: IDGlobalNgRanNodeID,
 		},
 	}
@@ -21174,7 +19062,7 @@ func CreateXnSetupResponseIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapi
 func CreateXnSetupResponseIEsValueIDTaisupportList(IDTaisupportList *xnapiesv1.TaisupportList) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdTaisupportList{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdTaisupportList{
 			IdTaisupportList: IDTaisupportList,
 		},
 	}
@@ -21188,7 +19076,7 @@ func CreateXnSetupResponseIEsValueIDTaisupportList(IDTaisupportList *xnapiesv1.T
 func CreateXnSetupResponseIEsValueIDListOfServedCellsNr(IDListOfServedCellsNr *xnapiesv1.ServedCellsNR) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdListOfServedCellsNr{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdListOfServedCellsNr{
 			IdListOfServedCellsNr: IDListOfServedCellsNr,
 		},
 	}
@@ -21202,7 +19090,7 @@ func CreateXnSetupResponseIEsValueIDListOfServedCellsNr(IDListOfServedCellsNr *x
 func CreateXnSetupResponseIEsValueIDListOfServedCellsEUtra(IDListOfServedCellsEUtra *xnapiesv1.ServedCellsEUTra) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdListOfServedCellsEUtra{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdListOfServedCellsEUtra{
 			IdListOfServedCellsEUtra: IDListOfServedCellsEUtra,
 		},
 	}
@@ -21216,7 +19104,7 @@ func CreateXnSetupResponseIEsValueIDListOfServedCellsEUtra(IDListOfServedCellsEU
 func CreateXnSetupResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdCriticalityDiagnostics{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -21230,7 +19118,7 @@ func CreateXnSetupResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnost
 func CreateXnSetupResponseIEsValueIDAmfRegionInformation(IDAmfRegionInformation *xnapiesv1.AmfRegionInformation) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdAmfRegionInformation{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdAmfRegionInformation{
 			IdAmfRegionInformation: IDAmfRegionInformation,
 		},
 	}
@@ -21244,7 +19132,7 @@ func CreateXnSetupResponseIEsValueIDAmfRegionInformation(IDAmfRegionInformation 
 func CreateXnSetupResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdInterfaceInstanceIndication{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21258,7 +19146,7 @@ func CreateXnSetupResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInsta
 func CreateXnSetupResponseIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo *xnapiesv1.TnlconfigurationInfo) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdTnlconfigurationInfo{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdTnlconfigurationInfo{
 			IdTnlconfigurationInfo: IDTnlconfigurationInfo,
 		},
 	}
@@ -21272,7 +19160,7 @@ func CreateXnSetupResponseIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo 
 func CreateXnSetupResponseIEsValueIDPartialListIndicatorNr(IDPartialListIndicatorNr xnapiesv1.PartialListIndicator) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdPartialListIndicatorNr{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdPartialListIndicatorNr{
 			IdPartialListIndicatorNr: IDPartialListIndicatorNr,
 		},
 	}
@@ -21286,7 +19174,7 @@ func CreateXnSetupResponseIEsValueIDPartialListIndicatorNr(IDPartialListIndicato
 func CreateXnSetupResponseIEsValueIDCellAndCapacityAssistanceInfoNr(IDCellAndCapacityAssistanceInfoNr *xnapiesv1.CellAndCapacityAssistanceInfoNR) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoNr{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoNr{
 			IdCellAndCapacityAssistanceInfoNr: IDCellAndCapacityAssistanceInfoNr,
 		},
 	}
@@ -21300,7 +19188,7 @@ func CreateXnSetupResponseIEsValueIDCellAndCapacityAssistanceInfoNr(IDCellAndCap
 func CreateXnSetupResponseIEsValueIDPartialListIndicatorEutra(IDPartialListIndicatorEutra xnapiesv1.PartialListIndicator) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdPartialListIndicatorEutra{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdPartialListIndicatorEutra{
 			IdPartialListIndicatorEutra: IDPartialListIndicatorEutra,
 		},
 	}
@@ -21314,7 +19202,7 @@ func CreateXnSetupResponseIEsValueIDPartialListIndicatorEutra(IDPartialListIndic
 func CreateXnSetupResponseIEsValueIDCellAndCapacityAssistanceInfoEutra(IDCellAndCapacityAssistanceInfoEutra *xnapiesv1.CellAndCapacityAssistanceInfoEUtra) (*xnappducontentsv1.XnSetupResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupResponseIEsValue{
-		XnSetupResponseIEsValue: &xnappducontentsv1.XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoEutra{
+		XnSetupResponseIes: &xnappducontentsv1.XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoEutra{
 			IdCellAndCapacityAssistanceInfoEutra: IDCellAndCapacityAssistanceInfoEutra,
 		},
 	}
@@ -21328,7 +19216,7 @@ func CreateXnSetupResponseIEsValueIDCellAndCapacityAssistanceInfoEutra(IDCellAnd
 func CreateXnSetupFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.XnSetupFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupFailureIEsValue{
-		XnSetupFailureIEsValue: &xnappducontentsv1.XnSetupFailureIEsValue_IdCause{
+		XnSetupFailureIes: &xnappducontentsv1.XnSetupFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -21342,7 +19230,7 @@ func CreateXnSetupFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducont
 func CreateXnSetupFailureIEsValueIDTimeToWait(IDTimeToWait xnapiesv1.TimeToWait) (*xnappducontentsv1.XnSetupFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupFailureIEsValue{
-		XnSetupFailureIEsValue: &xnappducontentsv1.XnSetupFailureIEsValue_IdTimeToWait{
+		XnSetupFailureIes: &xnappducontentsv1.XnSetupFailureIEsValue_IdTimeToWait{
 			IdTimeToWait: IDTimeToWait,
 		},
 	}
@@ -21356,7 +19244,7 @@ func CreateXnSetupFailureIEsValueIDTimeToWait(IDTimeToWait xnapiesv1.TimeToWait)
 func CreateXnSetupFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.XnSetupFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupFailureIEsValue{
-		XnSetupFailureIEsValue: &xnappducontentsv1.XnSetupFailureIEsValue_IdCriticalityDiagnostics{
+		XnSetupFailureIes: &xnappducontentsv1.XnSetupFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -21370,7 +19258,7 @@ func CreateXnSetupFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnosti
 func CreateXnSetupFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnSetupFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupFailureIEsValue{
-		XnSetupFailureIEsValue: &xnappducontentsv1.XnSetupFailureIEsValue_IdInterfaceInstanceIndication{
+		XnSetupFailureIes: &xnappducontentsv1.XnSetupFailureIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21384,7 +19272,7 @@ func CreateXnSetupFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInstan
 func CreateXnSetupFailureIEsValueIDMessageOversizeNotification(IDMessageOversizeNotification *xnapiesv1.MessageOversizeNotification) (*xnappducontentsv1.XnSetupFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnSetupFailureIEsValue{
-		XnSetupFailureIEsValue: &xnappducontentsv1.XnSetupFailureIEsValue_IdMessageOversizeNotification{
+		XnSetupFailureIes: &xnappducontentsv1.XnSetupFailureIEsValue_IdMessageOversizeNotification{
 			IdMessageOversizeNotification: IDMessageOversizeNotification,
 		},
 	}
@@ -21398,7 +19286,7 @@ func CreateXnSetupFailureIEsValueIDMessageOversizeNotification(IDMessageOversize
 func CreateNgrannodeConfigurationUpdateIEsValueIDTaisupportList(IDTaisupportList *xnapiesv1.TaisupportList) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTaisupportList{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTaisupportList{
 			IdTaisupportList: IDTaisupportList,
 		},
 	}
@@ -21412,7 +19300,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDTaisupportList(IDTaisupportList
 func CreateNgrannodeConfigurationUpdateIEsValueIDConfigurationUpdateInitiatingNodeChoice(IDConfigurationUpdateInitiatingNodeChoice *xnappducontentsv1.ConfigurationUpdateInitiatingNodeChoice) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdConfigurationUpdateInitiatingNodeChoice{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdConfigurationUpdateInitiatingNodeChoice{
 			IdConfigurationUpdateInitiatingNodeChoice: IDConfigurationUpdateInitiatingNodeChoice,
 		},
 	}
@@ -21426,7 +19314,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDConfigurationUpdateInitiatingNo
 func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToAddList(IDTnlaToAddList *xnapiesv1.TnlaToAddList) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToAddList{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToAddList{
 			IdTnlaToAddList: IDTnlaToAddList,
 		},
 	}
@@ -21440,7 +19328,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToAddList(IDTnlaToAddList *
 func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToRemoveList(IDTnlaToRemoveList *xnapiesv1.TnlaToRemoveList) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToRemoveList{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToRemoveList{
 			IdTnlaToRemoveList: IDTnlaToRemoveList,
 		},
 	}
@@ -21454,7 +19342,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToRemoveList(IDTnlaToRemove
 func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToUpdateList(IDTnlaToUpdateList *xnapiesv1.TnlaToUpdateList) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToUpdateList{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlaToUpdateList{
 			IdTnlaToUpdateList: IDTnlaToUpdateList,
 		},
 	}
@@ -21468,7 +19356,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDTnlaToUpdateList(IDTnlaToUpdate
 func CreateNgrannodeConfigurationUpdateIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdGlobalNgRanNodeId{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdGlobalNgRanNodeId{
 			IdGlobalNgRanNodeId: IDGlobalNgRanNodeID,
 		},
 	}
@@ -21482,7 +19370,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDGlobalNgRanNodeID(IDGlobalNgRan
 func CreateNgrannodeConfigurationUpdateIEsValueIDAmfRegionInformationToAdd(IDAmfRegionInformationToAdd *xnapiesv1.AmfRegionInformation) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToAdd{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToAdd{
 			IdAmfRegionInformationToAdd: IDAmfRegionInformationToAdd,
 		},
 	}
@@ -21496,7 +19384,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDAmfRegionInformationToAdd(IDAmf
 func CreateNgrannodeConfigurationUpdateIEsValueIDAmfRegionInformationToDelete(IDAmfRegionInformationToDelete *xnapiesv1.AmfRegionInformation) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToDelete{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToDelete{
 			IdAmfRegionInformationToDelete: IDAmfRegionInformationToDelete,
 		},
 	}
@@ -21510,7 +19398,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDAmfRegionInformationToDelete(ID
 func CreateNgrannodeConfigurationUpdateIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdInterfaceInstanceIndication{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21524,7 +19412,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDInterfaceInstanceIndication(IDI
 func CreateNgrannodeConfigurationUpdateIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo *xnapiesv1.TnlconfigurationInfo) (*xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue{
-		NgrannodeConfigurationUpdateIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlconfigurationInfo{
+		NgrannodeConfigurationUpdateIes: &xnappducontentsv1.NgrannodeConfigurationUpdateIEsValue_IdTnlconfigurationInfo{
 			IdTnlconfigurationInfo: IDTnlconfigurationInfo,
 		},
 	}
@@ -21538,7 +19426,7 @@ func CreateNgrannodeConfigurationUpdateIEsValueIDTnlconfigurationInfo(IDTnlconfi
 func CreateConfigurationUpdategNbValueIDServedCellsToUpdateNr(IDServedCellsToUpdateNr *xnapiesv1.ServedCellsToUpdateNR) (*xnappducontentsv1.ConfigurationUpdategNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdategNbValue{
-		ConfigurationUpdategNbValue: &xnappducontentsv1.ConfigurationUpdategNbValue_IdServedCellsToUpdateNr{
+		ConfigurationUpdateGNb: &xnappducontentsv1.ConfigurationUpdategNbValue_IdServedCellsToUpdateNr{
 			IdServedCellsToUpdateNr: IDServedCellsToUpdateNr,
 		},
 	}
@@ -21552,7 +19440,7 @@ func CreateConfigurationUpdategNbValueIDServedCellsToUpdateNr(IDServedCellsToUpd
 func CreateConfigurationUpdategNbValueIDCellAssistanceInfoNr(IDCellAssistanceInfoNr *xnapiesv1.CellAssistanceInfoNR) (*xnappducontentsv1.ConfigurationUpdategNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdategNbValue{
-		ConfigurationUpdategNbValue: &xnappducontentsv1.ConfigurationUpdategNbValue_IdCellAssistanceInfoNr{
+		ConfigurationUpdateGNb: &xnappducontentsv1.ConfigurationUpdategNbValue_IdCellAssistanceInfoNr{
 			IdCellAssistanceInfoNr: IDCellAssistanceInfoNr,
 		},
 	}
@@ -21566,7 +19454,7 @@ func CreateConfigurationUpdategNbValueIDCellAssistanceInfoNr(IDCellAssistanceInf
 func CreateConfigurationUpdategNbValueIDCellAssistanceInfoEutra(IDCellAssistanceInfoEutra *xnapiesv1.CellAssistanceInfoEUtra) (*xnappducontentsv1.ConfigurationUpdategNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdategNbValue{
-		ConfigurationUpdategNbValue: &xnappducontentsv1.ConfigurationUpdategNbValue_IdCellAssistanceInfoEutra{
+		ConfigurationUpdateGNb: &xnappducontentsv1.ConfigurationUpdategNbValue_IdCellAssistanceInfoEutra{
 			IdCellAssistanceInfoEutra: IDCellAssistanceInfoEutra,
 		},
 	}
@@ -21580,7 +19468,7 @@ func CreateConfigurationUpdategNbValueIDCellAssistanceInfoEutra(IDCellAssistance
 func CreateConfigurationUpdatengeNbValueIDServedCellsToUpdateEUtra(IDServedCellsToUpdateEUtra *xnapiesv1.ServedCellsToUpdateEUTra) (*xnappducontentsv1.ConfigurationUpdatengeNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdatengeNbValue{
-		ConfigurationUpdatengeNbValue: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdServedCellsToUpdateEUtra{
+		ConfigurationUpdateNgENb: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdServedCellsToUpdateEUtra{
 			IdServedCellsToUpdateEUtra: IDServedCellsToUpdateEUtra,
 		},
 	}
@@ -21594,7 +19482,7 @@ func CreateConfigurationUpdatengeNbValueIDServedCellsToUpdateEUtra(IDServedCells
 func CreateConfigurationUpdatengeNbValueIDCellAssistanceInfoNr(IDCellAssistanceInfoNr *xnapiesv1.CellAssistanceInfoNR) (*xnappducontentsv1.ConfigurationUpdatengeNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdatengeNbValue{
-		ConfigurationUpdatengeNbValue: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdCellAssistanceInfoNr{
+		ConfigurationUpdateNgENb: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdCellAssistanceInfoNr{
 			IdCellAssistanceInfoNr: IDCellAssistanceInfoNr,
 		},
 	}
@@ -21608,7 +19496,7 @@ func CreateConfigurationUpdatengeNbValueIDCellAssistanceInfoNr(IDCellAssistanceI
 func CreateConfigurationUpdatengeNbValueIDCellAssistanceInfoEutra(IDCellAssistanceInfoEutra *xnapiesv1.CellAssistanceInfoEUtra) (*xnappducontentsv1.ConfigurationUpdatengeNbValue, error) {
 
 	item := &xnappducontentsv1.ConfigurationUpdatengeNbValue{
-		ConfigurationUpdatengeNbValue: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdCellAssistanceInfoEutra{
+		ConfigurationUpdateNgENb: &xnappducontentsv1.ConfigurationUpdatengeNbValue_IdCellAssistanceInfoEutra{
 			IdCellAssistanceInfoEutra: IDCellAssistanceInfoEutra,
 		},
 	}
@@ -21664,7 +19552,7 @@ func CreateConfigurationUpdateInitiatingNodeChoiceChoiceExtension(choiceExtensio
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDRespondingNodeTypeConfigUpdateAck(IDRespondingNodeTypeConfigUpdateAck *xnappducontentsv1.RespondingNodeTypeConfigUpdateAck) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdRespondingNodeTypeConfigUpdateAck{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdRespondingNodeTypeConfigUpdateAck{
 			IdRespondingNodeTypeConfigUpdateAck: IDRespondingNodeTypeConfigUpdateAck,
 		},
 	}
@@ -21678,7 +19566,7 @@ func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDRespondingNodeTypeCo
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDTnlaSetupList(IDTnlaSetupList *xnapiesv1.TnlaSetupList) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaSetupList{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaSetupList{
 			IdTnlaSetupList: IDTnlaSetupList,
 		},
 	}
@@ -21692,7 +19580,7 @@ func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDTnlaSetupList(IDTnla
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDTnlaFailedToSetupList(IDTnlaFailedToSetupList *xnapiesv1.TnlaFailedToSetupList) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaFailedToSetupList{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaFailedToSetupList{
 			IdTnlaFailedToSetupList: IDTnlaFailedToSetupList,
 		},
 	}
@@ -21706,7 +19594,7 @@ func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDTnlaFailedToSetupLis
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -21720,7 +19608,7 @@ func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDCriticalityDiagnosti
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdInterfaceInstanceIndication{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21734,7 +19622,7 @@ func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDInterfaceInstanceInd
 func CreateNgrannodeConfigurationUpdateAcknowledgeIEsValueIDTnlconfigurationInfo(IDTnlconfigurationInfo *xnapiesv1.TnlconfigurationInfo) (*xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue{
-		NgrannodeConfigurationUpdateAcknowledgeIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlconfigurationInfo{
+		NgrannodeConfigurationUpdateAcknowledgeIes: &xnappducontentsv1.NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlconfigurationInfo{
 			IdTnlconfigurationInfo: IDTnlconfigurationInfo,
 		},
 	}
@@ -21790,7 +19678,7 @@ func CreateRespondingNodeTypeConfigUpdateAckChoiceExtension(choiceExtension *xna
 func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDListOfServedCellsEUtra(IDListOfServedCellsEUtra *xnapiesv1.ServedCellsEUTra) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension, error) {
 
 	item := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension{
-		RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdListOfServedCellsEUtra{
+		RespondingNodeTypeConfigUpdateAckNgENbExtIes: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdListOfServedCellsEUtra{
 			IdListOfServedCellsEUtra: IDListOfServedCellsEUtra,
 		},
 	}
@@ -21804,7 +19692,7 @@ func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDListOfServedCe
 func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDPartialListIndicatorEutra(IDPartialListIndicatorEutra xnapiesv1.PartialListIndicator) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension, error) {
 
 	item := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension{
-		RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdPartialListIndicatorEutra{
+		RespondingNodeTypeConfigUpdateAckNgENbExtIes: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdPartialListIndicatorEutra{
 			IdPartialListIndicatorEutra: IDPartialListIndicatorEutra,
 		},
 	}
@@ -21818,7 +19706,7 @@ func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDPartialListInd
 func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDCellAndCapacityAssistanceInfoEutra(IDCellAndCapacityAssistanceInfoEutra *xnapiesv1.CellAndCapacityAssistanceInfoEUtra) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension, error) {
 
 	item := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension{
-		RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdCellAndCapacityAssistanceInfoEutra{
+		RespondingNodeTypeConfigUpdateAckNgENbExtIes: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdCellAndCapacityAssistanceInfoEutra{
 			IdCellAndCapacityAssistanceInfoEutra: IDCellAndCapacityAssistanceInfoEutra,
 		},
 	}
@@ -21832,7 +19720,7 @@ func CreateRespondingNodeTypeConfigUpdateAckngeNbExtIesExtensionIDCellAndCapacit
 func CreateRespondingNodeTypeConfigUpdateAckgNbExtIesExtensionIDPartialListIndicatorNr(IDPartialListIndicatorNr xnapiesv1.PartialListIndicator) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension, error) {
 
 	item := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension{
-		RespondingNodeTypeConfigUpdateAckgNbExtIesExtension: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdPartialListIndicatorNr{
+		RespondingNodeTypeConfigUpdateAckGNbExtIes: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdPartialListIndicatorNr{
 			IdPartialListIndicatorNr: IDPartialListIndicatorNr,
 		},
 	}
@@ -21846,7 +19734,7 @@ func CreateRespondingNodeTypeConfigUpdateAckgNbExtIesExtensionIDPartialListIndic
 func CreateRespondingNodeTypeConfigUpdateAckgNbExtIesExtensionIDCellAndCapacityAssistanceInfoNr(IDCellAndCapacityAssistanceInfoNr *xnapiesv1.CellAndCapacityAssistanceInfoNR) (*xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension, error) {
 
 	item := &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension{
-		RespondingNodeTypeConfigUpdateAckgNbExtIesExtension: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdCellAndCapacityAssistanceInfoNr{
+		RespondingNodeTypeConfigUpdateAckGNbExtIes: &xnappducontentsv1.RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdCellAndCapacityAssistanceInfoNr{
 			IdCellAndCapacityAssistanceInfoNr: IDCellAndCapacityAssistanceInfoNr,
 		},
 	}
@@ -21860,7 +19748,7 @@ func CreateRespondingNodeTypeConfigUpdateAckgNbExtIesExtensionIDCellAndCapacityA
 func CreateNgrannodeConfigurationUpdateFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue{
-		NgrannodeConfigurationUpdateFailureIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdCause{
+		NgrannodeConfigurationUpdateFailureIes: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -21874,7 +19762,7 @@ func CreateNgrannodeConfigurationUpdateFailureIEsValueIDCause(IDCause *xnapiesv1
 func CreateNgrannodeConfigurationUpdateFailureIEsValueIDTimeToWait(IDTimeToWait xnapiesv1.TimeToWait) (*xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue{
-		NgrannodeConfigurationUpdateFailureIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdTimeToWait{
+		NgrannodeConfigurationUpdateFailureIes: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdTimeToWait{
 			IdTimeToWait: IDTimeToWait,
 		},
 	}
@@ -21888,7 +19776,7 @@ func CreateNgrannodeConfigurationUpdateFailureIEsValueIDTimeToWait(IDTimeToWait 
 func CreateNgrannodeConfigurationUpdateFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue{
-		NgrannodeConfigurationUpdateFailureIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdCriticalityDiagnostics{
+		NgrannodeConfigurationUpdateFailureIes: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -21902,7 +19790,7 @@ func CreateNgrannodeConfigurationUpdateFailureIEsValueIDCriticalityDiagnostics(I
 func CreateNgrannodeConfigurationUpdateFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue{
-		NgrannodeConfigurationUpdateFailureIEsValue: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdInterfaceInstanceIndication{
+		NgrannodeConfigurationUpdateFailureIes: &xnappducontentsv1.NgrannodeConfigurationUpdateFailureIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21916,7 +19804,7 @@ func CreateNgrannodeConfigurationUpdateFailureIEsValueIDInterfaceInstanceIndicat
 func CreateEUTraNRCellResourceCoordinationRequestIEsValueIDInitiatingNodeTypeResourceCoordRequest(IDInitiatingNodeTypeResourceCoordRequest *xnappducontentsv1.InitiatingNodeTypeResourceCoordRequest) (*xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue{
-		EUTraNRCellResourceCoordinationRequestIEsValue: &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue_IdInitiatingNodeTypeResourceCoordRequest{
+		EUtraNrCellResourceCoordinationRequestIes: &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue_IdInitiatingNodeTypeResourceCoordRequest{
 			IdInitiatingNodeTypeResourceCoordRequest: IDInitiatingNodeTypeResourceCoordRequest,
 		},
 	}
@@ -21930,7 +19818,7 @@ func CreateEUTraNRCellResourceCoordinationRequestIEsValueIDInitiatingNodeTypeRes
 func CreateEUTraNRCellResourceCoordinationRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue{
-		EUTraNRCellResourceCoordinationRequestIEsValue: &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue_IdInterfaceInstanceIndication{
+		EUtraNrCellResourceCoordinationRequestIes: &xnappducontentsv1.EUTraNRCellResourceCoordinationRequestIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -21986,7 +19874,7 @@ func CreateInitiatingNodeTypeResourceCoordRequestChoiceExtension(choiceExtension
 func CreateEUTraNRCellResourceCoordinationResponseIEsValueIDRespondingNodeTypeResourceCoordResponse(IDRespondingNodeTypeResourceCoordResponse *xnappducontentsv1.RespondingNodeTypeResourceCoordResponse) (*xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue{
-		EUTraNRCellResourceCoordinationResponseIEsValue: &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue_IdRespondingNodeTypeResourceCoordResponse{
+		EUtraNrCellResourceCoordinationResponseIes: &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue_IdRespondingNodeTypeResourceCoordResponse{
 			IdRespondingNodeTypeResourceCoordResponse: IDRespondingNodeTypeResourceCoordResponse,
 		},
 	}
@@ -22000,7 +19888,7 @@ func CreateEUTraNRCellResourceCoordinationResponseIEsValueIDRespondingNodeTypeRe
 func CreateEUTraNRCellResourceCoordinationResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue{
-		EUTraNRCellResourceCoordinationResponseIEsValue: &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue_IdInterfaceInstanceIndication{
+		EUtraNrCellResourceCoordinationResponseIes: &xnappducontentsv1.EUTraNRCellResourceCoordinationResponseIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22056,7 +19944,7 @@ func CreateRespondingNodeTypeResourceCoordResponseChoiceExtension(choiceExtensio
 func CreateSecondaryRatdataUsageReportIEsValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SecondaryRatdataUsageReportIEsValue, error) {
 
 	item := &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue{
-		SecondaryRatdataUsageReportIEsValue: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdMNgRannodeUexnApid{
+		SecondaryRatdataUsageReportIes: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -22070,7 +19958,7 @@ func CreateSecondaryRatdataUsageReportIEsValueIDMNgRannodeUexnApID(IDMNgRannodeU
 func CreateSecondaryRatdataUsageReportIEsValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.SecondaryRatdataUsageReportIEsValue, error) {
 
 	item := &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue{
-		SecondaryRatdataUsageReportIEsValue: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdSNgRannodeUexnApid{
+		SecondaryRatdataUsageReportIes: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -22084,7 +19972,7 @@ func CreateSecondaryRatdataUsageReportIEsValueIDSNgRannodeUexnApID(IDSNgRannodeU
 func CreateSecondaryRatdataUsageReportIEsValueIDPdusessionResourceSecondaryRatusageList(IDPdusessionResourceSecondaryRatusageList *xnapiesv1.PdusessionResourceSecondaryRatusageList) (*xnappducontentsv1.SecondaryRatdataUsageReportIEsValue, error) {
 
 	item := &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue{
-		SecondaryRatdataUsageReportIEsValue: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdPdusessionResourceSecondaryRatusageList{
+		SecondaryRatdataUsageReportIes: &xnappducontentsv1.SecondaryRatdataUsageReportIEsValue_IdPdusessionResourceSecondaryRatusageList{
 			IdPdusessionResourceSecondaryRatusageList: IDPdusessionResourceSecondaryRatusageList,
 		},
 	}
@@ -22098,7 +19986,7 @@ func CreateSecondaryRatdataUsageReportIEsValueIDPdusessionResourceSecondaryRatus
 func CreateXnRemovalRequestIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.XnRemovalRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalRequestIEsValue{
-		XnRemovalRequestIEsValue: &xnappducontentsv1.XnRemovalRequestIEsValue_IdGlobalNgRanNodeId{
+		XnRemovalRequestIes: &xnappducontentsv1.XnRemovalRequestIEsValue_IdGlobalNgRanNodeId{
 			IdGlobalNgRanNodeId: IDGlobalNgRanNodeID,
 		},
 	}
@@ -22112,7 +20000,7 @@ func CreateXnRemovalRequestIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnap
 func CreateXnRemovalRequestIEsValueIDXnRemovalThreshold(IDXnRemovalThreshold *xnapiesv1.XnBenefitValue) (*xnappducontentsv1.XnRemovalRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalRequestIEsValue{
-		XnRemovalRequestIEsValue: &xnappducontentsv1.XnRemovalRequestIEsValue_IdXnRemovalThreshold{
+		XnRemovalRequestIes: &xnappducontentsv1.XnRemovalRequestIEsValue_IdXnRemovalThreshold{
 			IdXnRemovalThreshold: IDXnRemovalThreshold,
 		},
 	}
@@ -22126,7 +20014,7 @@ func CreateXnRemovalRequestIEsValueIDXnRemovalThreshold(IDXnRemovalThreshold *xn
 func CreateXnRemovalRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnRemovalRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalRequestIEsValue{
-		XnRemovalRequestIEsValue: &xnappducontentsv1.XnRemovalRequestIEsValue_IdInterfaceInstanceIndication{
+		XnRemovalRequestIes: &xnappducontentsv1.XnRemovalRequestIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22140,7 +20028,7 @@ func CreateXnRemovalRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInst
 func CreateXnRemovalResponseIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xnapiesv1.GlobalNgRAnnodeID) (*xnappducontentsv1.XnRemovalResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalResponseIEsValue{
-		XnRemovalResponseIEsValue: &xnappducontentsv1.XnRemovalResponseIEsValue_IdGlobalNgRanNodeId{
+		XnRemovalResponseIes: &xnappducontentsv1.XnRemovalResponseIEsValue_IdGlobalNgRanNodeId{
 			IdGlobalNgRanNodeId: IDGlobalNgRanNodeID,
 		},
 	}
@@ -22154,7 +20042,7 @@ func CreateXnRemovalResponseIEsValueIDGlobalNgRanNodeID(IDGlobalNgRanNodeID *xna
 func CreateXnRemovalResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.XnRemovalResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalResponseIEsValue{
-		XnRemovalResponseIEsValue: &xnappducontentsv1.XnRemovalResponseIEsValue_IdCriticalityDiagnostics{
+		XnRemovalResponseIes: &xnappducontentsv1.XnRemovalResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22168,7 +20056,7 @@ func CreateXnRemovalResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagno
 func CreateXnRemovalResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnRemovalResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalResponseIEsValue{
-		XnRemovalResponseIEsValue: &xnappducontentsv1.XnRemovalResponseIEsValue_IdInterfaceInstanceIndication{
+		XnRemovalResponseIes: &xnappducontentsv1.XnRemovalResponseIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22182,7 +20070,7 @@ func CreateXnRemovalResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceIns
 func CreateXnRemovalFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.XnRemovalFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalFailureIEsValue{
-		XnRemovalFailureIEsValue: &xnappducontentsv1.XnRemovalFailureIEsValue_IdCause{
+		XnRemovalFailureIes: &xnappducontentsv1.XnRemovalFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -22196,7 +20084,7 @@ func CreateXnRemovalFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappduco
 func CreateXnRemovalFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.XnRemovalFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalFailureIEsValue{
-		XnRemovalFailureIEsValue: &xnappducontentsv1.XnRemovalFailureIEsValue_IdCriticalityDiagnostics{
+		XnRemovalFailureIes: &xnappducontentsv1.XnRemovalFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22210,7 +20098,7 @@ func CreateXnRemovalFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnos
 func CreateXnRemovalFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.XnRemovalFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.XnRemovalFailureIEsValue{
-		XnRemovalFailureIEsValue: &xnappducontentsv1.XnRemovalFailureIEsValue_IdInterfaceInstanceIndication{
+		XnRemovalFailureIes: &xnappducontentsv1.XnRemovalFailureIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22224,7 +20112,7 @@ func CreateXnRemovalFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInst
 func CreateCellActivationRequestIEsValueIDServedCellsToActivate(IDServedCellsToActivate *xnappducontentsv1.ServedCellsToActivate) (*xnappducontentsv1.CellActivationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationRequestIEsValue{
-		CellActivationRequestIEsValue: &xnappducontentsv1.CellActivationRequestIEsValue_IdServedCellsToActivate{
+		CellActivationRequestIes: &xnappducontentsv1.CellActivationRequestIEsValue_IdServedCellsToActivate{
 			IdServedCellsToActivate: IDServedCellsToActivate,
 		},
 	}
@@ -22238,7 +20126,7 @@ func CreateCellActivationRequestIEsValueIDServedCellsToActivate(IDServedCellsToA
 func CreateCellActivationRequestIEsValueIDActivationIDforCellActivation(IDActivationIDforCellActivation *xnapiesv1.ActivationIdforCellActivation) (*xnappducontentsv1.CellActivationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationRequestIEsValue{
-		CellActivationRequestIEsValue: &xnappducontentsv1.CellActivationRequestIEsValue_IdActivationIdforCellActivation{
+		CellActivationRequestIes: &xnappducontentsv1.CellActivationRequestIEsValue_IdActivationIdforCellActivation{
 			IdActivationIdforCellActivation: IDActivationIDforCellActivation,
 		},
 	}
@@ -22252,7 +20140,7 @@ func CreateCellActivationRequestIEsValueIDActivationIDforCellActivation(IDActiva
 func CreateCellActivationRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.CellActivationRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationRequestIEsValue{
-		CellActivationRequestIEsValue: &xnappducontentsv1.CellActivationRequestIEsValue_IdInterfaceInstanceIndication{
+		CellActivationRequestIes: &xnappducontentsv1.CellActivationRequestIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22308,7 +20196,7 @@ func CreateServedCellsToActivateChoiceExtension(choiceExtension *xnappducontents
 func CreateCellActivationResponseIEsValueIDActivatedServedCells(IDActivatedServedCells *xnappducontentsv1.ActivatedServedCells) (*xnappducontentsv1.CellActivationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationResponseIEsValue{
-		CellActivationResponseIEsValue: &xnappducontentsv1.CellActivationResponseIEsValue_IdActivatedServedCells{
+		CellActivationResponseIes: &xnappducontentsv1.CellActivationResponseIEsValue_IdActivatedServedCells{
 			IdActivatedServedCells: IDActivatedServedCells,
 		},
 	}
@@ -22322,7 +20210,7 @@ func CreateCellActivationResponseIEsValueIDActivatedServedCells(IDActivatedServe
 func CreateCellActivationResponseIEsValueIDActivationIDforCellActivation(IDActivationIDforCellActivation *xnapiesv1.ActivationIdforCellActivation) (*xnappducontentsv1.CellActivationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationResponseIEsValue{
-		CellActivationResponseIEsValue: &xnappducontentsv1.CellActivationResponseIEsValue_IdActivationIdforCellActivation{
+		CellActivationResponseIes: &xnappducontentsv1.CellActivationResponseIEsValue_IdActivationIdforCellActivation{
 			IdActivationIdforCellActivation: IDActivationIDforCellActivation,
 		},
 	}
@@ -22336,7 +20224,7 @@ func CreateCellActivationResponseIEsValueIDActivationIDforCellActivation(IDActiv
 func CreateCellActivationResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.CellActivationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationResponseIEsValue{
-		CellActivationResponseIEsValue: &xnappducontentsv1.CellActivationResponseIEsValue_IdCriticalityDiagnostics{
+		CellActivationResponseIes: &xnappducontentsv1.CellActivationResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22350,7 +20238,7 @@ func CreateCellActivationResponseIEsValueIDCriticalityDiagnostics(IDCriticalityD
 func CreateCellActivationResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.CellActivationResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationResponseIEsValue{
-		CellActivationResponseIEsValue: &xnappducontentsv1.CellActivationResponseIEsValue_IdInterfaceInstanceIndication{
+		CellActivationResponseIes: &xnappducontentsv1.CellActivationResponseIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22406,7 +20294,7 @@ func CreateActivatedServedCellsChoiceExtension(choiceExtension *xnappducontentsv
 func CreateCellActivationFailureIEsValueIDActivationIDforCellActivation(IDActivationIDforCellActivation *xnapiesv1.ActivationIdforCellActivation) (*xnappducontentsv1.CellActivationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationFailureIEsValue{
-		CellActivationFailureIEsValue: &xnappducontentsv1.CellActivationFailureIEsValue_IdActivationIdforCellActivation{
+		CellActivationFailureIes: &xnappducontentsv1.CellActivationFailureIEsValue_IdActivationIdforCellActivation{
 			IdActivationIdforCellActivation: IDActivationIDforCellActivation,
 		},
 	}
@@ -22420,7 +20308,7 @@ func CreateCellActivationFailureIEsValueIDActivationIDforCellActivation(IDActiva
 func CreateCellActivationFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.CellActivationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationFailureIEsValue{
-		CellActivationFailureIEsValue: &xnappducontentsv1.CellActivationFailureIEsValue_IdCause{
+		CellActivationFailureIes: &xnappducontentsv1.CellActivationFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -22434,7 +20322,7 @@ func CreateCellActivationFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnap
 func CreateCellActivationFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.CellActivationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationFailureIEsValue{
-		CellActivationFailureIEsValue: &xnappducontentsv1.CellActivationFailureIEsValue_IdCriticalityDiagnostics{
+		CellActivationFailureIes: &xnappducontentsv1.CellActivationFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22448,7 +20336,7 @@ func CreateCellActivationFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDi
 func CreateCellActivationFailureIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.CellActivationFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.CellActivationFailureIEsValue{
-		CellActivationFailureIEsValue: &xnappducontentsv1.CellActivationFailureIEsValue_IdInterfaceInstanceIndication{
+		CellActivationFailureIes: &xnappducontentsv1.CellActivationFailureIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22462,7 +20350,7 @@ func CreateCellActivationFailureIEsValueIDInterfaceInstanceIndication(IDInterfac
 func CreateResetRequestIEsValueIDResetRequestTypeInfo(IDResetRequestTypeInfo *xnapiesv1.ResetRequestTypeInfo) (*xnappducontentsv1.ResetRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetRequestIEsValue{
-		ResetRequestIEsValue: &xnappducontentsv1.ResetRequestIEsValue_IdResetRequestTypeInfo{
+		ResetRequestIes: &xnappducontentsv1.ResetRequestIEsValue_IdResetRequestTypeInfo{
 			IdResetRequestTypeInfo: IDResetRequestTypeInfo,
 		},
 	}
@@ -22476,7 +20364,7 @@ func CreateResetRequestIEsValueIDResetRequestTypeInfo(IDResetRequestTypeInfo *xn
 func CreateResetRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.ResetRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetRequestIEsValue{
-		ResetRequestIEsValue: &xnappducontentsv1.ResetRequestIEsValue_IdCause{
+		ResetRequestIes: &xnappducontentsv1.ResetRequestIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -22490,7 +20378,7 @@ func CreateResetRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappduconten
 func CreateResetRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.ResetRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetRequestIEsValue{
-		ResetRequestIEsValue: &xnappducontentsv1.ResetRequestIEsValue_IdInterfaceInstanceIndication{
+		ResetRequestIes: &xnappducontentsv1.ResetRequestIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22504,7 +20392,7 @@ func CreateResetRequestIEsValueIDInterfaceInstanceIndication(IDInterfaceInstance
 func CreateResetResponseIEsValueIDResetResponseTypeInfo(IDResetResponseTypeInfo *xnapiesv1.ResetResponseTypeInfo) (*xnappducontentsv1.ResetResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetResponseIEsValue{
-		ResetResponseIEsValue: &xnappducontentsv1.ResetResponseIEsValue_IdResetResponseTypeInfo{
+		ResetResponseIes: &xnappducontentsv1.ResetResponseIEsValue_IdResetResponseTypeInfo{
 			IdResetResponseTypeInfo: IDResetResponseTypeInfo,
 		},
 	}
@@ -22518,7 +20406,7 @@ func CreateResetResponseIEsValueIDResetResponseTypeInfo(IDResetResponseTypeInfo 
 func CreateResetResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.ResetResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetResponseIEsValue{
-		ResetResponseIEsValue: &xnappducontentsv1.ResetResponseIEsValue_IdCriticalityDiagnostics{
+		ResetResponseIes: &xnappducontentsv1.ResetResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22532,7 +20420,7 @@ func CreateResetResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostic
 func CreateResetResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.ResetResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResetResponseIEsValue{
-		ResetResponseIEsValue: &xnappducontentsv1.ResetResponseIEsValue_IdInterfaceInstanceIndication{
+		ResetResponseIes: &xnappducontentsv1.ResetResponseIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22546,7 +20434,7 @@ func CreateResetResponseIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanc
 func CreateErrorIndicationIEsValueIDOldNgRannodeUexnApID(IDOldNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ErrorIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.ErrorIndicationIEsValue{
-		ErrorIndicationIEsValue: &xnappducontentsv1.ErrorIndicationIEsValue_IdOldNgRannodeUexnApid{
+		ErrorIndicationIes: &xnappducontentsv1.ErrorIndicationIEsValue_IdOldNgRannodeUexnApid{
 			IdOldNgRannodeUexnApid: IDOldNgRannodeUexnApID,
 		},
 	}
@@ -22560,7 +20448,7 @@ func CreateErrorIndicationIEsValueIDOldNgRannodeUexnApID(IDOldNgRannodeUexnApID 
 func CreateErrorIndicationIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.ErrorIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.ErrorIndicationIEsValue{
-		ErrorIndicationIEsValue: &xnappducontentsv1.ErrorIndicationIEsValue_IdNewNgRannodeUexnApid{
+		ErrorIndicationIes: &xnappducontentsv1.ErrorIndicationIEsValue_IdNewNgRannodeUexnApid{
 			IdNewNgRannodeUexnApid: IDNewNgRannodeUexnApID,
 		},
 	}
@@ -22574,7 +20462,7 @@ func CreateErrorIndicationIEsValueIDNewNgRannodeUexnApID(IDNewNgRannodeUexnApID 
 func CreateErrorIndicationIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.ErrorIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.ErrorIndicationIEsValue{
-		ErrorIndicationIEsValue: &xnappducontentsv1.ErrorIndicationIEsValue_IdCause{
+		ErrorIndicationIes: &xnappducontentsv1.ErrorIndicationIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -22588,7 +20476,7 @@ func CreateErrorIndicationIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducon
 func CreateErrorIndicationIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.ErrorIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.ErrorIndicationIEsValue{
-		ErrorIndicationIEsValue: &xnappducontentsv1.ErrorIndicationIEsValue_IdCriticalityDiagnostics{
+		ErrorIndicationIes: &xnappducontentsv1.ErrorIndicationIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22602,7 +20490,7 @@ func CreateErrorIndicationIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnost
 func CreateErrorIndicationIEsValueIDInterfaceInstanceIndication(IDInterfaceInstanceIndication *xnapiesv1.InterfaceInstanceIndication) (*xnappducontentsv1.ErrorIndicationIEsValue, error) {
 
 	item := &xnappducontentsv1.ErrorIndicationIEsValue{
-		ErrorIndicationIEsValue: &xnappducontentsv1.ErrorIndicationIEsValue_IdInterfaceInstanceIndication{
+		ErrorIndicationIes: &xnappducontentsv1.ErrorIndicationIEsValue_IdInterfaceInstanceIndication{
 			IdInterfaceInstanceIndication: IDInterfaceInstanceIndication,
 		},
 	}
@@ -22616,7 +20504,7 @@ func CreateErrorIndicationIEsValueIDInterfaceInstanceIndication(IDInterfaceInsta
 func CreateTraceStartIesValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.TraceStartIesValue, error) {
 
 	item := &xnappducontentsv1.TraceStartIesValue{
-		TraceStartIesValue: &xnappducontentsv1.TraceStartIesValue_IdMNgRannodeUexnApid{
+		TraceStartIes: &xnappducontentsv1.TraceStartIesValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -22630,7 +20518,7 @@ func CreateTraceStartIesValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv
 func CreateTraceStartIesValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.TraceStartIesValue, error) {
 
 	item := &xnappducontentsv1.TraceStartIesValue{
-		TraceStartIesValue: &xnappducontentsv1.TraceStartIesValue_IdSNgRannodeUexnApid{
+		TraceStartIes: &xnappducontentsv1.TraceStartIesValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -22644,7 +20532,7 @@ func CreateTraceStartIesValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv
 func CreateTraceStartIesValueIDTraceActivation(IDTraceActivation *xnapiesv1.TraceActivation) (*xnappducontentsv1.TraceStartIesValue, error) {
 
 	item := &xnappducontentsv1.TraceStartIesValue{
-		TraceStartIesValue: &xnappducontentsv1.TraceStartIesValue_IdTraceActivation{
+		TraceStartIes: &xnappducontentsv1.TraceStartIesValue_IdTraceActivation{
 			IdTraceActivation: IDTraceActivation,
 		},
 	}
@@ -22658,7 +20546,7 @@ func CreateTraceStartIesValueIDTraceActivation(IDTraceActivation *xnapiesv1.Trac
 func CreateDeactivateTraceIesValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.DeactivateTraceIesValue, error) {
 
 	item := &xnappducontentsv1.DeactivateTraceIesValue{
-		DeactivateTraceIesValue: &xnappducontentsv1.DeactivateTraceIesValue_IdMNgRannodeUexnApid{
+		DeactivateTraceIes: &xnappducontentsv1.DeactivateTraceIesValue_IdMNgRannodeUexnApid{
 			IdMNgRannodeUexnApid: IDMNgRannodeUexnApID,
 		},
 	}
@@ -22672,7 +20560,7 @@ func CreateDeactivateTraceIesValueIDMNgRannodeUexnApID(IDMNgRannodeUexnApID *xna
 func CreateDeactivateTraceIesValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xnapiesv1.NgRAnnodeUexnApid) (*xnappducontentsv1.DeactivateTraceIesValue, error) {
 
 	item := &xnappducontentsv1.DeactivateTraceIesValue{
-		DeactivateTraceIesValue: &xnappducontentsv1.DeactivateTraceIesValue_IdSNgRannodeUexnApid{
+		DeactivateTraceIes: &xnappducontentsv1.DeactivateTraceIesValue_IdSNgRannodeUexnApid{
 			IdSNgRannodeUexnApid: IDSNgRannodeUexnApID,
 		},
 	}
@@ -22686,7 +20574,7 @@ func CreateDeactivateTraceIesValueIDSNgRannodeUexnApID(IDSNgRannodeUexnApID *xna
 func CreateDeactivateTraceIesValueIDNgRantraceID(IDNgRantraceID *xnapiesv1.NgRAntraceId) (*xnappducontentsv1.DeactivateTraceIesValue, error) {
 
 	item := &xnappducontentsv1.DeactivateTraceIesValue{
-		DeactivateTraceIesValue: &xnappducontentsv1.DeactivateTraceIesValue_IdNgRantraceId{
+		DeactivateTraceIes: &xnappducontentsv1.DeactivateTraceIesValue_IdNgRantraceId{
 			IdNgRantraceId: IDNgRantraceID,
 		},
 	}
@@ -22700,7 +20588,7 @@ func CreateDeactivateTraceIesValueIDNgRantraceID(IDNgRantraceID *xnapiesv1.NgRAn
 func CreateHandoverReportIEsValueIDHandoverReportType(IDHandoverReportType xnapiesv1.HandoverReportType) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdHandoverReportType{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdHandoverReportType{
 			IdHandoverReportType: IDHandoverReportType,
 		},
 	}
@@ -22714,7 +20602,7 @@ func CreateHandoverReportIEsValueIDHandoverReportType(IDHandoverReportType xnapi
 func CreateHandoverReportIEsValueIDHandoverCause(IDHandoverCause *xnapiesv1.Cause) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdHandoverCause{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdHandoverCause{
 			IdHandoverCause: IDHandoverCause,
 		},
 	}
@@ -22728,7 +20616,7 @@ func CreateHandoverReportIEsValueIDHandoverCause(IDHandoverCause *xnapiesv1.Caus
 func CreateHandoverReportIEsValueIDSourceCellCgi(IDSourceCellCgi *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdSourceCellCgi{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdSourceCellCgi{
 			IdSourceCellCgi: IDSourceCellCgi,
 		},
 	}
@@ -22742,7 +20630,7 @@ func CreateHandoverReportIEsValueIDSourceCellCgi(IDSourceCellCgi *xnapiesv1.Glob
 func CreateHandoverReportIEsValueIDTargetCellCgi(IDTargetCellCgi *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdTargetCellCgi{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdTargetCellCgi{
 			IdTargetCellCgi: IDTargetCellCgi,
 		},
 	}
@@ -22756,7 +20644,7 @@ func CreateHandoverReportIEsValueIDTargetCellCgi(IDTargetCellCgi *xnapiesv1.Glob
 func CreateHandoverReportIEsValueIDReEstablishmentCellCgi(IDReEstablishmentCellCgi *xnapiesv1.GlobalCellID) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdReEstablishmentCellCgi{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdReEstablishmentCellCgi{
 			IdReEstablishmentCellCgi: IDReEstablishmentCellCgi,
 		},
 	}
@@ -22770,7 +20658,7 @@ func CreateHandoverReportIEsValueIDReEstablishmentCellCgi(IDReEstablishmentCellC
 func CreateHandoverReportIEsValueIDTargetCellinEutran(IDTargetCellinEutran *xnapiesv1.TargetCellinEutran) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdTargetCellinEutran{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdTargetCellinEutran{
 			IdTargetCellinEutran: IDTargetCellinEutran,
 		},
 	}
@@ -22784,7 +20672,7 @@ func CreateHandoverReportIEsValueIDTargetCellinEutran(IDTargetCellinEutran *xnap
 func CreateHandoverReportIEsValueIDSourceCellCrnti(IDSourceCellCrnti *xnapiesv1.CRNti) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdSourceCellCrnti{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdSourceCellCrnti{
 			IdSourceCellCrnti: IDSourceCellCrnti,
 		},
 	}
@@ -22798,7 +20686,7 @@ func CreateHandoverReportIEsValueIDSourceCellCrnti(IDSourceCellCrnti *xnapiesv1.
 func CreateHandoverReportIEsValueIDMobilityInformation(IDMobilityInformation *xnapiesv1.MobilityInformation) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdMobilityInformation{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdMobilityInformation{
 			IdMobilityInformation: IDMobilityInformation,
 		},
 	}
@@ -22812,7 +20700,7 @@ func CreateHandoverReportIEsValueIDMobilityInformation(IDMobilityInformation *xn
 func CreateHandoverReportIEsValueIDUerlfreportContainer(IDUerlfreportContainer *xnapiesv1.UerlfreportContainer) (*xnappducontentsv1.HandoverReportIEsValue, error) {
 
 	item := &xnappducontentsv1.HandoverReportIEsValue{
-		HandoverReportIEsValue: &xnappducontentsv1.HandoverReportIEsValue_IdUerlfreportContainer{
+		HandoverReportIes: &xnappducontentsv1.HandoverReportIEsValue_IdUerlfreportContainer{
 			IdUerlfreportContainer: IDUerlfreportContainer,
 		},
 	}
@@ -22826,7 +20714,7 @@ func CreateHandoverReportIEsValueIDUerlfreportContainer(IDUerlfreportContainer *
 func CreateResourceStatusRequestIEsValueIDNgranNode1MeasurementID(IDNgranNode1MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdNgranNode1MeasurementId{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdNgranNode1MeasurementId{
 			IdNgranNode1MeasurementId: IDNgranNode1MeasurementID,
 		},
 	}
@@ -22840,7 +20728,7 @@ func CreateResourceStatusRequestIEsValueIDNgranNode1MeasurementID(IDNgranNode1Me
 func CreateResourceStatusRequestIEsValueIDNgranNode2MeasurementID(IDNgranNode2MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdNgranNode2MeasurementId{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdNgranNode2MeasurementId{
 			IdNgranNode2MeasurementId: IDNgranNode2MeasurementID,
 		},
 	}
@@ -22854,7 +20742,7 @@ func CreateResourceStatusRequestIEsValueIDNgranNode2MeasurementID(IDNgranNode2Me
 func CreateResourceStatusRequestIEsValueIDRegistrationRequest(IDRegistrationRequest xnapiesv1.RegistrationRequest) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdRegistrationRequest{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdRegistrationRequest{
 			IdRegistrationRequest: IDRegistrationRequest,
 		},
 	}
@@ -22868,7 +20756,7 @@ func CreateResourceStatusRequestIEsValueIDRegistrationRequest(IDRegistrationRequ
 func CreateResourceStatusRequestIEsValueIDReportCharacteristics(IDReportCharacteristics *xnapiesv1.ReportCharacteristics) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdReportCharacteristics{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdReportCharacteristics{
 			IdReportCharacteristics: IDReportCharacteristics,
 		},
 	}
@@ -22882,7 +20770,7 @@ func CreateResourceStatusRequestIEsValueIDReportCharacteristics(IDReportCharacte
 func CreateResourceStatusRequestIEsValueIDCellToReport(IDCellToReport *xnapiesv1.CellToReport) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdCellToReport{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdCellToReport{
 			IdCellToReport: IDCellToReport,
 		},
 	}
@@ -22896,7 +20784,7 @@ func CreateResourceStatusRequestIEsValueIDCellToReport(IDCellToReport *xnapiesv1
 func CreateResourceStatusRequestIEsValueIDReportingPeriodicity(IDReportingPeriodicity xnapiesv1.ReportingPeriodicity) (*xnappducontentsv1.ResourceStatusRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusRequestIEsValue{
-		ResourceStatusRequestIEsValue: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdReportingPeriodicity{
+		ResourceStatusRequestIes: &xnappducontentsv1.ResourceStatusRequestIEsValue_IdReportingPeriodicity{
 			IdReportingPeriodicity: IDReportingPeriodicity,
 		},
 	}
@@ -22910,7 +20798,7 @@ func CreateResourceStatusRequestIEsValueIDReportingPeriodicity(IDReportingPeriod
 func CreateResourceStatusResponseIEsValueIDNgranNode1MeasurementID(IDNgranNode1MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusResponseIEsValue{
-		ResourceStatusResponseIEsValue: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdNgranNode1MeasurementId{
+		ResourceStatusResponseIes: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdNgranNode1MeasurementId{
 			IdNgranNode1MeasurementId: IDNgranNode1MeasurementID,
 		},
 	}
@@ -22924,7 +20812,7 @@ func CreateResourceStatusResponseIEsValueIDNgranNode1MeasurementID(IDNgranNode1M
 func CreateResourceStatusResponseIEsValueIDNgranNode2MeasurementID(IDNgranNode2MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusResponseIEsValue{
-		ResourceStatusResponseIEsValue: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdNgranNode2MeasurementId{
+		ResourceStatusResponseIes: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdNgranNode2MeasurementId{
 			IdNgranNode2MeasurementId: IDNgranNode2MeasurementID,
 		},
 	}
@@ -22938,7 +20826,7 @@ func CreateResourceStatusResponseIEsValueIDNgranNode2MeasurementID(IDNgranNode2M
 func CreateResourceStatusResponseIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.ResourceStatusResponseIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusResponseIEsValue{
-		ResourceStatusResponseIEsValue: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdCriticalityDiagnostics{
+		ResourceStatusResponseIes: &xnappducontentsv1.ResourceStatusResponseIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -22952,7 +20840,7 @@ func CreateResourceStatusResponseIEsValueIDCriticalityDiagnostics(IDCriticalityD
 func CreateResourceStatusFailureIEsValueIDNgranNode1MeasurementID(IDNgranNode1MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusFailureIEsValue{
-		ResourceStatusFailureIEsValue: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdNgranNode1MeasurementId{
+		ResourceStatusFailureIes: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdNgranNode1MeasurementId{
 			IdNgranNode1MeasurementId: IDNgranNode1MeasurementID,
 		},
 	}
@@ -22966,7 +20854,7 @@ func CreateResourceStatusFailureIEsValueIDNgranNode1MeasurementID(IDNgranNode1Me
 func CreateResourceStatusFailureIEsValueIDNgranNode2MeasurementID(IDNgranNode2MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusFailureIEsValue{
-		ResourceStatusFailureIEsValue: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdNgranNode2MeasurementId{
+		ResourceStatusFailureIes: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdNgranNode2MeasurementId{
 			IdNgranNode2MeasurementId: IDNgranNode2MeasurementID,
 		},
 	}
@@ -22980,7 +20868,7 @@ func CreateResourceStatusFailureIEsValueIDNgranNode2MeasurementID(IDNgranNode2Me
 func CreateResourceStatusFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.ResourceStatusFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusFailureIEsValue{
-		ResourceStatusFailureIEsValue: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdCause{
+		ResourceStatusFailureIes: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -22994,7 +20882,7 @@ func CreateResourceStatusFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnap
 func CreateResourceStatusFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.ResourceStatusFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusFailureIEsValue{
-		ResourceStatusFailureIEsValue: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdCriticalityDiagnostics{
+		ResourceStatusFailureIes: &xnappducontentsv1.ResourceStatusFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -23008,7 +20896,7 @@ func CreateResourceStatusFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDi
 func CreateResourceStatusUpdateIEsValueIDNgranNode1MeasurementID(IDNgranNode1MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusUpdateIEsValue{
-		ResourceStatusUpdateIEsValue: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdNgranNode1MeasurementId{
+		ResourceStatusUpdateIes: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdNgranNode1MeasurementId{
 			IdNgranNode1MeasurementId: IDNgranNode1MeasurementID,
 		},
 	}
@@ -23022,7 +20910,7 @@ func CreateResourceStatusUpdateIEsValueIDNgranNode1MeasurementID(IDNgranNode1Mea
 func CreateResourceStatusUpdateIEsValueIDNgranNode2MeasurementID(IDNgranNode2MeasurementID *xnapiesv1.MeasurementID) (*xnappducontentsv1.ResourceStatusUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusUpdateIEsValue{
-		ResourceStatusUpdateIEsValue: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdNgranNode2MeasurementId{
+		ResourceStatusUpdateIes: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdNgranNode2MeasurementId{
 			IdNgranNode2MeasurementId: IDNgranNode2MeasurementID,
 		},
 	}
@@ -23036,7 +20924,7 @@ func CreateResourceStatusUpdateIEsValueIDNgranNode2MeasurementID(IDNgranNode2Mea
 func CreateResourceStatusUpdateIEsValueIDCellMeasurementResult(IDCellMeasurementResult *xnapiesv1.CellMeasurementResult) (*xnappducontentsv1.ResourceStatusUpdateIEsValue, error) {
 
 	item := &xnappducontentsv1.ResourceStatusUpdateIEsValue{
-		ResourceStatusUpdateIEsValue: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdCellMeasurementResult{
+		ResourceStatusUpdateIes: &xnappducontentsv1.ResourceStatusUpdateIEsValue_IdCellMeasurementResult{
 			IdCellMeasurementResult: IDCellMeasurementResult,
 		},
 	}
@@ -23050,7 +20938,7 @@ func CreateResourceStatusUpdateIEsValueIDCellMeasurementResult(IDCellMeasurement
 func CreateMobilityChangeRequestIEsValueIDNgRannode1CellID(IDNgRannode1CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeRequestIEsValue{
-		MobilityChangeRequestIEsValue: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode1CellId{
+		MobilityChangeRequestIes: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode1CellId{
 			IdNgRannode1CellId: IDNgRannode1CellID,
 		},
 	}
@@ -23064,7 +20952,7 @@ func CreateMobilityChangeRequestIEsValueIDNgRannode1CellID(IDNgRannode1CellID *x
 func CreateMobilityChangeRequestIEsValueIDNgRannode2CellID(IDNgRannode2CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeRequestIEsValue{
-		MobilityChangeRequestIEsValue: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode2CellId{
+		MobilityChangeRequestIes: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode2CellId{
 			IdNgRannode2CellId: IDNgRannode2CellID,
 		},
 	}
@@ -23078,7 +20966,7 @@ func CreateMobilityChangeRequestIEsValueIDNgRannode2CellID(IDNgRannode2CellID *x
 func CreateMobilityChangeRequestIEsValueIDNgRannode1MobilityParameters(IDNgRannode1MobilityParameters *xnapiesv1.MobilityParametersInformation) (*xnappducontentsv1.MobilityChangeRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeRequestIEsValue{
-		MobilityChangeRequestIEsValue: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode1MobilityParameters{
+		MobilityChangeRequestIes: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode1MobilityParameters{
 			IdNgRannode1MobilityParameters: IDNgRannode1MobilityParameters,
 		},
 	}
@@ -23092,7 +20980,7 @@ func CreateMobilityChangeRequestIEsValueIDNgRannode1MobilityParameters(IDNgRanno
 func CreateMobilityChangeRequestIEsValueIDNgRannode2ProposedMobilityParameters(IDNgRannode2ProposedMobilityParameters *xnapiesv1.MobilityParametersInformation) (*xnappducontentsv1.MobilityChangeRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeRequestIEsValue{
-		MobilityChangeRequestIEsValue: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode2ProposedMobilityParameters{
+		MobilityChangeRequestIes: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdNgRannode2ProposedMobilityParameters{
 			IdNgRannode2ProposedMobilityParameters: IDNgRannode2ProposedMobilityParameters,
 		},
 	}
@@ -23106,7 +20994,7 @@ func CreateMobilityChangeRequestIEsValueIDNgRannode2ProposedMobilityParameters(I
 func CreateMobilityChangeRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.MobilityChangeRequestIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeRequestIEsValue{
-		MobilityChangeRequestIEsValue: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdCause{
+		MobilityChangeRequestIes: &xnappducontentsv1.MobilityChangeRequestIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -23120,7 +21008,7 @@ func CreateMobilityChangeRequestIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnap
 func CreateMobilityChangeAcknowledgeIEsValueIDNgRannode1CellID(IDNgRannode1CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue{
-		MobilityChangeAcknowledgeIEsValue: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdNgRannode1CellId{
+		MobilityChangeAcknowledgeIes: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdNgRannode1CellId{
 			IdNgRannode1CellId: IDNgRannode1CellID,
 		},
 	}
@@ -23134,7 +21022,7 @@ func CreateMobilityChangeAcknowledgeIEsValueIDNgRannode1CellID(IDNgRannode1CellI
 func CreateMobilityChangeAcknowledgeIEsValueIDNgRannode2CellID(IDNgRannode2CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue{
-		MobilityChangeAcknowledgeIEsValue: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdNgRannode2CellId{
+		MobilityChangeAcknowledgeIes: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdNgRannode2CellId{
 			IdNgRannode2CellId: IDNgRannode2CellID,
 		},
 	}
@@ -23148,7 +21036,7 @@ func CreateMobilityChangeAcknowledgeIEsValueIDNgRannode2CellID(IDNgRannode2CellI
 func CreateMobilityChangeAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.MobilityChangeAcknowledgeIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue{
-		MobilityChangeAcknowledgeIEsValue: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdCriticalityDiagnostics{
+		MobilityChangeAcknowledgeIes: &xnappducontentsv1.MobilityChangeAcknowledgeIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -23162,7 +21050,7 @@ func CreateMobilityChangeAcknowledgeIEsValueIDCriticalityDiagnostics(IDCriticali
 func CreateMobilityChangeFailureIEsValueIDNgRannode1CellID(IDNgRannode1CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeFailureIEsValue{
-		MobilityChangeFailureIEsValue: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdNgRannode1CellId{
+		MobilityChangeFailureIes: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdNgRannode1CellId{
 			IdNgRannode1CellId: IDNgRannode1CellID,
 		},
 	}
@@ -23176,7 +21064,7 @@ func CreateMobilityChangeFailureIEsValueIDNgRannode1CellID(IDNgRannode1CellID *x
 func CreateMobilityChangeFailureIEsValueIDNgRannode2CellID(IDNgRannode2CellID *xnapiesv1.GlobalNgRAncellID) (*xnappducontentsv1.MobilityChangeFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeFailureIEsValue{
-		MobilityChangeFailureIEsValue: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdNgRannode2CellId{
+		MobilityChangeFailureIes: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdNgRannode2CellId{
 			IdNgRannode2CellId: IDNgRannode2CellID,
 		},
 	}
@@ -23190,7 +21078,7 @@ func CreateMobilityChangeFailureIEsValueIDNgRannode2CellID(IDNgRannode2CellID *x
 func CreateMobilityChangeFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnappducontentsv1.MobilityChangeFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeFailureIEsValue{
-		MobilityChangeFailureIEsValue: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdCause{
+		MobilityChangeFailureIes: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdCause{
 			IdCause: IDCause,
 		},
 	}
@@ -23204,7 +21092,7 @@ func CreateMobilityChangeFailureIEsValueIDCause(IDCause *xnapiesv1.Cause) (*xnap
 func CreateMobilityChangeFailureIEsValueIDMobilityParametersModificationRange(IDMobilityParametersModificationRange *xnapiesv1.MobilityParametersModificationRange) (*xnappducontentsv1.MobilityChangeFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeFailureIEsValue{
-		MobilityChangeFailureIEsValue: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdMobilityParametersModificationRange{
+		MobilityChangeFailureIes: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdMobilityParametersModificationRange{
 			IdMobilityParametersModificationRange: IDMobilityParametersModificationRange,
 		},
 	}
@@ -23218,7 +21106,7 @@ func CreateMobilityChangeFailureIEsValueIDMobilityParametersModificationRange(ID
 func CreateMobilityChangeFailureIEsValueIDCriticalityDiagnostics(IDCriticalityDiagnostics *xnapiesv1.CriticalityDiagnostics) (*xnappducontentsv1.MobilityChangeFailureIEsValue, error) {
 
 	item := &xnappducontentsv1.MobilityChangeFailureIEsValue{
-		MobilityChangeFailureIEsValue: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdCriticalityDiagnostics{
+		MobilityChangeFailureIes: &xnappducontentsv1.MobilityChangeFailureIEsValue_IdCriticalityDiagnostics{
 			IdCriticalityDiagnostics: IDCriticalityDiagnostics,
 		},
 	}
@@ -23260,7 +21148,7 @@ func CreateCauseRadioNetworkLayerHandoverDesirableForRadioReasons() xnapiesv1.Ca
 func CreateCauseRadioNetworkLayerHandoverTargetNotAllowed() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_HANDOVER_TARGET_NOT_ALLOWED
 }
-func CreateCauseRadioNetworkLayerInvalidAmfSetId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerInvalidAmfSetID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_INVALID_AMF_SET_ID
 }
 func CreateCauseRadioNetworkLayerNoRadioResourcesAvailableInTargetCell() xnapiesv1.CauseRadioNetworkLayer {
@@ -23284,13 +21172,13 @@ func CreateCauseRadioNetworkLayerTXnRelocoverallExpiry() xnapiesv1.CauseRadioNet
 func CreateCauseRadioNetworkLayerTXnRelocprepExpiry() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_T_XN_RELOCPREP_EXPIRY
 }
-func CreateCauseRadioNetworkLayerUnknownGuamiId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownGuamiID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_GUAMI_ID
 }
-func CreateCauseRadioNetworkLayerUnknownLocalNgRanNodeUeXnApId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownLocalNgRanNodeUeXnApID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_LOCAL_NG_RAN_NODE_UE_XN_AP_ID
 }
-func CreateCauseRadioNetworkLayerInconsistentRemoteNgRanNodeUeXnApId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerInconsistentRemoteNgRanNodeUeXnApID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_INCONSISTENT_REMOTE_NG_RAN_NODE_UE_XN_AP_ID
 }
 func CreateCauseRadioNetworkLayerEncryptionAndOrIntegrityProtectionAlgorithmsNotSupported() xnapiesv1.CauseRadioNetworkLayer {
@@ -23299,16 +21187,16 @@ func CreateCauseRadioNetworkLayerEncryptionAndOrIntegrityProtectionAlgorithmsNot
 func CreateCauseRadioNetworkLayerProtectionAlgorithmsNotSupported() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_PROTECTION_ALGORITHMS_NOT_SUPPORTED
 }
-func CreateCauseRadioNetworkLayerMultiplePduSessionIdInstances() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerMultiplePduSessionIDInstances() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_MULTIPLE_PDU_SESSION_ID_INSTANCES
 }
-func CreateCauseRadioNetworkLayerUnknownPduSessionId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownPduSessionID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_PDU_SESSION_ID
 }
-func CreateCauseRadioNetworkLayerUnknownQoSFlowId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownQoSFlowID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_QO_S_FLOW_ID
 }
-func CreateCauseRadioNetworkLayerMultipleQoSFlowIdInstances() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerMultipleQoSFlowIDInstances() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_MULTIPLE_QO_S_FLOW_ID_INSTANCES
 }
 func CreateCauseRadioNetworkLayerSwitchOffOngoing() xnapiesv1.CauseRadioNetworkLayer {
@@ -23377,7 +21265,7 @@ func CreateCauseRadioNetworkLayerUpConfidentialityProtectionNotPossible() xnapie
 func CreateCauseRadioNetworkLayerResourcesNotAvailableForTheSliceS() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_RESOURCES_NOT_AVAILABLE_FOR_THE_SLICE_S
 }
-func CreateCauseRadioNetworkLayerUeMaxIpDataRateReason() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUeMaxIPDataRateReason() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UE_MAX_IP_DATA_RATE_REASON
 }
 func CreateCauseRadioNetworkLayerCPIntegrityProtectionFailure() xnapiesv1.CauseRadioNetworkLayer {
@@ -23398,19 +21286,19 @@ func CreateCauseRadioNetworkLayerSNMobility() xnapiesv1.CauseRadioNetworkLayer {
 func CreateCauseRadioNetworkLayerCountReachesMaxValue() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_COUNT_REACHES_MAX_VALUE
 }
-func CreateCauseRadioNetworkLayerUnknownOldNgRanNodeUeXnApId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownOldNgRanNodeUeXnApID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_OLD_NG_RAN_NODE_UE_XN_AP_ID
 }
 func CreateCauseRadioNetworkLayerPDcpOverload() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_P_DCP_OVERLOAD
 }
-func CreateCauseRadioNetworkLayerDrbIdNotAvailable() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerDrbIDNotAvailable() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_DRB_ID_NOT_AVAILABLE
 }
 func CreateCauseRadioNetworkLayerUnspecified() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNSPECIFIED
 }
-func CreateCauseRadioNetworkLayerUeContextIdNotKnown() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUeContextIDNotKnown() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UE_CONTEXT_ID_NOT_KNOWN
 }
 func CreateCauseRadioNetworkLayerNonRelocationOfContext() xnapiesv1.CauseRadioNetworkLayer {
@@ -23428,7 +21316,7 @@ func CreateCauseRadioNetworkLayerNpnAccessDenied() xnapiesv1.CauseRadioNetworkLa
 func CreateCauseRadioNetworkLayerReportCharacteristicsEmpty() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_REPORT_CHARACTERISTICS_EMPTY
 }
-func CreateCauseRadioNetworkLayerExistingMeasurementId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerExistingMeasurementID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_EXISTING_MEASUREMENT_ID
 }
 func CreateCauseRadioNetworkLayerMeasurementTemporarilyNotAvailable() xnapiesv1.CauseRadioNetworkLayer {
@@ -23440,7 +21328,7 @@ func CreateCauseRadioNetworkLayerMeasurementNotSupportedForTheObject() xnapiesv1
 func CreateCauseRadioNetworkLayerUePowerSaving() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UE_POWER_SAVING
 }
-func CreateCauseRadioNetworkLayerUnknownNgRanNode2MeasurementId() xnapiesv1.CauseRadioNetworkLayer {
+func CreateCauseRadioNetworkLayerUnknownNgRanNode2MeasurementID() xnapiesv1.CauseRadioNetworkLayer {
 	return xnapiesv1.CauseRadioNetworkLayer_CAUSE_RADIO_NETWORK_LAYER_UNKNOWN_NG_RAN_NODE2_MEASUREMENT_ID
 }
 func CreateCauseRadioNetworkLayerInsufficientUeCapabilities() xnapiesv1.CauseRadioNetworkLayer {

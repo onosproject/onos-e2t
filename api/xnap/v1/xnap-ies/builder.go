@@ -500,8 +500,8 @@ func (m *EUTraResourceCoordinationInfo) SetEUtraCoordinationAssistanceInfo(eUtra
 	return m
 }
 
-func (m *NrResourceCoordinationInfo) SetDlCoordinationInfo(dlCoordinationInfo asn1.BitString) *NrResourceCoordinationInfo {
-	m.DlCoordinationInfo = &dlCoordinationInfo
+func (m *NrResourceCoordinationInfo) SetDlCoordinationInfo(dlCoordinationInfo *asn1.BitString) *NrResourceCoordinationInfo {
+	m.DlCoordinationInfo = dlCoordinationInfo
 	return m
 }
 
