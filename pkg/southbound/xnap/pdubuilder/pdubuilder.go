@@ -10372,7 +10372,7 @@ func CreateQoSflowsActivityNotifyItem(qosFlowIDentifier *xnapiesv1.QoSflowIdenti
 	return msg, nil
 }
 
-func CreateXnSetupRequestIEs(ID *xnapcommondatatypesv1.ProtocolIeID, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.XnSetupRequestIEsValue) (*xnappducontentsv1.XnSetupRequestIEs, error) {
+func CreateXnSetupRequestIEs(ID int32, criticality xnapcommondatatypesv1.Criticality, value *xnappducontentsv1.XnSetupRequestIEsValue) (*xnappducontentsv1.XnSetupRequestIEs, error) {
 
 	msg := &xnappducontentsv1.XnSetupRequestIEs{}
 	msg.Id = ID

@@ -2409,8 +2409,8 @@ message XnSetupRequestIEsValue {
 // @inject_tag: aper:"valueExt"
 // {XnSetupRequest-IEs}
 message XnSetupRequestIEs {
-    // @inject_tag: aper:"unique,"
-    ProtocolIeID id = 1 [ json_name="&id"];
+    // @inject_tag: aper:"unique,valueLB:0,valueUB:255"
+    int32 id = 1 [ json_name="&id"];
     // @inject_tag: aper:"valueLB:0,valueUB:2,"
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"

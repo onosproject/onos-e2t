@@ -28,7 +28,7 @@ func PerEncodeXnApPdu(xnap *xnappdudescriptionsv1.XnApPDu) ([]byte, error) {
 	return per, nil
 }
 
-func PerDecodexnapPdu(per []byte) (*xnappdudescriptionsv1.XnApPDu, error) {
+func PerDecodeXnApPdu(per []byte) (*xnappdudescriptionsv1.XnApPDu, error) {
 
 	log.Debugf("Obtained XnAP-PDU PER bytes are\n%v", hex.Dump(per))
 
