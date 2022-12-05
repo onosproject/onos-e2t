@@ -1,0 +1,89 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// xnap-containers.proto //////////////////////
+// Protobuf generated from /xnap_v1.asn1 by asn1c-0.9.29
+// XnAP-Containers { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) xnap(2) version1(1) xnap-Containers(5) }
+
+syntax = "proto3";
+
+package xnap.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-containers;xnapcontainersv1";
+
+import "xnap/v1/xnap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+import "google/protobuf/empty.proto";
+
+// sequence from xnap_v1.asn1:9224
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Container001}
+message ProtocolIeContainer001 {
+    // @inject_tag: aper:"sizeLB:0,sizeUB:65535,"
+    repeated int32 value = 1 [(validate.v1.rules).repeated = {min_items: 0, max_items: 65535}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9229
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Field001}
+message ProtocolIeField001 {
+    int32 id = 1 [ json_name="id"];
+    int32 criticality = 2 [ json_name="criticality"];
+    int32 value = 3 [ json_name="value"];
+};
+
+// reference from xnap_v1.asn1:9226
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Single-Container001}
+message ProtocolIeSingleContainer001 {
+    ProtocolIeField001 value = 1 [ json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9242
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPair}
+message ProtocolIeContainerPair {
+    repeated int32 value = 1 [(validate.v1.rules).repeated = {min_items: 0, max_items: 65535}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9245
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-FieldPair}
+message ProtocolIeFieldPair {
+    int32 id = 1 [ json_name="id"];
+//    @id first_criticality = 2 [ json_name="firstCriticality"];
+//    @id first_value = 3 [ json_name="firstValue"];
+//    @id second_criticality = 4 [ json_name="secondCriticality"];
+//    @id second_value = 5 [ json_name="secondValue"];
+};
+
+// sequence from xnap_v1.asn1:9260
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-ContainerList}
+message ProtocolIeContainerList {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9264
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPairList}
+message ProtocolIeContainerPairList {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9273
+// Param XNAP-PROTOCOL-EXTENSION:ExtensionSetParam
+// {ProtocolExtensionContainer001}
+message ProtocolExtensionContainer001 {
+    // @inject_tag: aper:"sizeLB:1,sizeUB:65535,"
+    repeated int32 value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="value"];
+};
