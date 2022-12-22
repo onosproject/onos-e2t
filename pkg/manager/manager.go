@@ -5,7 +5,7 @@
 package manager
 
 import (
-	"github.com/atomix/atomix-go-client/pkg/atomix"
+	"github.com/atomix/go-sdk/pkg/client"
 	"github.com/onosproject/onos-e2t/pkg/controller/configuration"
 	"github.com/onosproject/onos-e2t/pkg/controller/controlrelation"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
@@ -26,7 +26,6 @@ import (
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
-	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
@@ -89,7 +88,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	atomixClient := atomix.NewClient(atomix.WithClientID(env.GetPodName()))
+	atomixClient := client.NewClient()
 
 	chanStore, err := chanstore.NewAtomixStore(atomixClient)
 	if err != nil {
