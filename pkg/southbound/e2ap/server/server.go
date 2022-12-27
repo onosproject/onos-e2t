@@ -8,6 +8,10 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	f1appdudescriptionsv1 "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_descriptions"
+	xnappdudescriptionsv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/f1ap/encoder"
+	encoder2 "github.com/onosproject/onos-e2t/pkg/southbound/xnap/encoder"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
@@ -103,7 +107,7 @@ func uint24ToUint32(val []byte) uint32 {
 
 func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
 	log.Infof("Received E2 setup request: %+v", request)
-	transID, nodeIdentity, ranFuncs, _, err := pdudecoder.DecodeE2SetupRequest(request)
+	transID, nodeIdentity, ranFuncs, comps, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
 		cause := &e2apies.Cause{
 			Cause: &e2apies.Cause_RicRequest{
@@ -163,6 +167,43 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 				serviceModels[string(smOid)].RanFunctionIDs = ranFunctionIDs
 			}
 		}
+	}
+
+	f1SetupRequestMessages := make([]*f1appdudescriptionsv1.F1ApPDu, 0)
+	xnSetupRequestMessages := make([]*xnappdudescriptionsv1.XnApPDu, 0)
+
+	// comps update here
+	for _, c := range comps {
+		switch c.E2NodeComponentType {
+		case e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_F1:
+			f1SetupReqPer := c.E2NodeComponentConfiguration.E2NodeComponentRequestPart
+			f1SetupReq, err := encoder.PerDecodeF1ApPdu(f1SetupReqPer)
+			if err != nil {
+				log.Warnf("f1 setup request decode fail: %+v", err)
+				continue
+			}
+			f1SetupRequestMessages = append(f1SetupRequestMessages, f1SetupReq)
+			// todo add f1setup response message
+		case e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_XN:
+			xnSetupReqPer := c.E2NodeComponentConfiguration.E2NodeComponentRequestPart
+			xnSetupReq, err := encoder2.PerDecodeXnApPdu(xnSetupReqPer)
+			if err != nil {
+				log.Warnf("xn setup request decode fail: %+v", err)
+				continue
+			}
+			xnSetupRequestMessages = append(xnSetupRequestMessages, xnSetupReq)
+		default:
+			log.Warnf("E2 Node Component Type %+v does not support", c.E2NodeComponentType)
+		}
+	}
+
+	// logging
+	// todo should be removed
+	for _, f1msg := range f1SetupRequestMessages {
+		log.Infof("F1: %+v", f1msg)
+	}
+	for _, xnmsg := range xnSetupRequestMessages {
+		log.Infof("Xn: %+v", xnmsg)
 	}
 
 	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
