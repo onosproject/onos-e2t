@@ -197,6 +197,15 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		}
 	}
 
+	// logging
+	// todo should be removed
+	for _, f1msg := range f1SetupRequestMessages {
+		log.Infof("F1: %+v", f1msg)
+	}
+	for _, xnmsg := range xnSetupRequestMessages {
+		log.Infof("Xn: %+v", xnmsg)
+	}
+
 	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
 
 	// Create an E2 setup response
