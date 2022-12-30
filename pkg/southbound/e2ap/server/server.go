@@ -8,7 +8,9 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	f1apiv1 "github.com/onosproject/onos-e2t/api/f1ap/v1"
 	f1appdudescriptionsv1 "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_descriptions"
+	xnapiv1 "github.com/onosproject/onos-e2t/api/xnap/v1"
 	xnappdudescriptionsv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/f1ap/encoder"
 	encoder2 "github.com/onosproject/onos-e2t/pkg/southbound/xnap/encoder"
@@ -192,18 +194,63 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 				continue
 			}
 			xnSetupRequestMessages = append(xnSetupRequestMessages, xnSetupReq)
+			// todo add xnsetup response message
 		default:
 			log.Warnf("E2 Node Component Type %+v does not support", c.E2NodeComponentType)
 		}
 	}
 
-	// logging
+	// f1 xn request messages handling logic
 	// todo should be removed
 	for _, f1msg := range f1SetupRequestMessages {
-		log.Infof("F1: %+v", f1msg)
+		log.Debugf("F1: %+v", f1msg)
+		f1IEs := f1msg.GetInitiatingMessage().GetValue().GetF1SetupRequest().ProtocolIes
+		for _, ie := range f1IEs {
+			switch ie.Id {
+			case int32(f1apiv1.ProtocolIeIDTransactionID):
+				// transaction ID
+				f1TransactionID := ie.GetValue().GetTransactionId().Value
+				log.Infof("F1 TransactionID: %+v", f1TransactionID)
+			case int32(f1apiv1.ProtocolIeIDgNBDUID):
+				// gnb du id
+				f1GnbDuID := ie.GetValue().GetGnbDuId().Value
+				log.Infof("F1 gNB DU ID: %+v", f1GnbDuID)
+			case int32(f1apiv1.ProtocolIeIDGNBDURRCVersion):
+				// gnb du rrc version
+				f1GnbDuRRCVersion := ie.GetValue().GetRrcVersion()
+				log.Infof("F1 gNB DU RRC version: %+v", f1GnbDuRRCVersion)
+			case int32(f1apiv1.ProtocolIeIDgNBDUServedCellsList):
+				// scell list
+				f1ServCellList := ie.GetValue().GetGnbDuServedCellsList().Value
+				log.Infof("F1 gNB DU Served Cell List: %+v", f1ServCellList)
+			default:
+			}
+		}
 	}
 	for _, xnmsg := range xnSetupRequestMessages {
-		log.Infof("Xn: %+v", xnmsg)
+		log.Debugf("Xn: %+v", xnmsg)
+		xnIEs := xnmsg.GetSuccessfulOutcome().GetValue().GetXnSetupResponse().ProtocolIes
+		for _, ie := range xnIEs {
+			switch ie.Id.Value {
+			case int32(xnapiv1.ProtocolIeIDGlobalNGRANnodeID):
+				// GlobalNGRANnodeID
+				xnGlobalNGRANnodeID := ie.GetValue().GetIdGlobalNgRanNodeId()
+				log.Infof("Xn Global NG RAN node ID: %+v", xnGlobalNGRANnodeID)
+			case int32(xnapiv1.ProtocolIeIDTAISupportlist):
+				// TAISupportlist
+				xnTAISupportList := ie.GetValue().GetIdTaisupportList().GetValue()
+				log.Infof("Xn TAI support list: %+v", xnTAISupportList)
+			case int32(xnapiv1.ProtocolIeIDAMFRegionInformation):
+				// AMFRegionInformation
+				xnAMFRegionInformation := ie.GetValue().GetIdAmfRegionInformation().GetValue()
+				log.Infof("Xn AMF Region information: %+v", xnAMFRegionInformation)
+			case int32(xnapiv1.ProtocolIeIDListofservedcellsNR):
+				// ListofservedcellsNR
+				xnListofServedCellsNR := ie.GetValue().GetIdListOfServedCellsNr().GetValue()
+				log.Infof("Xn List of Served Cells NR: %+v", xnListofServedCellsNR)
+			default:
+			}
+		}
 	}
 
 	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
