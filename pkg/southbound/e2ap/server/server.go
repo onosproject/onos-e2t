@@ -9,11 +9,14 @@ import (
 	"encoding/hex"
 	"fmt"
 	f1apiv1 "github.com/onosproject/onos-e2t/api/f1ap/v1"
+	f1appducontentsv1 "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_contents"
 	f1appdudescriptionsv1 "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_descriptions"
 	xnapiv1 "github.com/onosproject/onos-e2t/api/xnap/v1"
+	xnapiesv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-ies"
 	xnappdudescriptionsv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/f1ap/encoder"
 	encoder2 "github.com/onosproject/onos-e2t/pkg/southbound/xnap/encoder"
+	"github.com/onosproject/onos-e2t/pkg/utils/decode"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
@@ -171,10 +174,15 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		}
 	}
 
+	// start e2 cell updates
+	// convert e2cell slice to map so that this logic can do an e2 cell random access
+	e2CellsMap := make(map[string]*topoapi.E2Cell)
+	for i := 0; i < len(e2Cells); i++ {
+		e2CellsMap[e2Cells[i].CellGlobalID.Value] = e2Cells[i]
+	}
+
 	f1SetupRequestMessages := make([]*f1appdudescriptionsv1.F1ApPDu, 0)
 	xnSetupRequestMessages := make([]*xnappdudescriptionsv1.XnApPDu, 0)
-
-	// comps update here
 	for _, c := range comps {
 		switch c.E2NodeComponentType {
 		case e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_F1:
@@ -205,50 +213,116 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	for _, f1msg := range f1SetupRequestMessages {
 		log.Debugf("F1: %+v", f1msg)
 		f1IEs := f1msg.GetInitiatingMessage().GetValue().GetF1SetupRequest().ProtocolIes
+		var f1TransactionID *int32
+		var f1GnbDuID *int64
+		var f1GnbDuRRCVersion *uint64
+		var f1ServCellList []*f1appducontentsv1.GnbDUServedCellsItemIes
+
 		for _, ie := range f1IEs {
 			switch ie.Id {
 			case int32(f1apiv1.ProtocolIeIDTransactionID):
 				// transaction ID
-				f1TransactionID := ie.GetValue().GetTransactionId().Value
-				log.Infof("F1 TransactionID: %+v", f1TransactionID)
+				if ie.GetValue() == nil || ie.GetValue().GetTransactionId() == nil {
+					log.Warn("[F1 Setup Request] transaction ID is nil")
+					continue
+				}
+				f1TransactionID = &ie.GetValue().GetTransactionId().Value
+				log.Debugf("[F1 Setup Request] F1 TransactionID: %+v", *f1TransactionID)
 			case int32(f1apiv1.ProtocolIeIDgNBDUID):
 				// gnb du id
-				f1GnbDuID := ie.GetValue().GetGnbDuId().Value
-				log.Infof("F1 gNB DU ID: %+v", f1GnbDuID)
+				if ie.GetValue() == nil || ie.GetValue().GetGnbDuId() == nil {
+					log.Warn("[F1 Setup Request] gNB DU ID is nil")
+					continue
+				}
+				f1GnbDuID = &ie.GetValue().GetGnbDuId().Value
+				log.Debugf("[F1 Setup Request] F1 gNB DU ID: %+v", *f1GnbDuID)
 			case int32(f1apiv1.ProtocolIeIDGNBDURRCVersion):
 				// gnb du rrc version
-				f1GnbDuRRCVersion := ie.GetValue().GetRrcVersion()
-				log.Infof("F1 gNB DU RRC version: %+v", f1GnbDuRRCVersion)
+				if ie.GetValue() == nil || ie.GetValue().GetRrcVersion() == nil || ie.GetValue().GetRrcVersion().LatestRrcVersion == nil {
+					log.Warn("[F1 Setup Request] RRC Version is nil")
+					continue
+				}
+				f1GnbDuRRCVersion = decode.Asn1BitstringToUint64(ie.GetValue().GetRrcVersion().LatestRrcVersion)
+				log.Debugf("[F1 Setup Request] F1 gNB DU RRC version: %+v", *f1GnbDuRRCVersion)
 			case int32(f1apiv1.ProtocolIeIDgNBDUServedCellsList):
 				// scell list
-				f1ServCellList := ie.GetValue().GetGnbDuServedCellsList().Value
-				log.Infof("F1 gNB DU Served Cell List: %+v", f1ServCellList)
+				if ie.GetValue() == nil || ie.GetValue().GetGnbDuServedCellsList() == nil {
+					log.Warn("[F1 Setup Request] gNB DU served cell list is nil")
+					continue
+				}
+				f1ServCellList = ie.GetValue().GetGnbDuServedCellsList().Value
+				log.Debugf("[F1 Setup Request] F1 gNB DU Served Cell List: %+v", f1ServCellList)
 			default:
+				log.Warn("[F1 Setup Request] received unsupported F1 IE: %+v", ie.Id)
 			}
+		}
+
+		for _, cell := range f1ServCellList {
+			if cell.GetValue() == nil || cell.GetValue().GetGnbDUServedCellsItem() == nil ||
+				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation() == nil ||
+				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi() == nil ||
+				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().NRcellIdentity == nil ||
+				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().PLmnIdentity == nil {
+				log.Warn("[F1 Setup Request] Served cell does not have CGI and/or PLMN ID")
+			}
+
+			plmnid := *decode.Asn1BytesToUint64(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().PLmnIdentity.GetValue())
+			cgi := fmt.Sprintf("%x", *decode.Asn1BitstringToUint64(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().NRcellIdentity.GetValue()))
+
+			log.Infof("[F1] CGI: %+v / PLMN ID %x", cgi, plmnid)
+
+			var e2Cell *topoapi.E2Cell
+			if _, ok := e2CellsMap[cgi]; !ok {
+				e2Cell = &topoapi.E2Cell{
+					CellGlobalID: &topoapi.CellGlobalID{
+						Type:  topoapi.CellGlobalIDType_NRCGI, // todo 5g only now; should be updated to support 4g as well
+						Value: cgi,
+					},
+				}
+				e2Cells = append(e2Cells, e2Cell)
+				e2CellsMap[cgi] = e2Cell
+			} else {
+				e2Cell = e2CellsMap[cgi]
+			}
+
+			if f1GnbDuID != nil {
+				e2Cell.GnbDuId = uint32(*f1GnbDuID)
+			}
+			if f1GnbDuRRCVersion != nil {
+				e2Cell.LatestRrcVersion = uint32(*f1GnbDuRRCVersion)
+			}
+
+			e2Cell.PlmnId = uint32(plmnid)
 		}
 	}
 	for _, xnmsg := range xnSetupRequestMessages {
 		log.Debugf("Xn: %+v", xnmsg)
-		xnIEs := xnmsg.GetSuccessfulOutcome().GetValue().GetXnSetupResponse().ProtocolIes
+		xnIEs := xnmsg.GetInitiatingMessage().GetValue().GetXnSetupRequest().ProtocolIes
+		var xnGlobalNGRANnodeID *xnapiesv1.GlobalNgRAnnodeID
+		var xnTAISupportList []*xnapiesv1.TaisupportItem
+		var xnAMFRegionInformation []*xnapiesv1.GlobalAmfRegionInformation
+		var xnListofServedCellsNR []*xnapiesv1.ServedCellsNRItem
+
 		for _, ie := range xnIEs {
-			switch ie.Id.Value {
+			switch ie.Id {
 			case int32(xnapiv1.ProtocolIeIDGlobalNGRANnodeID):
 				// GlobalNGRANnodeID
-				xnGlobalNGRANnodeID := ie.GetValue().GetIdGlobalNgRanNodeId()
+				xnGlobalNGRANnodeID = ie.GetValue().GetIdGlobalNgRanNodeId()
 				log.Infof("Xn Global NG RAN node ID: %+v", xnGlobalNGRANnodeID)
 			case int32(xnapiv1.ProtocolIeIDTAISupportlist):
 				// TAISupportlist
-				xnTAISupportList := ie.GetValue().GetIdTaisupportList().GetValue()
+				xnTAISupportList = ie.GetValue().GetIdTaisupportList().GetValue()
 				log.Infof("Xn TAI support list: %+v", xnTAISupportList)
 			case int32(xnapiv1.ProtocolIeIDAMFRegionInformation):
 				// AMFRegionInformation
-				xnAMFRegionInformation := ie.GetValue().GetIdAmfRegionInformation().GetValue()
+				xnAMFRegionInformation = ie.GetValue().GetIdAmfRegionInformation().GetValue()
 				log.Infof("Xn AMF Region information: %+v", xnAMFRegionInformation)
 			case int32(xnapiv1.ProtocolIeIDListofservedcellsNR):
 				// ListofservedcellsNR
-				xnListofServedCellsNR := ie.GetValue().GetIdListOfServedCellsNr().GetValue()
+				xnListofServedCellsNR = ie.GetValue().GetIdListOfServedCellsNr().GetValue()
 				log.Infof("Xn List of Served Cells NR: %+v", xnListofServedCellsNR)
 			default:
+				log.Warnf("received unsupported Xn IE: %+v", ie.Id)
 			}
 		}
 	}
