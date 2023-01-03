@@ -105,7 +105,7 @@ func hasTDDTransmissionBandwidth(cell *f1appducontentsv1.GnbDUServedCellsItemIes
 	return hasTDDInfo(cell) && cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetTDd().GetTransmissionBandwidth() != nil
 }
 
-func GetARFCN(freqInfo f1apiesv1.NrfreqInfo) int32 {
+func GetARFCN(freqInfo *f1apiesv1.NrfreqInfo) int32 {
 	return freqInfo.GetNRarfcn()
 }
 
@@ -145,7 +145,7 @@ func GetTDDInfo(cell *f1appducontentsv1.GnbDUServedCellsItemIes) (*topo.E2Cell_T
 			}
 		}
 		result.TddInfo.NrFreqInfo = &topo.FrequencyInfo{
-			NrArfcn: uint32(GetARFCN(*cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetTDd().GetNRfreqInfo())),
+			NrArfcn: uint32(GetARFCN(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetTDd().GetNRfreqInfo())),
 			FrequencyBandList: &topo.FrequencyBandList{
 				FrequencyBandItems: freqBandItems,
 			},
@@ -184,7 +184,7 @@ func GetFDDInfo(cell *f1appducontentsv1.GnbDUServedCellsItemIes) (*topo.E2Cell_F
 			}
 		}
 		result.FddInfo.DlFreqInfo = &topo.FrequencyInfo{
-			NrArfcn: uint32(GetARFCN(*cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetFDd().GetDLNrfreqInfo())),
+			NrArfcn: uint32(GetARFCN(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetFDd().GetDLNrfreqInfo())),
 			FrequencyBandList: &topo.FrequencyBandList{
 				FrequencyBandItems: freqBandItems,
 			},
@@ -201,7 +201,7 @@ func GetFDDInfo(cell *f1appducontentsv1.GnbDUServedCellsItemIes) (*topo.E2Cell_F
 			}
 		}
 		result.FddInfo.UlFreqInfo = &topo.FrequencyInfo{
-			NrArfcn: uint32(GetARFCN(*cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetFDd().GetULNrfreqInfo())),
+			NrArfcn: uint32(GetARFCN(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRModeInfo().GetFDd().GetULNrfreqInfo())),
 			FrequencyBandList: &topo.FrequencyBandList{
 				FrequencyBandItems: freqBandItems,
 			},
