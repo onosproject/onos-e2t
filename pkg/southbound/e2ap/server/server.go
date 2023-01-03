@@ -15,7 +15,9 @@ import (
 	xnapiesv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-ies"
 	xnappdudescriptionsv1 "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/f1ap/encoder"
+	f1utils "github.com/onosproject/onos-e2t/pkg/southbound/f1ap/utils"
 	encoder2 "github.com/onosproject/onos-e2t/pkg/southbound/xnap/encoder"
+	xnutils "github.com/onosproject/onos-e2t/pkg/southbound/xnap/utils"
 	"github.com/onosproject/onos-e2t/pkg/utils/decode"
 	"time"
 
@@ -212,6 +214,10 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	// todo should be removed
 	for _, f1msg := range f1SetupRequestMessages {
 		log.Debugf("F1: %+v", f1msg)
+		if f1msg.GetInitiatingMessage() == nil || f1msg.GetInitiatingMessage().GetValue() == nil || f1msg.GetInitiatingMessage().GetValue().GetF1SetupRequest() == nil {
+			log.Warn("f1 setup request is nil")
+			continue
+		}
 		f1IEs := f1msg.GetInitiatingMessage().GetValue().GetF1SetupRequest().ProtocolIes
 		var f1TransactionID *int32
 		var f1GnbDuID *int64
@@ -258,18 +264,11 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		}
 
 		for _, cell := range f1ServCellList {
-			if cell.GetValue() == nil || cell.GetValue().GetGnbDUServedCellsItem() == nil ||
-				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation() == nil ||
-				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi() == nil ||
-				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().NRcellIdentity == nil ||
-				cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().PLmnIdentity == nil {
-				log.Warn("[F1 Setup Request] Served cell does not have CGI and/or PLMN ID")
+			cgi, err := f1utils.GetCGICellID(cell)
+			if err != nil {
+				log.Warnf("[F1 Setup Request] Served cell does not have Cell ID: %+v", err)
+				continue
 			}
-
-			plmnid := *decode.Asn1BytesToUint64(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().PLmnIdentity.GetValue())
-			cgi := fmt.Sprintf("%x", *decode.Asn1BitstringToUint64(cell.GetValue().GetGnbDUServedCellsItem().GetServedCellInformation().GetNRcgi().NRcellIdentity.GetValue()))
-
-			log.Infof("[F1] CGI: %+v / PLMN ID %x", cgi, plmnid)
 
 			var e2Cell *topoapi.E2Cell
 			if _, ok := e2CellsMap[cgi]; !ok {
@@ -285,6 +284,16 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 				e2Cell = e2CellsMap[cgi]
 			}
 
+			plmnid, err := f1utils.GetCGIPlmnID(cell)
+			if err == nil {
+				e2Cell.PlmnId = uint32(plmnid)
+			}
+
+			pci, err := f1utils.GetPCI(cell)
+			if err == nil {
+				e2Cell.PCI = pci
+			}
+
 			if f1GnbDuID != nil {
 				e2Cell.GnbDuId = uint32(*f1GnbDuID)
 			}
@@ -292,11 +301,25 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 				e2Cell.LatestRrcVersion = uint32(*f1GnbDuRRCVersion)
 			}
 
-			e2Cell.PlmnId = uint32(plmnid)
+			e2Cell.ServedPlmns = f1utils.GetServedPlmns(cell)
+			tddInfo, err := f1utils.GetTDDInfo(cell)
+			if err == nil {
+				e2Cell.NrModeInfo = tddInfo
+			}
+			fddInfo, err := f1utils.GetFDDInfo(cell)
+			if err == nil {
+				e2Cell.NrModeInfo = fddInfo
+			}
+
+			e2Cell.MeasurementTimingConfiguration = uint32(f1utils.GetMeasurementTimingConfiguration(cell))
 		}
 	}
 	for _, xnmsg := range xnSetupRequestMessages {
 		log.Debugf("Xn: %+v", xnmsg)
+		if xnmsg.GetInitiatingMessage() == nil || xnmsg.GetInitiatingMessage().GetValue() == nil || xnmsg.GetInitiatingMessage().GetValue().GetXnSetupRequest() == nil {
+			log.Warn("xn setup request message is nil")
+			continue
+		}
 		xnIEs := xnmsg.GetInitiatingMessage().GetValue().GetXnSetupRequest().ProtocolIes
 		var xnGlobalNGRANnodeID *xnapiesv1.GlobalNgRAnnodeID
 		var xnTAISupportList []*xnapiesv1.TaisupportItem
@@ -307,23 +330,112 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 			switch ie.Id {
 			case int32(xnapiv1.ProtocolIeIDGlobalNGRANnodeID):
 				// GlobalNGRANnodeID
+				if ie.GetValue() == nil || ie.GetValue().GetIdGlobalNgRanNodeId() == nil {
+					log.Warn("[Xn Setup Request] global ng ran node id is nil")
+					continue
+				}
 				xnGlobalNGRANnodeID = ie.GetValue().GetIdGlobalNgRanNodeId()
-				log.Infof("Xn Global NG RAN node ID: %+v", xnGlobalNGRANnodeID)
+				log.Debugf("[Xn Setup Request] Xn Global NG RAN node ID: %+v", xnGlobalNGRANnodeID)
 			case int32(xnapiv1.ProtocolIeIDTAISupportlist):
 				// TAISupportlist
+				if ie.GetValue() == nil || ie.GetValue().GetIdTaisupportList() == nil {
+					log.Warn("[Xn Setup Request] tai support list is nil")
+					continue
+				}
 				xnTAISupportList = ie.GetValue().GetIdTaisupportList().GetValue()
-				log.Infof("Xn TAI support list: %+v", xnTAISupportList)
+				log.Debugf("[Xn Setup Request] Xn TAI support list: %+v", xnTAISupportList)
 			case int32(xnapiv1.ProtocolIeIDAMFRegionInformation):
 				// AMFRegionInformation
+				if ie.GetValue() == nil || ie.GetValue().GetIdAmfRegionInformation() == nil {
+					log.Warn("[Xn Setup Request] amf region information is nil")
+					continue
+				}
 				xnAMFRegionInformation = ie.GetValue().GetIdAmfRegionInformation().GetValue()
-				log.Infof("Xn AMF Region information: %+v", xnAMFRegionInformation)
+				log.Debugf("[Xn Setup Request] Xn AMF Region information: %+v", xnAMFRegionInformation)
 			case int32(xnapiv1.ProtocolIeIDListofservedcellsNR):
 				// ListofservedcellsNR
+				if ie.GetValue() == nil || ie.GetValue().GetIdListOfServedCellsNr() == nil {
+					log.Warn("[Xn Setup Request] id list of served cell nr is nil")
+					continue
+				}
 				xnListofServedCellsNR = ie.GetValue().GetIdListOfServedCellsNr().GetValue()
-				log.Infof("Xn List of Served Cells NR: %+v", xnListofServedCellsNR)
+				log.Debugf("[Xn Setup Request] Xn List of Served Cells NR: %+v", xnListofServedCellsNR)
 			default:
-				log.Warnf("received unsupported Xn IE: %+v", ie.Id)
+				log.Warnf("[Xn Setup Request] received unsupported Xn IE: %+v", ie.Id)
 			}
+		}
+
+		for _, cell := range xnListofServedCellsNR {
+			cgi, err := xnutils.GetCGICellID(cell)
+			if err != nil {
+				log.Warnf("[Xn Setup Request] Served cell does not have Cell ID: %+v", err)
+				continue
+			}
+
+			var e2Cell *topoapi.E2Cell
+			if _, ok := e2CellsMap[cgi]; !ok {
+				e2Cell = &topoapi.E2Cell{
+					CellGlobalID: &topoapi.CellGlobalID{
+						Type:  topoapi.CellGlobalIDType_NRCGI, // todo 5g only now; should be updated to support 4g as well
+						Value: cgi,
+					},
+				}
+				e2Cells = append(e2Cells, e2Cell)
+				e2CellsMap[cgi] = e2Cell
+			} else {
+				e2Cell = e2CellsMap[cgi]
+			}
+
+			plmnid, err := xnutils.GetCGIPlmnID(cell)
+			if err == nil {
+				e2Cell.PlmnId = uint32(plmnid)
+			}
+
+			pci, err := xnutils.GetPCI(cell)
+			if err == nil {
+				e2Cell.PCI = pci
+			}
+
+			// global ng ran node ID
+			globalNGRanNodeID, err := xnutils.GetNGRanNodeID(xnGlobalNGRANnodeID)
+			if err == nil {
+				e2Cell.GlobalNgRanNodeId = globalNGRanNodeID
+			}
+
+			// tai support list
+			taiSupportList, err := xnutils.GetTAISupportList(xnTAISupportList)
+			if err == nil {
+				e2Cell.TaiSupportList = taiSupportList
+			}
+
+			// amf region information
+			amfRegionList, err := xnutils.GetAMFRegionList(xnAMFRegionInformation)
+			if err == nil {
+				e2Cell.AmfRegionInformation = amfRegionList
+			}
+
+			tddInfo, err := xnutils.GetTDDInfo(cell)
+			if err == nil {
+				e2Cell.NrModeInfo = tddInfo
+			}
+			fddInfo, err := xnutils.GetFDDInfo(cell)
+			if err == nil {
+				e2Cell.NrModeInfo = fddInfo
+			}
+
+			e2Cell.MeasurementTimingConfiguration = uint32(xnutils.GetMeasurementTimingConfiguration(cell))
+
+			// neighbor cell info
+			neighbors, err := xnutils.GetNeighborInfoNR(cell)
+			if err == nil {
+				for _, n := range neighbors {
+					topoNeighbor, err := xnutils.GetTopoNeighborInformationNR(n)
+					if err == nil {
+						e2Cell.NeighborInformationNrs = append(e2Cell.NeighborInformationNrs, topoNeighbor)
+					}
+				}
+			}
+			// todo implmenet neighbor cell EUTRA
 		}
 	}
 
