@@ -259,7 +259,11 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		Encoding:       e2api.Encoding_ASN1_PER,
 	}
 
-	if channel, err := s.chans.Get(server.Context(), channelID); err == nil {
+	channel, err := s.chans.Get(server.Context(), channelID)
+	if err != nil {
+		log.Warnf("%+v", err)
+	}
+	if err == nil {
 		// Change the channel phase to OPEN if necessary
 		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_OPEN {
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
@@ -295,7 +299,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		}
 
 		log.Infof("Creating channel %+v for Subscription request %+v", channel, request)
-		if err := s.chans.Create(server.Context(), channel); err != nil {
+		err = s.chans.Create(server.Context(), channel)
+		if err != nil {
 			log.Warnf("SubscribeRequest %+v failed %s", request, err)
 			if !errors.IsAlreadyExists(err) {
 				return errors.Status(err).Err()
