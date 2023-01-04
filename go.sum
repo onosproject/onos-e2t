@@ -141,7 +141,6 @@ github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535 h1:4daAzAu0
 github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535/go.mod h1:oGkLhpf+kjZl6xBf758TQhh5XrAeiJv/7FRz/2spLIg=
 github.com/atomix/atomix-api/go v0.4.9/go.mod h1:N6gtApjoC9bRS9m7dksdVQIWSKaNArAl5EiOoaTHnmw=
 github.com/atomix/atomix-go-framework v0.10.0/go.mod h1:436lsH1qD1xMSb2achfp5171UESMc2ycFNO15EVxB3I=
-github.com/atomix/atomix-go-framework v0.10.1 h1:pNmo9SNG4v+WWLsnHJTYF8GfqHx/SK4sUEvKmdls/rc=
 github.com/atomix/atomix-go-framework v0.10.1/go.mod h1:436lsH1qD1xMSb2achfp5171UESMc2ycFNO15EVxB3I=
 github.com/atomix/go-sdk v0.10.0 h1:dJ9y/PwkXrMdLCTrGOa3NdM68XymzrgSGT8tJPuOZDU=
 github.com/atomix/go-sdk v0.10.0/go.mod h1:WhQi7ckmY6EYwPcsCGL/J4+DCHsvWD9nUZxLKn0nW8c=
@@ -852,8 +851,8 @@ github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go v0.8.33 h1:VZR/8f
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go v0.8.33/go.mod h1:Jf8DtPvXxix6l/U7q+vS5Yj3g/ot1f/5GhYS4icp+Hs=
 github.com/onosproject/onos-lib-go v0.8.1/go.mod h1:1klcUPfLoXPVu4fzM/sYi1V3Pggm2NRbY2fTzG2W1HY=
 github.com/onosproject/onos-lib-go v0.8.13/go.mod h1:rWssBjfhahhHQy4wW5PBUtjTPwJlXAixHxgfq/3PO3E=
-github.com/onosproject/onos-lib-go v0.8.17 h1:FQsxv46HVPnajVcEZNnrz1D+/w4C0VqZtPg5RTggvH4=
-github.com/onosproject/onos-lib-go v0.8.17/go.mod h1:rWssBjfhahhHQy4wW5PBUtjTPwJlXAixHxgfq/3PO3E=
+github.com/onosproject/onos-lib-go v0.10.4 h1:YNBrFhreXo7BbNm9WUOt6sve001fgF8A5mpxp40m9xk=
+github.com/onosproject/onos-lib-go v0.10.4/go.mod h1:BW7ofxESngKlsUw6YmO/hbUrbmL3sNxdXkzZkDev/tE=
 github.com/onosproject/onos-proxy v0.1.0 h1:scA9UfqiclviBjR9SoRqSN5YiO+vrGsg7AYaDFMWGd0=
 github.com/onosproject/onos-proxy v0.1.0/go.mod h1:Julz7LLRkjnwIvioNEI1CjpujpxoA33vOdWSs0/wY9I=
 github.com/onosproject/onos-ric-sdk-go v0.8.11 h1:KjdAcLdhiVeUr4HqZ5MnyyZaFAYHXKssEG+dIl5M84k=

@@ -12,7 +12,7 @@ require (
 	github.com/onosproject/onos-api/go v0.10.14
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go v0.8.33
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go v0.8.33
-	github.com/onosproject/onos-lib-go v0.8.17
+	github.com/onosproject/onos-lib-go v0.10.4
 	github.com/onosproject/onos-ric-sdk-go v0.8.11
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.26.0
@@ -41,7 +41,6 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535 // indirect
-	github.com/atomix/atomix-go-framework v0.10.1 // indirect
 	github.com/atomix/runtime/api v0.7.0 // indirect
 	github.com/atomix/runtime/sdk v0.7.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
