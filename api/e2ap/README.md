@@ -67,6 +67,12 @@ cd ~/go/src/github.com/onosproject/onos-e2t/api/e2ap/v1beta2/
 rm xx00 e2ap-v01.01.00.proto
 ```
 
+If you are running MacOS, then you should comment line 35 and uncomment line 37 of csplit-protos.sh. 
+There are some prerequisites you have to install. For more explanation, see help:
+```bash
+./csplit-protos.sh -h.
+```
+
 6 files are created:
 
 * e2ap-pdu-descriptions.proto
@@ -87,10 +93,17 @@ done
 ```
 
 ## Editing to fix paths, packages and imports
+For GNU-based OS run:
 ```bash
 sed -i "s/package e2ap_v01_01_00_asn1.v1/package e2ap.v1beta2/" e2ap*.proto
 sed -i "s/option go_package = \"e2ap_v01_01_00_asn1\/v1/option go_package = \"github.com\/onosproject\/onos-e2t\/api\/e2ap\/v1beta2/" e2ap*.proto
 sed -i "s/import \"e2ap_v01_01_00_asn1\/v1/import \"e2ap\/v1beta2/g" e2ap*.proto
+```
+For MacOS run:
+```bash
+sed -i '' -e 's/package e2ap_v01_01_00_asn1.v1/package e2ap.v1beta2/' e2ap*.proto
+sed -i '' -e "s/option go_package = \"e2ap_v01_01_00_asn1\/v1/option go_package = \"github.com\/onosproject\/onos-e2t\/api\/e2ap\/v1beta2/" e2ap*.proto
+sed -i '' -e "s/import \"e2ap_v01_01_00_asn1\/v1/import \"e2ap\/v1beta2/g" e2ap*.proto
 ```
 
 ## Add the license header
@@ -104,8 +117,8 @@ done
 ## Modifying the 6 `proto` files to fix mistakes
 Currently there are too many mistakes to list. Generally they are in the categories:
 * In `e2ap_containers.proto`
-    * The type `ProtocolIeField001` should have `RequestID` and `Criticiality`
-    * The type `ProtocolIeFieldPair` should be empty
+    * The type `ProtocolIeField001` should have `RequestID` and `Criticiality` (cast all types to `int32`)
+    * The type `ProtocolIeFieldPair` should have `RequestID` and `Criticiality` (cast all types to `int32`)
     * The type `ProtocolIeContainerList` should be use `ProtocolIeSingleContainer001`
 * in `e2ap_pdu_contents.proto`
     * places where nested templates are used in ASN1. Top level templates can be resolved fine
@@ -115,23 +128,27 @@ Currently there are too many mistakes to list. Generally they are in the categor
     * e.g. in `RicactionsToBeSetupList` should have `repeated RicactionToBeSetupItemIes value = 1 [(validate.v1.rules).repeated = { max_items: 16}];`
     * ItemIEs lacking child details e.g. `message RicactionToBeSetupItemIes` should be
 ```
-  message RicactionToBeSetupItemIes {
-    int32 id = 1 [(validate.v1.rules).int32.const = 19];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
-    RicactionToBeSetupItem value = 3;
-    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+message RicactionToBeSetupItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+    int32 id = 1 [(validate.v1.rules).int32.const = 19, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    RicactionToBeSetupItemIe value = 3 [json_name="ricActionToBeSetupItem"];
 };
 ```
 * In `e2ap_ies.proto`:
-    * Places where an `__` is given in an enum where it should be `_`
     * in some places `int32` is specified and it should be `int64`
+    * `ProtocolIeField001` can be safely removed, if any is present
 * In `e2ap_commondatatypes.proto` there are places where
-  * `Presence` and `Criticality` enums need to be defined as message types 
-  * `BITSTRING` or `PRINTABLESTRING` types are not defined
+  * `BasicOID` type is not defined - cast it with a `string`
 * In `e2ap_pdu_descriptions.proto`:
   * String starting with `@` need to be commented out
   * message types that need to be renamed with a suffix `Ep` because they
-    clash with a message type defined elsewhere 
+    clash with a message type defined elsewhere
+  * There is a need to do slight recomposition of the top-level messages with regard to 
+  [this example](https://github.com/onosproject/onos-e2t/blob/a67d225182089e46eecd39a6be4dc71a35562168/api/e2ap/v2/e2ap_pdu_descriptions.proto#L36-L75)
+    * Once `InitiatingMessage`, `SuccessfulOutcome` and `UnsuccessfulOutcome` are recomposed accordingly, rest of this Protobuf can be deleted
 
 These will be handled by updating the asn1c tool - see:
 [SDRAN-37](https://jira.opennetworking.org/browse/SDRAN-37)
