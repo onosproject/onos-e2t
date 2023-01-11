@@ -12,7 +12,7 @@ require (
 	github.com/onosproject/onos-api/go v0.10.16
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go v0.8.33
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go v0.8.33
-	github.com/onosproject/onos-lib-go v0.10.4
+	github.com/onosproject/onos-lib-go v0.10.6
 	github.com/onosproject/onos-ric-sdk-go v0.8.11
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.26.0
