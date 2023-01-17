@@ -1307,8 +1307,9 @@ type F1SetupRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,valueLB:0,valueUB:255"
-	Id          int32                            `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,valueLB:0,valueUB:255"`
-	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,valueLB:0,valueUB:255"`
+	//@inject_tag: aper:"valueLB:0,valueUB:2"
+	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder,"
 	Value *F1SetupRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
@@ -1790,8 +1791,9 @@ type F1SetupResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
-	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
+	Id *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
+	//@inject_tag: aper:"valueLB:0,valueUB:2"
+	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder,"
 	Value *F1SetupResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
