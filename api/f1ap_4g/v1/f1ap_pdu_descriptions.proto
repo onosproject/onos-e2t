@@ -1,0 +1,163 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// f1ap-pdu-descriptions.proto //////////////////////
+// Protobuf generated from /f1ap_v1.asn1 by asn1c-0.9.29
+// F1AP-PDU-Descriptions { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) f1ap(3) version1(1) f1ap-PDU-Descriptions(0) }
+
+syntax = "proto3";
+
+package f1ap_4g.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/f1ap_4g/v1/f1ap_pdu_descriptions;f1appdudescriptionsv1";
+
+import "f1ap_4g/v1/f1ap_commondatatypes.proto";
+import "f1ap_4g/v1/f1ap_pdu_contents.proto";
+import "f1ap_4g/v1/f1ap_constants.proto";
+import "f1ap_4g/v1/f1ap_containers.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// value set from f1ap_v1.asn1:230
+// {F1AP-PDU-ExtIEs}
+message F1ApPDuExtIes {
+    // value set translated as choice from f1ap_v1.asn1:230
+    message Empty{}
+};
+
+// sequence from f1ap_v1.asn1:224
+// {F1AP-PDU}
+message F1ApPDu {
+    // choice from f1ap_v1.asn1:224
+    oneof f1_ap_pdu {
+        // @inject_tag: aper:"choiceIdx:1,"
+        InitiatingMessage initiating_message = 1 [ json_name="initiatingMessage"];
+        // @inject_tag: aper:"choiceIdx:2,"
+        SuccessfulOutcome successful_outcome = 2 [ json_name="successfulOutcome"];
+        // @inject_tag: aper:"choiceIdx:3,"
+        UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
+        // @inject_tag: aper:"choiceIdx:4,"
+        F1ApPDuExtIes choice_extension = 4 [ json_name="choice-extension"];
+    }
+};
+
+// sequence from f1ap_v1.asn1:235
+// {InitiatingMessage}
+message InitiatingMessage {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    InitiatingMessageF1ApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message InitiatingMessageF1ApElementaryProcedures {
+
+    oneof im_values {
+        // @inject_tag: aper:"valueExt"
+        Reset reset = 1 [ json_name="ric_subscription"];
+        // @inject_tag: aper:"valueExt"
+        F1SetupRequest f1_setup_request = 2 [ json_name="ric_subscription_delete"];
+        // @inject_tag: aper:"valueExt"
+        GnbduconfigurationUpdate g_nbduconfiguration_update = 3 [ json_name="gNBDUConfigurationUpdate"];
+        // @inject_tag: aper:"valueExt"
+        GnbcuconfigurationUpdate g_nbcuconfiguration_update = 4 [ json_name="gNBCUConfigurationUpdate"];
+        // @inject_tag: aper:"valueExt"
+        UecontextSetupRequest u_econtext_setup_request = 5 [ json_name="uEContextSetup"];
+        // @inject_tag: aper:"valueExt"
+        UecontextReleaseCommand u_econtext_release_command = 6 [ json_name="uEContextRelease"];
+        // @inject_tag: aper:"valueExt"
+        UecontextModificationRequest u_econtext_modification_request = 7 [ json_name="uEContextModification"];
+        // @inject_tag: aper:"valueExt"
+        UecontextModificationRequired u_econtext_modification_required = 8 [ json_name="uEContextModificationRequired"];
+        // @inject_tag: aper:"valueExt"
+        WriteReplaceWarningRequest write_replace_warning_request = 9 [ json_name="writeReplaceWarning"];
+        // @inject_tag: aper:"valueExt"
+        PwscancelRequest p_wscancel_request = 10 [ json_name="pWSCancel"];
+        // @inject_tag: aper:"valueExt"
+        ErrorIndication error_indication = 11 [ json_name="error_indication"];
+        // @inject_tag: aper:"valueExt"
+        UecontextReleaseRequest u_econtext_release_request = 12 [ json_name="uEContextRelease"];
+        // @inject_tag: aper:"valueExt"
+        InitialUlrrcmessageTransfer initial_ulrrcmessage_transfer = 13 [ json_name="initialULRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        DlrrcmessageTransfer d_lrrcmessage_transfer = 14 [ json_name="dLRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        UlrrcmessageTransfer u_lrrcmessage_transfer = 15 [ json_name="uLRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        UeinactivityNotification u_einactivity_notification = 16 [ json_name="uEInactivityNotification"];
+        // @inject_tag: aper:"valueExt"
+        GnbduresourceCoordinationRequest g_nbduresource_coordination_request = 17 [ json_name="gNBDUResourceCoordination"];
+        // @inject_tag: aper:"valueExt"
+        PrivateMessage private_message = 18 [ json_name="privateMessage"];
+        // @inject_tag: aper:"valueExt"
+        SystemInformationDeliveryCommand system_information_delivery_command = 19 [ json_name="systemInformationDelivery"];
+        // @inject_tag: aper:"valueExt"
+        Paging paging = 20 [ json_name="paging"];
+        // @inject_tag: aper:"valueExt"
+        Notify notify = 21 [ json_name="notify"];
+        // @inject_tag: aper:"valueExt"
+        NetworkAccessRateReduction network_access_rate_reduction = 22 [ json_name="networkAccessRateReduction"];
+        // @inject_tag: aper:"valueExt"
+        PwsrestartIndication p_wsrestart_indication = 23 [ json_name="pWSRestartIndication"];
+        // @inject_tag: aper:"valueExt"
+        PwsfailureIndication p_wsfailure_indication = 24 [ json_name="pWSFailureIndication"];
+        // @inject_tag: aper:"valueExt"
+        GnbdustatusIndication g_nbdustatus_indication = 25 [ json_name="gNBDUStatusIndication"];
+        // @inject_tag: aper:"valueExt"
+        RrcdeliveryReport r_rcdelivery_report = 26 [ json_name="rRCDeliveryReport"];
+        // @inject_tag: aper:"valueExt"
+        F1RemovalRequest f1_removal_request = 27 [ json_name="f1Removal"];
+        // @inject_tag: aper:"valueExt"
+        TraceStart trace_start = 28 [ json_name="traceStart"];
+    }
+}
+
+// sequence from f1ap_v1.asn1:241
+// {SuccessfulOutcome}
+message SuccessfulOutcome {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    SuccessfulOutcomeF1ApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message SuccessfulOutcomeF1ApElementaryProcedures {
+
+    oneof so_values {
+        // @inject_tag: aper:"valueExt"
+        ResetAcknowledge reset_acknowledge = 1 [ json_name="ric_subscription"];
+        // @inject_tag: aper:"valueExt"
+        F1SetupResponse f1_setup_response = 2 [ json_name="f1_setup_response"];
+        // @inject_tag: aper:"valueExt"
+        GnbduconfigurationUpdateAcknowledge g_nbduconfiguration_update_acknowledge = 3 [ json_name="gNBDUConfigurationUpdate"];
+    }
+}
+
+// sequence from f1ap_v1.asn1:247
+// {UnsuccessfulOutcome}
+message UnsuccessfulOutcome {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    UnsuccessfulOutcomeF1ApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message UnsuccessfulOutcomeF1ApElementaryProcedures {
+
+    oneof uo_values {
+        // @inject_tag: aper:"valueExt"
+        F1SetupFailure f1_setup_failure = 1 [ json_name="f1_setup_response"];
+        // @inject_tag: aper:"valueExt"
+        GnbduconfigurationUpdateFailure g_nbduconfiguration_update_failure = 3 [ json_name="gNBDUConfigurationUpdate"];
+    }
+}
+
+
