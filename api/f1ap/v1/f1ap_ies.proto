@@ -9882,6 +9882,7 @@ message TraceActivationExtIesExtension {
 message TraceActivationExtIes {
     // @inject_tag: aper:"unique,"
     ProtocolExtensionId id = 1 [ json_name="&id"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"
     TraceActivationExtIesExtension extension = 3 [ json_name="&Extension"];

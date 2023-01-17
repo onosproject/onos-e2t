@@ -205,6 +205,7 @@ message F1SetupRequestIesValue {
 message F1SetupRequestIes {
     // @inject_tag: aper:"unique,valueLB:0,valueUB:255"
     int32 id = 1 [ json_name="&id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"
     F1SetupRequestIesValue value = 3 [ json_name="&Value"];
@@ -272,6 +273,7 @@ message F1SetupResponseIesValue {
 message F1SetupResponseIes {
     // @inject_tag: aper:"unique,"
     ProtocolIeID id = 1 [ json_name="&id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"
     F1SetupResponseIesValue value = 3 [ json_name="&Value"];
