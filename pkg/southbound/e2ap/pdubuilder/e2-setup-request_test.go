@@ -66,9 +66,9 @@ func TestE2SetupRequest(t *testing.T) {
 }
 
 func TestE2SetupRequestCuDuIDs(t *testing.T) {
-	enbID, err := CreateEnbIDHome(&asn1.BitString{
-		Value: []byte{0x00, 0xA7, 0xDD, 0xF0},
-		Len:   28,
+	enbID, err := CreateEnbIDLongMacro(&asn1.BitString{
+		Value: []byte{0x00, 0xA7, 0xF8},
+		Len:   21,
 	})
 	assert.NilError(t, err)
 	gEnbID, err := CreateGlobalEnbID([]byte{0xAA, 0xBB, 0xCC}, enbID)
