@@ -6,11 +6,12 @@ package channel
 
 import (
 	"context"
-	"github.com/atomix/go-sdk/pkg/generic"
-	"github.com/google/uuid"
 	"io"
 	"sync"
 	"time"
+
+	"github.com/atomix/go-sdk/pkg/types"
+	"github.com/google/uuid"
 
 	"github.com/atomix/go-sdk/pkg/primitive"
 	api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -25,7 +26,7 @@ var log = logging.GetLogger()
 // NewAtomixStore returns a new persistent Store
 func NewAtomixStore(client primitive.Client) (Store, error) {
 	channels, err := _map.NewBuilder[api.ChannelID, *api.Channel](client, "onos-e2t-objects").
-		Tag("onos-e2t", "channels").Codec(generic.Proto[*api.Channel](&api.Channel{})).Get(context.Background())
+		Tag("onos-e2t", "channels").Codec(types.Proto[*api.Channel](&api.Channel{})).Get(context.Background())
 	if err != nil {
 		return nil, errors.FromAtomix(err)
 	}
@@ -152,8 +153,8 @@ func (s *atomixStore) watchStoreEvents(entries _map.EntryStream[api.ChannelID, *
 			s.cache[channel.ID] = *channel
 			s.cacheMu.Unlock()
 		case *_map.Updated[api.ChannelID, *api.Channel]:
-			channel = e.NewEntry.Value
-			channel.Revision = api.Revision(e.NewEntry.Version)
+			channel = e.Entry.Value
+			channel.Revision = api.Revision(e.Entry.Version)
 			eventType = api.ChannelEventType_CHANNEL_UPDATED
 			s.cacheMu.Lock()
 			s.cache[channel.ID] = *channel

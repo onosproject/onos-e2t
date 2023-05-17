@@ -6,10 +6,11 @@ package subscription
 
 import (
 	"context"
-	"github.com/atomix/go-sdk/pkg/generic"
-	"github.com/google/uuid"
 	"io"
 	"sync"
+
+	"github.com/atomix/go-sdk/pkg/types"
+	"github.com/google/uuid"
 
 	"github.com/atomix/go-sdk/pkg/primitive"
 	api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -24,7 +25,7 @@ var log = logging.GetLogger()
 // NewAtomixStore returns a new persistent Store
 func NewAtomixStore(client primitive.Client) (Store, error) {
 	subs, err := _map.NewBuilder[api.SubscriptionID, *api.Subscription](client, "onos-e2t-subscriptions").
-		Tag("onos-e2t", "subs").Codec(generic.Proto[*api.Subscription](&api.Subscription{})).Get(context.Background())
+		Tag("onos-e2t", "subs").Codec(types.Proto[*api.Subscription](&api.Subscription{})).Get(context.Background())
 	if err != nil {
 		return nil, errors.FromAtomix(err)
 	}
@@ -153,8 +154,8 @@ func (s *atomixStore) watchStoreEvents(entries _map.EntryStream[api.Subscription
 			s.cache[sub.ID] = *sub
 			s.cacheMu.Unlock()
 		case *_map.Updated[api.SubscriptionID, *api.Subscription]:
-			sub = e.NewEntry.Value
-			sub.Revision = api.Revision(e.NewEntry.Version)
+			sub = e.Entry.Value
+			sub.Revision = api.Revision(e.Entry.Version)
 			eventType = api.SubscriptionEventType_SUBSCRIPTION_UPDATED
 			s.cacheMu.Lock()
 			s.cache[sub.ID] = *sub
