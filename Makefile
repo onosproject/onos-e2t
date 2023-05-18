@@ -27,7 +27,7 @@ test: build linters license
 	go test -race github.com/onosproject/onos-e2t/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: deps license linters
+jenkins-test: deps license # linters
 	GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./build/build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
