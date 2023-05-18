@@ -145,8 +145,8 @@ github.com/atomix/atomix-go-framework v0.10.1/go.mod h1:436lsH1qD1xMSb2achfp5171
 github.com/atomix/atomix/api v1.1.0 h1:zUbuD4yPu+jBT8NkxvDKx+m8QiRqhVmFUMgRvQoC1Tc=
 github.com/atomix/atomix/api v1.1.0/go.mod h1:Fz8zXQH6n28U0NTu5xctKhkNrN5RsWgX56lrMhqXlPg=
 github.com/atomix/atomix/protocols/rsm v1.1.0 h1:IFsU/VqoFjjRWRc+ET0B0aYqMG3+oTzDwuiYhVbBQVo=
-github.com/atomix/atomix/runtime v1.1.0 h1:K1fUQqfngOqkXTk+1CwbPLO9STQ6gUVe6qXLlg9ageM=
-github.com/atomix/atomix/runtime v1.1.0/go.mod h1:7PtAhumBMs3TE3L/qXUSr4cNqqOWKGBFTvcHw+ZIQZ8=
+github.com/atomix/atomix/runtime v1.1.2 h1:0EPcLiCSYuBI4gjRW8Do9VRt/uEf654tLqGfqqgfSNw=
+github.com/atomix/atomix/runtime v1.1.2/go.mod h1:7PtAhumBMs3TE3L/qXUSr4cNqqOWKGBFTvcHw+ZIQZ8=
 github.com/atomix/atomix/sidecar v0.4.4 h1:CjLPA3p1V83Tx2yxUGz4JLyQkeyXC8/1xXaiZVknJsY=
 github.com/atomix/go-sdk v0.13.2 h1:KeCP4S84iCbQhq/Ci+3t9eYpKD5l57EfKaBVG46bcNI=
 github.com/atomix/go-sdk v0.13.2/go.mod h1:AmNgqS80WqBj6AxdudXhMPhyEB+KW1kZIebWQpBgm9A=

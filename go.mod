@@ -42,7 +42,7 @@ require (
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535 // indirect
 	github.com/atomix/atomix/api v1.1.0 // indirect
-	github.com/atomix/atomix/runtime v1.1.0 // indirect
+	github.com/atomix/atomix/runtime v1.1.2 // indirect
 	github.com/atomix/runtime/sdk v0.7.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
