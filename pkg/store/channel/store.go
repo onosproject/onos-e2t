@@ -320,7 +320,7 @@ func (s *atomixStore) Watch(ctx context.Context, ch chan<- api.ChannelEvent, opt
 			case <-ctx.Done():
 				// if the watch context is closed, drain the replay channel and break out the replay loop
 				go func() {
-					for range replayCh {
+					for range replayCh { //revive:disable-line:empty-block
 					}
 				}()
 				break replayLoop
@@ -339,7 +339,7 @@ func (s *atomixStore) Watch(ctx context.Context, ch chan<- api.ChannelEvent, opt
 			case <-ctx.Done():
 				// if the watch context is closed, drain the event channel and break out of the event loop
 				go func() {
-					for range eventCh {
+					for range eventCh { //revive:disable-line:empty-block
 					}
 				}()
 				break eventLoop

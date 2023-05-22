@@ -20,7 +20,7 @@ import (
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
-func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
+func getConnToRemoveList(_ *e2server.ManagementConn, _ []*topoapi.Interface) []topoapi.Interface {
 	var connToRemoveList []topoapi.Interface
 
 	// TODO use E2 node config aspect

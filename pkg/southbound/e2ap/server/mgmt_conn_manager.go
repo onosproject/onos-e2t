@@ -69,7 +69,7 @@ func (m *mgmtConnManager) open(conn *ManagementConn) {
 }
 
 // Get gets a connection by ID
-func (m *mgmtConnManager) Get(ctx context.Context, connID ConnID) (*ManagementConn, error) {
+func (m *mgmtConnManager) Get(_ context.Context, connID ConnID) (*ManagementConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conn, ok := m.conns[connID]
@@ -80,7 +80,7 @@ func (m *mgmtConnManager) Get(ctx context.Context, connID ConnID) (*ManagementCo
 }
 
 // List lists connections
-func (m *mgmtConnManager) List(ctx context.Context) ([]*ManagementConn, error) {
+func (m *mgmtConnManager) List(_ context.Context) ([]*ManagementConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conns := make([]*ManagementConn, 0, len(m.conns))

@@ -6,16 +6,13 @@
 package e2
 
 import (
-	"context"
 	"testing"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 type invalidControlTestCase struct {
@@ -28,27 +25,26 @@ type invalidControlTestCase struct {
 	encodingType        sdkclient.Encoding
 }
 
-func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeID string) {
-	ctx := context.Background()
+func (s *TestSuite) runControlTestCase(testCase invalidControlTestCase, testNodeID string) {
 	if !testCase.enabled {
-		t.Skip()
+		s.T().Skip()
 		return
 	}
 
-	sdkClient := utils.GetE2Client(t, testCase.serviceModelName, testCase.serviceModelVersion, testCase.encodingType)
+	sdkClient := utils.GetE2Client(s.T(), testCase.serviceModelName, testCase.serviceModelVersion, testCase.encodingType)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
-	assert.NoError(t, err)
-	response, err := node.Control(ctx, request, nil)
-	assert.Nil(t, response)
-	assert.Equal(t, true, testCase.expectedError(err))
+	s.NoError(err)
+	response, err := node.Control(s.Context(), request, nil)
+	s.Nil(response)
+	s.Equal(true, testCase.expectedError(err))
 
 }
 
 // TestInvalidControl tests invalid control requests
-func (s *TestSuite) TestInvalidControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
-	nodeID := utils.GetTestNodeID(t)
+func (s *TestSuite) TestInvalidControl() {
+	sim := s.CreateRanSimulatorWithNameOrDie("invalid-control")
+	nodeID := utils.GetTestNodeID(s.T())
 
 	// The values in the header are for testing of error checking in the NB
 	rcControlHeader := utils.RcControlHeader{
@@ -64,9 +60,9 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	}
 
 	controlMessageBytes, err := rcControlMessage.CreateRcControlMessage()
-	assert.NoError(t, err)
+	s.NoError(err)
 	controlHeaderBytes, err := rcControlHeader.CreateRcControlHeader()
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	testCases := []invalidControlTestCase{
 		/*{
@@ -116,9 +112,9 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	}
 	for _, testCase := range testCases {
 		pinTestCase := testCase
-		t.Run(pinTestCase.description, func(t *testing.T) {
-			runControlTestCase(t, pinTestCase, string(nodeID))
+		s.T().Run(pinTestCase.description, func(t *testing.T) {
+			s.runControlTestCase(pinTestCase, string(nodeID))
 		})
 	}
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	s.UninstallRanSimulatorOrDie(sim, "invalid-control")
 }
