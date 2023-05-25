@@ -21,7 +21,6 @@ import (
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 )
 
 type invalidSubscriptionTestCase struct {
@@ -36,18 +35,17 @@ type invalidSubscriptionTestCase struct {
 	enabled             bool
 }
 
-func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
+func (s *TestSuite) runTestCase(testCase invalidSubscriptionTestCase) {
 	if !testCase.enabled {
-		t.Skip()
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(s.Context(), 30*time.Second)
 	defer cancel()
 
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -74,14 +72,14 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 
 	_, err := kpmv2Sub.Subscribe(ctx)
 
-	assert.True(t, testCase.expectedError(err))
+	s.True(testCase.expectedError(err))
 
-	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, s.T())
 
 }
 
 // TestInvalidSubscriptions tests invalid inputs into the SDK
-func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
+func (s *TestSuite) TestInvalidSubscriptions() {
 	const actionID = 11
 	eventTriggerBytes := e2utils.KPMV2Sub{}.Sub.EventTriggerBytes
 
@@ -132,14 +130,14 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 	}
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-subscriptions")
+	sim := s.CreateRanSimulatorWithNameOrDie("invalid-subscriptions")
 
 	for _, testCase := range testCases {
 		pinTestCase := testCase
-		t.Run(pinTestCase.description, func(t *testing.T) {
-			runTestCase(t, pinTestCase)
+		s.T().Run(pinTestCase.description, func(t *testing.T) {
+			s.runTestCase(pinTestCase)
 		})
 	}
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "invalid-subscriptions")
 }

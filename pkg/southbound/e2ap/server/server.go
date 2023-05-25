@@ -112,7 +112,7 @@ func uint24ToUint32(val []byte) uint32 {
 	return r
 }
 
-func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
+func (e *E2APServer) E2Setup(_ context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
 	log.Infof("Received E2 setup request: %+v", request)
 	transID, nodeIdentity, ranFuncs, comps, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
@@ -490,7 +490,7 @@ func (e *E2APServer) RICIndication(ctx context.Context, request *e2appducontents
 	return e.e2apConn.ricIndication(ctx, request)
 }
 
-func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
+func (e *E2APServer) E2ConfigurationUpdate(_ context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
 	log.Infof("Received E2 node configuration update request: %+v", request)
 
 	var nodeIdentity *e2apies.GlobalE2NodeId

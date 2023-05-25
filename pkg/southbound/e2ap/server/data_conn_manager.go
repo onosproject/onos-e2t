@@ -68,7 +68,7 @@ func (m *e2apConnManager) open(conn *E2APConn) {
 }
 
 // Get gets a connection by ID
-func (m *e2apConnManager) Get(ctx context.Context, connID ConnID) (*E2APConn, error) {
+func (m *e2apConnManager) Get(_ context.Context, connID ConnID) (*E2APConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conn, ok := m.conns[connID]
@@ -79,7 +79,7 @@ func (m *e2apConnManager) Get(ctx context.Context, connID ConnID) (*E2APConn, er
 }
 
 // List lists connections
-func (m *e2apConnManager) List(ctx context.Context) ([]*E2APConn, error) {
+func (m *e2apConnManager) List(_ context.Context) ([]*E2APConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conns := make([]*E2APConn, 0, len(m.conns))

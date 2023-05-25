@@ -2,31 +2,26 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package utils
+package e2
 
 import (
 	"context"
-	"io"
-	"testing"
-
-	"github.com/onosproject/helmit/pkg/kubernetes"
-	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
-	"google.golang.org/grpc/codes"
-
-	"github.com/onosproject/helmit/pkg/helm"
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
-	"github.com/stretchr/testify/assert"
-
+	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
+	"io"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // ConnectRansimServiceHost connects to ransim service
-func ConnectRansimServiceHost(release *helm.HelmRelease) (*grpc.ClientConn, error) {
-	client := kubernetes.NewForReleaseOrDie(release)
-	services, err := client.CoreV1().Services().List(context.Background())
+func (s *TestSuite) ConnectRansimServiceHost() (*grpc.ClientConn, error) {
+	services, err := s.CoreV1().Services(s.Namespace()).List(s.Context(),
+		v1.ListOptions{LabelSelector: "app.kubernetes.io/name=ran-simulator"})
 	if err != nil {
 		return nil, err
 	}
@@ -40,15 +35,15 @@ func ConnectRansimServiceHost(release *helm.HelmRelease) (*grpc.ClientConn, erro
 		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithRetryOn(codes.Unavailable, codes.Unknown))),
 	}
 
-	ransimServiceAddress := getRansimServiceAddress(services[0].Name)
-	return grpc.DialContext(context.Background(), ransimServiceAddress, opts...)
+	ransimServiceAddress := utils.GetRansimServiceAddress(services.Items[0].Name)
+	return grpc.DialContext(s.Context(), ransimServiceAddress, opts...)
 }
 
-func GetNodes(t *testing.T, nodeClient modelapi.NodeModelClient) []*ransimtypes.Node {
-	ctx, cancel := context.WithCancel(context.Background())
+func (s *TestSuite) GetNodes(nodeClient modelapi.NodeModelClient) []*ransimtypes.Node {
+	ctx, cancel := context.WithCancel(s.Context())
 	defer cancel()
 	stream, err := nodeClient.ListNodes(ctx, &modelapi.ListNodesRequest{})
-	assert.NoError(t, err)
+	s.NoError(err)
 	var nodes []*ransimtypes.Node
 	for {
 		e2node, err := stream.Recv()
@@ -63,11 +58,11 @@ func GetNodes(t *testing.T, nodeClient modelapi.NodeModelClient) []*ransimtypes.
 	return nodes
 }
 
-func GetCells(t *testing.T, cellClient modelapi.CellModelClient) []*ransimtypes.Cell {
-	ctx, cancel := context.WithCancel(context.Background())
+func (s *TestSuite) GetCells(cellClient modelapi.CellModelClient) []*ransimtypes.Cell {
+	ctx, cancel := context.WithCancel(s.Context())
 	defer cancel()
 	stream, err := cellClient.ListCells(ctx, &modelapi.ListCellsRequest{})
-	assert.NoError(t, err)
+	s.NoError(err)
 	var cellsList []*ransimtypes.Cell
 	for {
 		cell, err := stream.Recv()
@@ -82,11 +77,9 @@ func GetCells(t *testing.T, cellClient modelapi.CellModelClient) []*ransimtypes.
 	return cellsList
 }
 
-func GetNumCells(t *testing.T, cellClient modelapi.CellModelClient) int {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	stream, err := cellClient.ListCells(ctx, &modelapi.ListCellsRequest{})
-	assert.NoError(t, err)
+func (s *TestSuite) GetNumCells(cellClient modelapi.CellModelClient) int {
+	stream, err := cellClient.ListCells(s.Context(), &modelapi.ListCellsRequest{})
+	s.NoError(err)
 	numCells := 0
 	for {
 		_, err := stream.Recv()
@@ -100,11 +93,9 @@ func GetNumCells(t *testing.T, cellClient modelapi.CellModelClient) int {
 	return numCells
 }
 
-func GetNumNodes(t *testing.T, nodeClient modelapi.NodeModelClient) int {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	stream, err := nodeClient.ListNodes(ctx, &modelapi.ListNodesRequest{})
-	assert.NoError(t, err)
+func (s *TestSuite) GetNumNodes(nodeClient modelapi.NodeModelClient) int {
+	stream, err := nodeClient.ListNodes(s.Context(), &modelapi.ListNodesRequest{})
+	s.NoError(err)
 	numNodes := 0
 	for {
 		_, err := stream.Recv()
@@ -118,16 +109,16 @@ func GetNumNodes(t *testing.T, nodeClient modelapi.NodeModelClient) int {
 	return numNodes
 }
 
-func GetRansimCellClient(t *testing.T, release *helm.HelmRelease) modelapi.CellModelClient {
-	conn, err := ConnectRansimServiceHost(release)
-	assert.NoError(t, err)
-	assert.NotNil(t, conn)
+func (s *TestSuite) GetRansimCellClient() modelapi.CellModelClient {
+	conn, err := s.ConnectRansimServiceHost()
+	s.NoError(err)
+	s.NotNil(conn)
 	return modelapi.NewCellModelClient(conn)
 }
 
-func GetRansimNodeClient(t *testing.T, release *helm.HelmRelease) modelapi.NodeModelClient {
-	conn, err := ConnectRansimServiceHost(release)
-	assert.NoError(t, err)
-	assert.NotNil(t, conn)
+func (s *TestSuite) GetRansimNodeClient() modelapi.NodeModelClient {
+	conn, err := s.ConnectRansimServiceHost()
+	s.NoError(err)
+	s.NotNil(conn)
 	return modelapi.NewNodeModelClient(conn)
 }

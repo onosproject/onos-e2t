@@ -22,7 +22,7 @@ type ClientHandler func(conn ClientConn) ClientInterface
 type ClientInterface procedures.E2NodeProcedures
 
 // Connect connects to the given address
-func Connect(ctx context.Context, address string, handler ClientHandler) (ClientConn, error) {
+func Connect(_ context.Context, address string, handler ClientHandler) (ClientConn, error) {
 	addr, err := addressing.ResolveAddress(types.Sctp4, address)
 	if err != nil {
 		return nil, err

@@ -6,29 +6,26 @@
 package e2
 
 import (
-	"testing"
 	"time"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
-
-	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
 // TestTransactionTimeout tests that channels and subscriptions are removed if their subscription timeout period expires
-func (s *TestSuite) TestTransactionTimeout(t *testing.T) {
+func (s *TestSuite) TestTransactionTimeout() {
 	// spin up a ransim instance
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "transaction-timeout")
-	assert.NotNil(t, sim)
+	sim := s.CreateRanSimulatorWithNameOrDie("transaction-timeout")
+	s.NotNil(sim)
 
 	// create a KPM V2 subscription
 	const baseTimeout = 10 * time.Second
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 	subName := "TestTransactionTimeout"
 	ctx, cancel := e2utils.GetCtx()
 
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -39,25 +36,25 @@ func (s *TestSuite) TestTransactionTimeout(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
-	kpmv2Sub.SubscribeOrFail(ctx, t)
+	s.NoError(kpmv2Sub.UseDefaultReportAction())
+	kpmv2Sub.SubscribeOrFail(ctx, s.T())
 
 	// make sure the subscription channel is working by reading an indication from it
-	indication := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
-	assert.NotNil(t, indication)
+	indication := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
+	s.NotNil(indication)
 
 	// check that the number of subscriptions and channels is now 1
-	assert.Equal(t, 1, len(e2utils.GetSubscriptionList(t)))
-	assert.Equal(t, 1, len(e2utils.GetChannelList(t)))
+	s.Equal(1, len(e2utils.GetSubscriptionList(s.T())))
+	s.Equal(1, len(e2utils.GetChannelList(s.T())))
 
 	// Cause the subscription to time out and wait for it to happen
 	cancel()
 	time.Sleep(baseTimeout + (2 * time.Second))
 
 	// Make sure that the subscription and the channel were removed
-	e2utils.CheckForEmptySubscriptionList(t)
-	assert.Equal(t, 0, len(e2utils.GetChannelList(t)))
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.Equal(0, len(e2utils.GetChannelList(s.T())))
 
 	// clean up the simulator
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	s.UninstallRanSimulatorOrDie(sim, "transaction-timeout")
 }
