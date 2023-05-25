@@ -7,44 +7,40 @@ package e2
 
 import (
 	"context"
-	"testing"
-
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-func verifyIndicationMessages(t *testing.T, cellObjectID string, sub e2utils.KPMV2Sub) {
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, sub.Sub.Ch)
+func (s *TestSuite) verifyIndicationMessages(cellObjectID string, sub e2utils.KPMV2Sub) {
+	indicationReport := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, sub.Sub.Ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	err := proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
+	s.NoError(err)
 	indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
-	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(sub.ReportPeriod/sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
+	s.Equal(indMsgFormat1.GetCellObjId().Value, cellObjectID)
+	s.Equal(int(sub.ReportPeriod/sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 }
 
 // TestIdenticalSubscriptionSingleApp tests identical subscriptions are absorbed by E2T in a single xApp
-func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscriptions-single-app")
-	assert.NotNil(t, sim)
+func (s *TestSuite) TestIdenticalSubscriptionSingleApp() {
+	sim := s.CreateRanSimulatorWithNameOrDie("identical-subscriptions-single-app")
+	s.NotNil(sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	ctx, cancel := context.WithTimeout(s.Context(), subscriptionTimeout)
 	defer cancel()
 
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	subName1 := "identical-sub1"
 	subName2 := "identical-sub2"
@@ -56,9 +52,9 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub1.UseDefaultReportAction())
+	s.NoError(kpmv2Sub1.UseDefaultReportAction())
 	channelID1, err := kpmv2Sub1.Subscribe(ctx)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	kpmv2Sub2 := e2utils.KPMV2Sub{
 		Sub: e2utils.Sub{
@@ -67,29 +63,29 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub2.UseDefaultReportAction())
+	s.NoError(kpmv2Sub2.UseDefaultReportAction())
 	channelID2, err := kpmv2Sub2.Subscribe(ctx)
-	assert.NoError(t, err)
+	s.NoError(err)
 
-	assert.True(t, channelID1 != channelID2)
+	s.True(channelID1 != channelID2)
 
 	// Should be able to receive indication messages on both channels
-	verifyIndicationMessages(t, cellObjectID, kpmv2Sub1)
-	verifyIndicationMessages(t, cellObjectID, kpmv2Sub2)
+	s.verifyIndicationMessages(cellObjectID, kpmv2Sub1)
+	s.verifyIndicationMessages(cellObjectID, kpmv2Sub2)
 
-	subList := e2utils.GetSubscriptionList(t)
-	assert.Equal(t, 1, len(subList))
+	subList := e2utils.GetSubscriptionList(s.T())
+	s.Equal(1, len(subList))
 
-	assert.NoError(t, kpmv2Sub1.Sub.Unsubscribe(ctx))
+	s.NoError(kpmv2Sub1.Sub.Unsubscribe(ctx))
 
-	subList = e2utils.GetSubscriptionList(t)
-	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
+	subList = e2utils.GetSubscriptionList(s.T())
+	s.T().Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
 
-	assert.NoError(t, kpmv2Sub2.Sub.Unsubscribe(ctx))
+	s.NoError(kpmv2Sub2.Sub.Unsubscribe(ctx))
 
-	subList = e2utils.GetSubscriptionList(t)
-	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
+	subList = e2utils.GetSubscriptionList(s.T())
+	s.T().Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "identical-subscriptions-single-app")
 }

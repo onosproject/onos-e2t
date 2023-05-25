@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func createE2SetupRequest(t *testing.T, ge2nID *e2apies.GlobalE2NodeId) *e2appducontents.E2SetupRequest {
+func createE2SetupRequest(_ *testing.T, ge2nID *e2apies.GlobalE2NodeId) *e2appducontents.E2SetupRequest {
 
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
@@ -202,7 +202,7 @@ func (c *testConn) Close() error {
 
 type testClientProcedures struct{}
 
-func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {
+func (p *testClientProcedures) RICControl(_ context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {
 
 	var rrID types.RicRequest
 	for _, v := range request.GetProtocolIes() {
@@ -221,7 +221,7 @@ func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appduc
 	return rca, nil, nil
 }
 
-func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2appducontents.RicsubscriptionRequest) (response *e2appducontents.RicsubscriptionResponse, failure *e2appducontents.RicsubscriptionFailure, err error) {
+func (p *testClientProcedures) RICSubscription(_ context.Context, request *e2appducontents.RicsubscriptionRequest) (response *e2appducontents.RicsubscriptionResponse, failure *e2appducontents.RicsubscriptionFailure, err error) {
 	var ricActionAdmitted10 types.RicActionID = 10
 	var ricActionAdmitted20 types.RicActionID = 20
 	ricActionsAccepted := []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}
@@ -245,7 +245,7 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 	return rsr, nil, nil
 }
 
-func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, request *e2appducontents.RicsubscriptionDeleteRequest) (response *e2appducontents.RicsubscriptionDeleteResponse, failure *e2appducontents.RicsubscriptionDeleteFailure, err error) {
+func (p *testClientProcedures) RICSubscriptionDelete(_ context.Context, request *e2appducontents.RicsubscriptionDeleteRequest) (response *e2appducontents.RicsubscriptionDeleteResponse, failure *e2appducontents.RicsubscriptionDeleteFailure, err error) {
 	var rrID types.RicRequest
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
@@ -263,7 +263,7 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 	return rsdr, nil, nil
 }
 
-func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
+func (p *testClientProcedures) E2ConnectionUpdate(_ context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
 	var trID int32
 	var tnlInfo *e2appducontents.E2ConnectionUpdateItem
 	for _, v := range request.GetProtocolIes() {
@@ -294,7 +294,7 @@ func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *
 
 type testServerProcedures struct{}
 
-func (p *testServerProcedures) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
+func (p *testServerProcedures) E2ConfigurationUpdate(_ context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
@@ -311,7 +311,7 @@ func (p *testServerProcedures) E2ConfigurationUpdate(ctx context.Context, reques
 	return e2ncua, nil, nil
 }
 
-func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
+func (p *testServerProcedures) E2Setup(_ context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
@@ -333,6 +333,6 @@ func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducont
 	return e2sr, nil, nil
 }
 
-func (p *testServerProcedures) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) (err error) {
+func (p *testServerProcedures) RICIndication(_ context.Context, _ *e2appducontents.Ricindication) (err error) {
 	return nil
 }

@@ -8,7 +8,6 @@ package e2
 import (
 	"context"
 	"math/rand"
-	"testing"
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -24,48 +23,47 @@ import (
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 )
 
 // TestSubscriptionOnChange tests E2 subscription on change using ransim, SDK
-func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
+func (s *TestSuite) TestSubscriptionOnChange() {
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
-	assert.NotNil(t, sim)
+	sim := s.CreateRanSimulatorWithNameOrDie("subscription-on-change")
+	s.NotNil(sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	ctx, cancel := context.WithTimeout(s.Context(), subscriptionTimeout)
 	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
+	s.NoError(err)
 	topoEventChan := make(chan topoapi.Event)
 	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
-	assert.NoError(t, err)
+	s.NoError(err)
 
-	nodeClient := utils.GetRansimNodeClient(t, sim)
-	assert.NotNil(t, nodeClient)
-	cellClient := utils.GetRansimCellClient(t, sim)
-	assert.NotNil(t, cellClient)
+	nodeClient := s.GetRansimNodeClient()
+	s.NotNil(nodeClient)
+	cellClient := s.GetRansimCellClient()
+	s.NotNil(cellClient)
 
-	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
+	defaultNumNodes := s.GetNumNodes(nodeClient)
 	utils.CountTopoAddedOrNoneEvent(topoEventChan, defaultNumNodes)
 
 	// Get list of e2 nodes using RAN simulator API
-	e2nodes := utils.GetNodes(t, nodeClient)
-	numNodes := utils.GetNumNodes(t, nodeClient)
+	e2nodes := s.GetNodes(nodeClient)
+	numNodes := s.GetNumNodes(nodeClient)
 
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
 			GnbID: e2node.GnbID,
 		})
-		assert.NoError(t, err)
+		s.NoError(err)
 	}
 
-	utils.CountTopoRemovedEvent(t, topoEventChan, numNodes)
+	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
 
 	// Create an e2 node with 3 cells from list of available cells.
-	cells := utils.GetCells(t, cellClient)
-	assert.Greater(t, len(cells), 2)
+	cells := s.GetCells(cellClient)
+	s.Greater(len(cells), 2)
 
 	cell1Index := rand.Intn(len(cells))
 	cell2Index := rand.Intn(len(cells))
@@ -83,13 +81,13 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		},
 	}
 	e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
-	assert.NoError(t, err)
-	assert.NotNil(t, e2node)
+	s.NoError(err)
+	s.NotNil(e2node)
 
-	numNodes = utils.GetNumNodes(t, nodeClient)
+	numNodes = s.GetNumNodes(nodeClient)
 	utils.CountTopoAddedOrNoneEvent(topoEventChan, numNodes)
 
-	testNodeID := utils.GetTestNodeID(t)
+	testNodeID := utils.GetTestNodeID(s.T())
 
 	// Creates a subscription using RC service model
 	subName := "TestSubscriptionOnChange"
@@ -99,13 +97,13 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 			NodeID: testNodeID,
 		},
 	}
-	assert.NoError(t, rcPreSub.UseDefaultReportAction())
-	rcPreSub.SubscribeOrFail(ctx, t)
+	s.NoError(rcPreSub.UseDefaultReportAction())
+	rcPreSub.SubscribeOrFail(s.Context(), s.T())
 
 	var indMessage e2api.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
+		indMessage = e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 
 	}
 
@@ -116,19 +114,19 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	case indicationMsg := <-rcPreSub.Sub.Ch:
 		// We got an indication. This is an error, as there is no E2 node to send one
 		gotIndication = true
-		t.Log(indicationMsg)
+		s.T().Log(indicationMsg)
 
 	case <-time.After(10 * time.Second):
 		// The read timed out. This is the expected behavior.
 		gotIndication = false
 	}
-	assert.False(t, gotIndication, "received an extraneous indication")
+	s.False(gotIndication, "received an extraneous indication")
 
 	header := indMessage.Header
 	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
 	nrcid := utils.BitStringToUint64(ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value, 36)
@@ -138,7 +136,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	testCell, err := cellClient.GetCell(ctx, &modelapi.GetCellRequest{
 		NCGI: ncgi,
 	})
-	assert.NoError(t, err)
+	s.NoError(err)
 	neighborsList := testCell.GetCell().Neighbors
 	// Update the list of neighbors
 	neighborsList = append(neighborsList[:1], neighborsList[2:]...)
@@ -146,12 +144,12 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	_, err = cellClient.UpdateCell(ctx, &modelapi.UpdateCellRequest{
 		Cell: testCell.Cell,
 	})
-	assert.NoError(t, err)
+	s.NoError(err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
+	indMessage = e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 
-	rcPreSub.Sub.UnsubscribeOrFail(ctx, t)
+	rcPreSub.Sub.UnsubscribeOrFail(ctx, s.T())
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "subscription-on-change")
 }

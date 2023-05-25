@@ -7,28 +7,24 @@ package e2
 
 import (
 	"context"
-	"testing"
-
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/onosproject/onos-e2t/test/utils"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 )
 
 // TestIdenticalSubscriptionMultiApps tests identical subscriptions are absorbed by E2T from different xApps
-func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscription-multi-app")
-	assert.NotNil(t, sim)
+func (s *TestSuite) TestIdenticalSubscriptionMultiApps() {
+	sim := s.CreateRanSimulatorWithNameOrDie("identical-subscription-multi-app")
+	s.NotNil(sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	ctx, cancel := context.WithTimeout(s.Context(), subscriptionTimeout)
 	defer cancel()
 
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 
 	subName1 := "identical-sub-app1"
 	subName2 := "identical-sub-app2"
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	clientApp1 := sdkclient.NewClient(sdkclient.WithE2TAddress(utils.E2TServiceHost, utils.E2TServicePort),
 		sdkclient.WithServiceModel(utils.KpmServiceModelName,
@@ -49,9 +45,9 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub1.UseDefaultReportAction())
+	s.NoError(kpmv2Sub1.UseDefaultReportAction())
 	channelIDApp1, err := kpmv2Sub1.Subscribe(ctx)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	kpmv2Sub2 := e2utils.KPMV2Sub{
 		Sub: e2utils.Sub{
@@ -61,30 +57,30 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub2.UseDefaultReportAction())
+	s.NoError(kpmv2Sub2.UseDefaultReportAction())
 	channelIDApp2, err := kpmv2Sub2.Subscribe(ctx)
-	assert.NoError(t, err)
+	s.NoError(err)
 
-	assert.True(t, channelIDApp1 != channelIDApp2)
+	s.True(channelIDApp1 != channelIDApp2)
 
-	indicationReportApp1 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub1.Sub.Ch)
-	assert.NotNil(t, indicationReportApp1)
-	indicationReportApp2 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub2.Sub.Ch)
-	assert.NotNil(t, indicationReportApp2)
+	indicationReportApp1 := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub1.Sub.Ch)
+	s.NotNil(indicationReportApp1)
+	indicationReportApp2 := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub2.Sub.Ch)
+	s.NotNil(indicationReportApp2)
 
-	subList := e2utils.GetSubscriptionList(t)
-	assert.Equal(t, 1, len(subList))
+	subList := e2utils.GetSubscriptionList(s.T())
+	s.Equal(1, len(subList))
 
-	kpmv2Sub1.Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub1.Sub.UnsubscribeOrFail(ctx, s.T())
 
-	subList = e2utils.GetSubscriptionList(t)
-	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
+	subList = e2utils.GetSubscriptionList(s.T())
+	s.T().Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
 
-	kpmv2Sub2.Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub2.Sub.UnsubscribeOrFail(ctx, s.T())
 
-	subList = e2utils.GetSubscriptionList(t)
-	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
+	subList = e2utils.GetSubscriptionList(s.T())
+	s.T().Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "identical-subscription-multi-app")
 }

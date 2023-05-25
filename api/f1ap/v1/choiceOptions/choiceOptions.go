@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package choiceOptions
+package choiceOptions //nolint
 
 import (
 	v1 "github.com/onosproject/onos-e2t/api/f1ap/v1"

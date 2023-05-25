@@ -12,21 +12,17 @@ import (
 	e2smkpmies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go/v2/e2sm-rc-pre-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-
-	"testing"
-
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
 )
 
 // TestMultiSmSubscription tests multiple subscription to different service models on different nodes
-func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-sm-subscription")
-	assert.NotNil(t, sim)
+func (s *TestSuite) TestMultiSmSubscription() {
+	sim := s.CreateRanSimulatorWithNameOrDie("multi-sm-subscription")
+	s.NotNil(sim)
 
-	nodeIDs := utils.GetTestNodeIDs(t, 2)
-	assert.True(t, len(nodeIDs) > 0)
+	nodeIDs := utils.GetTestNodeIDs(s.T(), 2)
+	s.True(len(nodeIDs) > 0)
 
 	kpmNodeID := nodeIDs[0]
 	rcPreNodeID := nodeIDs[1]
@@ -34,11 +30,11 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMSubName := "TestSubscriptionKpmV2"
 	RCSubName := "TestSubscriptionRCPreV2"
 
-	KPMCtx, KPMCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	KPMCtx, KPMCancel := context.WithTimeout(s.Context(), 30*time.Second)
 
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -48,9 +44,9 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
+	s.NoError(kpmv2Sub.UseDefaultReportAction())
 
-	kpmv2Sub.SubscribeOrFail(KPMCtx, t)
+	kpmv2Sub.SubscribeOrFail(KPMCtx, s.T())
 
 	// Subscribe to RC service model
 	rcPreSub := e2utils.RCPreSub{
@@ -59,31 +55,31 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 			NodeID: rcPreNodeID,
 		},
 	}
-	assert.NoError(t, rcPreSub.UseDefaultReportAction())
+	s.NoError(rcPreSub.UseDefaultReportAction())
 
-	rcPreSub.SubscribeOrFail(KPMCtx, t)
+	rcPreSub.SubscribeOrFail(KPMCtx, s.T())
 
 	// Check that indications can be received
-	KPMMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
-	RCMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
+	KPMMsg := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
+	RCMsg := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 
 	kpmIndicationHeader := &e2smkpmies.E2SmKpmIndicationHeader{}
 	rcIndicationHeader := &e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err := proto.Unmarshal(KPMMsg.Header, kpmIndicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	err = proto.Unmarshal(RCMsg.Header, rcIndicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	// Clean up subscriptions
-	kpmv2Sub.Sub.UnsubscribeOrFail(context.Background(), t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(s.Context(), s.T())
 
-	rcPreSub.Sub.UnsubscribeOrFail(context.Background(), t)
-	assert.NoError(t, err)
+	rcPreSub.Sub.UnsubscribeOrFail(s.Context(), s.T())
+	s.NoError(err)
 
 	KPMCancel()
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "multi-sm-subscription")
 }

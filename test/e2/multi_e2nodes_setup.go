@@ -6,7 +6,6 @@ package e2
 
 import (
 	"context"
-	"testing"
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -14,7 +13,6 @@ import (
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -27,22 +25,22 @@ var (
 	controllers   = []string{"e2t-1"}
 )
 
-func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
+func (s *TestSuite) TestMultiE2Nodes() {
+	ctx, cancel := context.WithTimeout(s.Context(), 1*time.Minute)
 	defer cancel()
 
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
+	s.NoError(err)
 	topoEventChan := make(chan topoapi.Event)
 
 	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
-	assert.NoError(t, err)
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
-	assert.NotNil(t, sim)
+	s.NoError(err)
+	sim := s.CreateRanSimulatorWithNameOrDie("multi-e2nodes")
+	s.NotNil(sim)
 
-	nodeClient := utils.GetRansimNodeClient(t, sim)
-	assert.NotNil(t, nodeClient)
-	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
+	nodeClient := s.GetRansimNodeClient()
+	s.NotNil(nodeClient)
+	defaultNumNodes := s.GetNumNodes(nodeClient)
 
 	for i := 0; i < numRequestedE2Nodes; i++ {
 		enbID := i + initialEnbID
@@ -55,24 +53,24 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 			},
 		}
 		e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
-		assert.NoError(t, err)
-		assert.NotNil(t, e2node)
+		s.NoError(err)
+		s.NotNil(e2node)
 	}
-	numNodes := utils.GetNumNodes(t, nodeClient)
-	assert.Equal(t, numRequestedE2Nodes+defaultNumNodes, numNodes)
+	numNodes := s.GetNumNodes(nodeClient)
+	s.Equal(numRequestedE2Nodes+defaultNumNodes, numNodes)
 
 	expectedControlRelations := int(s.E2TReplicaCount) * numNodes
 	utils.CountTopoAddedOrNoneEvent(topoEventChan, expectedControlRelations)
-	e2nodes := utils.GetNodes(t, nodeClient)
+	e2nodes := s.GetNodes(nodeClient)
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
 			GnbID: e2node.GnbID,
 		})
-		assert.NoError(t, err)
+		s.NoError(err)
 	}
 
-	utils.CountTopoRemovedEvent(t, topoEventChan, expectedControlRelations)
-	numNodes = utils.GetNumNodes(t, nodeClient)
-	assert.Equal(t, 0, numNodes)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	utils.CountTopoRemovedEvent(topoEventChan, expectedControlRelations)
+	numNodes = s.GetNumNodes(nodeClient)
+	s.Equal(0, numNodes)
+	s.UninstallRanSimulatorOrDie(sim, "multi-e2nodes")
 }

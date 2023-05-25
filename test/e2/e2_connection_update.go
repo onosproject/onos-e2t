@@ -5,43 +5,40 @@
 package e2
 
 import (
-	"testing"
-	"time"
-
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
+	"time"
 )
 
 // TestE2TConnectionUpdate checks that the control relations are correct
-func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
+func (s *TestSuite) TestE2TConnectionUpdate() {
 	numberOfE2TNodes := int(s.E2TReplicaCount)
 	numberOfE2Nodes := 2
 	numberOfControlRelationships := numberOfE2TNodes * numberOfE2Nodes
 	maxWaitForRelations := 30
 
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	// create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-connection-update")
-	assert.NotNil(t, sim)
+	sim := s.CreateRanSimulatorWithNameOrDie("e2t-connection-update")
+	s.NotNil(sim)
 
 	// Check that there are the correct number of relations
-	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
+	s.True(utils.Retry(maxWaitForRelations, time.Second,
 		func() bool {
 			relations, err := topoSdkClient.GetControlRelations()
-			assert.NoError(t, err)
+			s.NoError(err)
 			return len(relations) == numberOfControlRelationships
 		}))
 
 	// tear down the simulator
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	s.UninstallRanSimulatorOrDie(sim, "e2t-connection-update")
 
 	// Check that there are no relations left
-	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
+	s.True(utils.Retry(maxWaitForRelations, time.Second,
 		func() bool {
 			relations, err := topoSdkClient.GetControlRelations()
-			assert.NoError(t, err)
+			s.NoError(err)
 			return len(relations) == 0
 		}))
 
