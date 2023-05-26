@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/dustinkirkland/golang-petname v0.0.0-20191129215211-8e5a1ed0cff0
-	github.com/onosproject/helmit v1.1.3
+	github.com/onosproject/helmit v1.1.5
 	github.com/onosproject/onos-api/go v0.10.22
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go v0.8.40
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go v0.8.40

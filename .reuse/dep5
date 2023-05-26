@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
-Files: VERSION .gitreview pkg/southbound/e2ap/asn1cgo/* pkg/southbound/e2ap/test/*.xml */*.pb.go go.mod go.sum *pb.validate.go
+Files: VERSION .gitreview pkg/southbound/e2ap/asn1cgo/* pkg/southbound/e2ap/test/*.xml */*.pb.go go.mod go.sum test/go.mod test/go.sum *pb.validate.go
 Copyright: 2021 Open Networking Foundation
 License: Apache-2.0
