@@ -7,35 +7,31 @@ package e2
 
 import (
 	"context"
-	"testing"
-
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"google.golang.org/protobuf/proto"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
 // TestSubscriptionMultipleReports tests e2 subscription with multiple reports in one subscription
-func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-multiple-reports")
-	assert.NotNil(t, sim)
+func (s *TestSuite) TestSubscriptionMultipleReports() {
+	sim := s.CreateRanSimulatorWithNameOrDie("subscription-multiple-reports")
+	s.NotNil(sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	ctx, cancel := context.WithTimeout(s.Context(), subscriptionTimeout)
 	defer cancel()
 
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-	assert.GreaterOrEqual(t, len(cells), 2)
+	s.NoError(err)
+	s.GreaterOrEqual(len(cells), 2)
 
 	// Use one of the cell object IDs for action definition
 	cellObjectID0 := cells[0].CellObjectID
@@ -47,7 +43,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 
 	subName := "TestSubscriptionMultipleReports-kpm"
 
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -60,9 +56,9 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	}
 
 	actionDefinitionBytes0, err := kpmv2Sub.CreateKpmV2ActionDefinition()
-	assert.NoError(t, err)
+	s.NoError(err)
 	actionDefinitionBytes1, err := kpmv2Sub.CreateKpmV2ActionDefinition()
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	var actions []e2api.Action
 	action0 := e2api.Action{
@@ -89,24 +85,24 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action1)
 
 	kpmv2Sub.Sub.Actions = actions
-	kpmv2Sub.SubscribeOrFail(ctx, t)
+	kpmv2Sub.SubscribeOrFail(ctx, s.T())
 
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	for i := 0; i < 2; i++ {
-		indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
+		indicationReport := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 		err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-		assert.NoError(t, err)
+		s.NoError(err)
 		err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-		assert.NoError(t, err)
+		s.NoError(err)
 		indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
 		cellObjectID := indMsgFormat1.GetCellObjId().Value
-		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
+		s.True(cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 
-	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, s.T())
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "subscription-multiple-reports")
 }

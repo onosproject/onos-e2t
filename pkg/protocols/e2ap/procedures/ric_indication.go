@@ -31,7 +31,7 @@ type RICIndicationInitiator struct {
 	dispatcher Dispatcher
 }
 
-func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appducontents.Ricindication) (err error) {
+func (p *RICIndicationInitiator) Initiate(_ context.Context, request *e2appducontents.Ricindication) (err error) {
 	pdu := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
@@ -51,11 +51,11 @@ func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appduc
 	return p.dispatcher(pdu)
 }
 
-func (p *RICIndicationInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
+func (p *RICIndicationInitiator) Matches(_ *e2appdudescriptions.E2ApPdu) bool {
 	return false
 }
 
-func (p *RICIndicationInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
+func (p *RICIndicationInitiator) Handle(_ *e2appdudescriptions.E2ApPdu) {
 
 }
 

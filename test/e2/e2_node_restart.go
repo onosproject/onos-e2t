@@ -6,31 +6,22 @@
 package e2
 
 import (
-	"context"
-	"testing"
-	"time"
-
-	"github.com/onosproject/helmit/pkg/kubernetes"
-
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
+	"time"
 )
 
 // TestE2NodeRestart checks that a subscription channel read times out if
 // the e2 node is down.
-func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
+func (s *TestSuite) TestE2NodeRestart() {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart-subscription")
+	sim := s.CreateRanSimulatorWithNameOrDie("e2node-restart-subscription")
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	nodeID := utils.GetTestNodeID(t)
+	nodeID := utils.GetTestNodeID(s.T())
 	subName := "TestE2NodeRestart"
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -40,58 +31,46 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
+	s.NoError(kpmv2Sub.UseDefaultReportAction())
 
-	kpmv2Sub.SubscribeOrFail(ctx, t)
+	kpmv2Sub.SubscribeOrFail(s.Context(), s.T())
 
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
+	indicationReport := e2utils.CheckIndicationMessage(s.T(), e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	err := proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
+	s.NoError(err)
 	indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
-	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
+	s.Equal(indMsgFormat1.GetCellObjId().Value, cellObjectID)
+	s.Equal(int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 
-	t.Log("Restart e2 node")
-	ransimClient, err := kubernetes.NewForRelease(sim)
-	assert.NoError(t, err)
-	ransimDep, err := ransimClient.AppsV1().
-		Deployments().
-		Get(ctx, "e2node-restart-subscription-ran-simulator")
-	assert.NoError(t, err)
-	ransimPods, err := ransimDep.Pods().List(ctx)
-	assert.NoError(t, err)
-	assert.NotZero(t, len(ransimPods))
-	ransimPod := ransimPods[0]
-	err = ransimPod.Delete(ctx)
-	assert.NoError(t, err)
+	s.T().Log("Restart e2 node")
+	s.CrashSimulatorPodOrDie("e2node-restart-subscription")
 
-	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, kpmv2Sub.Sub.Ch)
+	s.T().Log("Check indications")
+	indicationReport = e2utils.CheckIndicationMessage(s.T(), 5*time.Minute, kpmv2Sub.Sub.Ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
+	s.NoError(err)
 	indMsgFormat1 = indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
-	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
+	s.Equal(indMsgFormat1.GetCellObjId().Value, cellObjectID)
+	s.Equal(int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-	assert.NoError(t, err)
+	s.NoError(err)
 
-	t.Log("Unsubscribe")
-	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
-	assert.NoError(t, err)
+	s.T().Log("Unsubscribe")
+	kpmv2Sub.Sub.UnsubscribeOrFail(s.Context(), s.T())
+	s.NoError(err)
 
-	e2utils.CheckForEmptySubscriptionList(t)
+	e2utils.CheckForEmptySubscriptionList(s.T())
 
 	// Tear down the simulator
-	utils.UninstallRanSimulatorOrDie(t, sim)
-	cancel()
+	s.UninstallRanSimulatorOrDie(sim, "e2node-restart-subscription")
 }

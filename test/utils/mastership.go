@@ -56,9 +56,7 @@ func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []topoapi.Interf
 				break
 			}
 		}
-		if masterRelation.GetSrcEntityID() == e2tNode.GetID() {
-			continue
-		} else {
+		if masterRelation.GetSrcEntityID() != e2tNode.GetID() {
 			nonMasters = append(nonMasters, e2tIface)
 		}
 	}

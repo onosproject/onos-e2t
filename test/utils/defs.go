@@ -24,6 +24,6 @@ var (
 	E2tServiceAddress = E2TServiceHost + ":" + strconv.Itoa(E2TServicePort)
 )
 
-func getRansimServiceAddress(ransimServiceHost string) string {
+func GetRansimServiceAddress(ransimServiceHost string) string {
 	return ransimServiceHost + ":" + strconv.Itoa(RansimServicePort)
 }

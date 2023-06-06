@@ -48,7 +48,7 @@ type E2APConn struct {
 	rnib     rnib.Store
 }
 
-func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
+func (c *E2APConn) ricIndication(_ context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
 	var requestID int32
 	for _, v := range request.GetProtocolIes() {

@@ -7,37 +7,32 @@ package e2
 
 import (
 	"context"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-e2t/test/e2utils"
+	"github.com/onosproject/onos-e2t/test/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"testing"
-
-	"github.com/onosproject/onos-e2t/test/e2utils"
-
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	"github.com/stretchr/testify/assert"
-
-	"github.com/onosproject/onos-e2t/test/utils"
 )
 
 // TestSubscribeWrongMaster tests e2 subscription to a non-master node
-func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
+func (s *TestSuite) TestSubscribeWrongMaster() {
 	if s.E2TReplicaCount == 1 {
 		// Test is not applicable - no non-master nodes
-		t.Skip("Test not applicable to single node")
+		s.T().Skip("Test not applicable to single node")
 		return
 	}
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-wrong-master")
-	assert.NotNil(t, sim)
+	sim := s.CreateRanSimulatorWithNameOrDie("subscription-wrong-master")
+	s.NotNil(sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	ctx, cancel := context.WithTimeout(s.Context(), subscriptionTimeout)
 	defer cancel()
 
-	e2NodeID := utils.GetTestNodeID(t)
-	cellObjectID := e2utils.GetFirstCellObjectID(t, e2NodeID)
-	nonMasters := utils.GetE2NodeNonMasterNodes(t, e2NodeID)
+	e2NodeID := utils.GetTestNodeID(s.T())
+	cellObjectID := e2utils.GetFirstCellObjectID(s.T(), e2NodeID)
+	nonMasters := utils.GetE2NodeNonMasterNodes(s.T(), e2NodeID)
 
-	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
-	assert.NotNil(t, client)
+	client := utils.GetSubClientForIP(s.T(), nonMasters[0].IP, nonMasters[0].Port)
+	s.NotNil(client)
 
 	kpmv2Sub := e2utils.KPMV2Sub{
 		Sub: e2utils.Sub{
@@ -46,9 +41,9 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
+	s.NoError(kpmv2Sub.UseDefaultReportAction())
 	spec, err := kpmv2Sub.CreateSubscriptionSpec()
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	headers := e2api.RequestHeaders{
 		AppID:         "app",
@@ -67,20 +62,20 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	}
 
 	c, err := client.Subscribe(ctx, req)
-	assert.NoError(t, err)
+	s.NoError(err)
 
 	resp, err := c.Recv()
-	assert.Nil(t, resp)
-	assert.Equal(t, codes.Unavailable, status.Code(err))
+	s.Nil(resp)
+	s.Equal(codes.Unavailable, status.Code(err))
 
 	unsubscribeRequest := &e2api.UnsubscribeRequest{
 		Headers:       headers,
 		TransactionID: "sub1",
 	}
 	unsubscribeResponse, err := client.Unsubscribe(ctx, unsubscribeRequest)
-	assert.NoError(t, err)
-	assert.NotNil(t, unsubscribeResponse)
+	s.NoError(err)
+	s.NotNil(unsubscribeResponse)
 
-	e2utils.CheckForEmptySubscriptionList(t)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	e2utils.CheckForEmptySubscriptionList(s.T())
+	s.UninstallRanSimulatorOrDie(sim, "subscription-wrong-master")
 }
