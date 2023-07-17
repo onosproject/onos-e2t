@@ -1,13 +1,13 @@
 module github.com/onosproject/onos-e2t
 
-go 1.18
+go 1.19
 
 require (
 	github.com/atomix/go-sdk v0.13.2
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.3.0
-	github.com/onosproject/onos-api/go v0.10.16
+	github.com/onosproject/onos-api/go v0.10.18
 	github.com/onosproject/onos-lib-go v0.10.22
 	github.com/stretchr/testify v1.8.0
 	google.golang.org/grpc v1.49.0
