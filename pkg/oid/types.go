@@ -23,6 +23,7 @@ const (
 	oran                   = "oran"
 	version1               = "v1"
 	version2               = "v2"
+	e2smCcc                = "oran-e2sm-ccc"
 	e2smKpm                = "oran-e2sm-kpm"
 	e2smRcPre              = "oran-e2sm-rc-pre"
 	e2smMho                = "oran-e2sm-mho"
@@ -48,6 +49,7 @@ const (
 	e2smNiOid                 Oid = 1
 	e2smKpmOid                Oid = 2
 	e2smRcOid                 Oid = 3
+	e2smCccOid                Oid = 4
 	e2smRcPreOid              Oid = 100
 	e2smMhoOid                Oid = 101
 	e2smRsmOid                Oid = 102
@@ -70,6 +72,7 @@ var defaultNodes = map[string]Oid{
 	e2smRsm:                e2smRsmOid,
 	e2smNi:                 e2smNiOid,
 	e2smRc:                 e2smRcOid,
+	e2smCcc:                e2smCccOid,
 	e2:                     e2Oid,
 	e2sm:                   e2smOid,
 }
