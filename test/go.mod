@@ -13,7 +13,7 @@ require (
 	github.com/onosproject/onos-test v0.6.6
 	github.com/stretchr/testify v1.8.1
 	google.golang.org/grpc v1.52.3
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.32.0
 	k8s.io/api v0.26.0
 	k8s.io/apimachinery v0.26.0
 )
