@@ -106,7 +106,7 @@ func (m *mgmtConnManager) Watch(ctx context.Context, ch chan<- *ManagementConn) 
 		<-ctx.Done()
 		m.watchersMu.Lock()
 		watchers := make([]chan<- *ManagementConn, 0, len(m.watchers)-1)
-		for _, watcher := range watchers {
+		for _, watcher := range m.watchers {
 			if watcher != ch {
 				watchers = append(watchers, watcher)
 			}
