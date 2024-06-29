@@ -20,3 +20,6 @@ coverage.txt
 *-output.out
 build/build-tools
 
+api/asn1/*
+build/_input
+venv
