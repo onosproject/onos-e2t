@@ -14,11 +14,6 @@ updates:
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "docker"
-    directory: "build/onos-e2t-sim-app"
-    schedule:
-      interval: "weekly"
-
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
