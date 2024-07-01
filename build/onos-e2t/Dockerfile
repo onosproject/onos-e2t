@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-FROM onosproject/golang-build:v1.3.0 as build
+FROM onosproject/golang-build:v1.3.1 as build
 
 
 ENV GO111MODULE=on
@@ -20,7 +20,7 @@ WORKDIR /build
 RUN GOFLAGS=-mod=vendor make ${ONOS_MAKE_TARGET}
 
 # So that dynamically linked modules that depend on glibc can be loaded i.e. the service models
-FROM frolvlad/alpine-glibc:alpine-3.12
+FROM frolvlad/alpine-glibc:alpine-3.19
 
 USER nobody
 
