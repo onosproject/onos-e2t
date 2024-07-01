@@ -4,14 +4,14 @@ go 1.19
 
 require (
 	github.com/atomix/go-sdk v0.13.2
-	github.com/envoyproxy/protoc-gen-validate v0.9.1
+	github.com/envoyproxy/protoc-gen-validate v0.10.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.3.0
 	github.com/onosproject/onos-api/go v0.10.31
-	github.com/onosproject/onos-lib-go v0.10.24
-	github.com/stretchr/testify v1.8.2
-	google.golang.org/grpc v1.54.0
-	google.golang.org/protobuf v1.28.1
+	github.com/onosproject/onos-lib-go v0.10.27
+	github.com/stretchr/testify v1.9.0
+	google.golang.org/grpc v1.56.3
+	google.golang.org/protobuf v1.34.1
 	gotest.tools v2.2.0+incompatible
 )
 
@@ -20,11 +20,11 @@ require (
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/pquerna/cachecontrol v0.1.0 // indirect
 	go.uber.org/goleak v1.2.0 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/net v0.8.0 // indirect
-	golang.org/x/oauth2 v0.4.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/oauth2 v0.7.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 )
 
@@ -72,7 +72,7 @@ require (
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
+	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/square/go-jose.v1 v1.1.2 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
