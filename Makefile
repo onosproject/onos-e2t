@@ -7,7 +7,12 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_E2T_VERSION ?= latest
+ONOS_E2T_VERSION  ?= latest
+DOCKER_TAG        ?= ${ONOS_E2T_VERSION}
+DOCKER_REPOSITORY ?= onosproject/
+DOCKER_REGISTRY   ?= ""
+DOCKER_IMAGENAME  := ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}onos-e2t:${DOCKER_TAG}
+
 ONOS_PROTOC_VERSION := v1.0.2
 BUF_VERSION := 1.0.0
 
@@ -43,14 +48,14 @@ protos: buflint
 docker-build-onos-e2t: # @HELP build onos-e2t Docker image
 	@go mod vendor
 	docker build . -f build/onos-e2t/Dockerfile \
-		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
+		-t ${DOCKER_IMAGENAME}
 	@rm -r vendor
 
 docker-build: # @HELP build all Docker images
 docker-build: build docker-build-onos-e2t
 
 docker-push-onos-e2t: # @HELP push onos-e2t Docker image
-	docker push onosproject/onos-e2t:${ONOS_E2T_VERSION}
+	docker push ${DOCKER_IMAGENAME}
 
 docker-push: # @HELP push docker images
 docker-push: docker-push-onos-e2t
