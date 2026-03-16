@@ -152,16 +152,25 @@ func (c *threadSafeConn) recv() (*e2appdudescriptions.E2ApPdu, error) {
 
 // processRecvs processes the receive channel
 func (c *threadSafeConn) processRecvs() {
-	buf := make([]byte, c.options.RecvBufferSize)
+	read_buf := make([]byte, c.options.RecvBufferSize)
 	for {
-		n, err := c.conn.Read(buf)
-		if err != nil {
-			log.Warn(err)
-			c.Close()
-			return
+		var buf []byte
+		count := 0
+		for {
+			n, err := c.conn.Read(read_buf)
+			if err != nil {
+				log.Warn(err)
+				c.Close()
+				return
+			}
+			buf = append(buf, read_buf...)
+			count += n
+			if n < c.options.RecvBufferSize {
+				break;
+			}
 		}
 
-		err = c.processRecv(buf[:n])
+		err := c.processRecv(buf[:count])
 		if err != nil {
 			log.Warn(err)
 		}
