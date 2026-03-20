@@ -672,12 +672,12 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
 		//ToDo - fill in missing part in onos-api
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
+			errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
+			errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
+			errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
@@ -815,13 +815,12 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-		//ToDo - fill in missing part in onos-api
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
+			errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
+			errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
+			errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
